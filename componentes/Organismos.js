@@ -1,0 +1,77 @@
+import React from 'react';
+import { View, Text, TouchableOpacity, StyleSheet,ScrollView} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+
+const Organismos = () => {
+  const navigation = useNavigation();
+
+  const navigateToOrganismo = (ruta) => {
+    navigation.navigate(ruta);
+  };
+
+  const opciones = [
+    { nombre: 'CitaMédica', ruta: 'CitaMedica' },
+    { nombre: 'Bancos', ruta: 'Bancos' },
+    { nombre: 'Ayuntamientos', ruta: 'Ayuntamientos' },
+    { nombre: 'A E A T', ruta: 'AEAT' },
+    { nombre: 'Renovación DNI/Pasaporte', ruta: 'DNI' },
+    { nombre: 'Inspección Técnica de vehículos', ruta: 'ITV' },
+    { nombre: 'S E P E', ruta: 'SEPE' },
+    { nombre: 'M U F A C E', ruta: 'MUFACE' },
+    { nombre: 'Renovación Permiso de Conducir', ruta: 'PermisoConducir' },
+    { nombre: 'Clases Pasivas', ruta: 'ClasesPasivas' },
+    { nombre: 'Seguridad Social', ruta: 'SeguridadSocial' },
+
+  ];
+
+  return (
+    <ScrollView style={styles.container}>
+      <Text style={styles.tituloOrg}>Elige el tipo de cita previa</Text>
+      <View style={styles.organismos}>
+        {opciones.map((opcion) => (
+          <TouchableOpacity
+            key={opcion.ruta}
+            style={styles.opcion}
+            onPress={() => navigateToOrganismo(opcion.ruta)}
+          >
+            <Text style={styles.opcionTexto}>{opcion.nombre}</Text>
+          </TouchableOpacity>
+        ))}
+      </View>
+    </ScrollView>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    
+  },
+  tituloOrg: {
+    fontSize: 24,
+    marginBottom: 20,
+    marginTop:70,
+    textAlign:'center',
+    color:'#54722e',
+    textDecorationLine:'underline'
+  },
+  organismos: {
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  opcion: {
+    display:'flex',
+    backgroundColor: 'lightblue',
+    padding: 10,
+    marginVertical: 10,
+    borderRadius: 5,
+    width:250,
+    alignItems:'center'
+  },
+  opcionTexto: {
+    fontSize: 22,
+    fontWeight: 'bold',
+  },
+});
+
+export default Organismos;
