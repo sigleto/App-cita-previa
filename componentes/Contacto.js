@@ -11,15 +11,19 @@ const Contacto = () => {
   
   const accion = async (data) => {
     try {
-      await fetch('https://tramites-expo-m2x2.vercel.app/Contacto', {
+      const response = await fetch('https://app-cita-previa.vercel.app/Contacto', {
         method: 'POST',
         mode: 'cors',
         body: JSON.stringify(data),
         headers: { 'Content-Type': 'application/json' },
       });
-      console.log('Datos enviados correctamente');
-      reset();
-      navigation.navigate('Home'); // Reemplaza 'Inicio' con el nombre de tu ruta de inicio
+      if (response.ok) {
+        console.log('Datos enviados correctamente');
+        reset();
+        navigation.navigate('Home');
+      } else {
+        console.log('Error al enviar los datos. Código de estado:', response.status);
+      }
     } catch (error) {
       console.log('Error al enviar los datos:', error);
     }

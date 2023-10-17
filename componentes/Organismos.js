@@ -21,6 +21,9 @@ const Organismos = () => {
     { nombre: 'Renovación Permiso de Conducir', ruta: 'PermisoConducir' },
     { nombre: 'Clases Pasivas', ruta: 'ClasesPasivas' },
     { nombre: 'Seguridad Social', ruta: 'SeguridadSocial' },
+    { nombre: 'Extranjeria', ruta: 'Extranjeria' },
+    { nombre: 'Registros Civiles', ruta: 'RegistrosCiviles' },
+
 
   ];
 

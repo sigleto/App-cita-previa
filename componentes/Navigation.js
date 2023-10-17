@@ -24,8 +24,8 @@ import PaginasMedicas from './paginas/PaginasMedicas';
 import PaginasBancos from './paginas/PaginasBancos';
 import { AvisoDNI } from './Avisos/AvisoDNI';
 import SeguridadSocial from './Enlaces/SeguridadSocial';
-
-
+import Extranjeria from './Enlaces/Extranjeria';
+import RegistrosCiviles from './Enlaces/RegistrosCiviles';
 
 
 
@@ -50,6 +50,8 @@ export function OrganismosStack() {
       <Stack.Screen name="PaginasBancos" component={PaginasBancos} options={{ headerShown: false }} />
       <Stack.Screen name="AvisoDNI" component={AvisoDNI} options={{ headerShown: false }} />
       <Stack.Screen name="SeguridadSocial" component={SeguridadSocial} options={{ headerShown: false }} />
+      <Stack.Screen name="Extranjeria" component={Extranjeria} options={{ headerShown: false }} />
+      <Stack.Screen name="RegistrosCiviles" component={RegistrosCiviles} options={{ headerShown: false }} />
       
     </Stack.Navigator>
   );
