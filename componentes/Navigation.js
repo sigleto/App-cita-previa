@@ -26,7 +26,8 @@ import { AvisoDNI } from './Avisos/AvisoDNI';
 import SeguridadSocial from './Enlaces/SeguridadSocial';
 import Extranjeria from './Enlaces/Extranjeria';
 import RegistrosCiviles from './Enlaces/RegistrosCiviles';
-
+import RegistrosPropiedad from './Enlaces/Registrosdelapropiedad';
+import GuardiaCivil from './Enlaces/GuardiaCivil';
 
 
 const Stack = createStackNavigator();
@@ -52,6 +53,8 @@ export function OrganismosStack() {
       <Stack.Screen name="SeguridadSocial" component={SeguridadSocial} options={{ headerShown: false }} />
       <Stack.Screen name="Extranjeria" component={Extranjeria} options={{ headerShown: false }} />
       <Stack.Screen name="RegistrosCiviles" component={RegistrosCiviles} options={{ headerShown: false }} />
+      <Stack.Screen name="RegistrosPropiedad" component={RegistrosPropiedad} options={{ headerShown: false }} />
+      <Stack.Screen name="GuardiaCivil" component={GuardiaCivil} options={{ headerShown: false }} />
       
     </Stack.Navigator>
   );

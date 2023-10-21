@@ -23,6 +23,8 @@ const Organismos = () => {
     { nombre: 'Seguridad Social', ruta: 'SeguridadSocial' },
     { nombre: 'Extranjeria', ruta: 'Extranjeria' },
     { nombre: 'Registros Civiles', ruta: 'RegistrosCiviles' },
+    { nombre: 'Registros de la Propiedad', ruta: 'RegistrosPropiedad' },
+    { nombre: 'Guardia Civil', ruta: 'GuardiaCivil' },
 
 
   ];

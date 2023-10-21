@@ -14,7 +14,8 @@ const Presentacion1 = () => {
     <View style={styles.container}>
        <SharedElement id="elementId">
       <Text style={styles.parrafo}>
-        Aquí encontrarás los trámites públicos administrativos más comunmente empleados en diversos organismos gubernamentales.
+      "¡Bienvenidos a 'Cita Previa'! La aplicación que simplifica tu vida al agendar citas previas con diversos organismos de manera rápida y eficiente.
+       
        </Text>
        </SharedElement>
       <View style={styles.buttonContainer}>

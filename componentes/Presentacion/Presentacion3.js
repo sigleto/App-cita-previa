@@ -14,8 +14,7 @@ const Presentacion3 = () => {
     <View style={styles.container}>
        <SharedElement id="elementId">
       <Text style={styles.parrafo}>
-      Esta autenticación puede realizarse a través de diferentes métodos, como el certificado digital, el DNI electrónico o el sistema cl@ve (que puedes solicitar en este 
-        <Text style={styles.link} onPress={() => Linking.openURL("https://sede.agenciatributaria.gob.es/Sede/clave.html")}> enlace</Text>). En cada trámite podrás ver este icono <Text style={styles.arroba}>@</Text> si se precisa la autenticación.
+      En ningún caso es necesario autenticarse, basta con tus datos básicos para resevar la práctica totalidad de las citas.
        </Text>
        </SharedElement>
       <View style={styles.buttonContainer}>

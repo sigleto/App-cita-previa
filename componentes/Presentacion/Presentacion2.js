@@ -13,7 +13,7 @@ const Presentacion2 = () => {
     <View style={styles.container}>
        <SharedElement id="elementId">
       <Text style={styles.parrafo}>
-      Aunque en muchos de estos procedimientos no es necesario que los usuarios se autentiquen previamente, en algunos casos sí es requerido.
+      Con 'Cita previa', podrás programar tu visita a entidades gubernamentales, médicos, bancos y otros organismos, evitando largas filas y esperas innecesarias.
       </Text>
       </SharedElement>
       <View style={styles.buttonContainer}>
