@@ -27,8 +27,8 @@ const Home = () => {
       <Image source={require('../assets/citaprevia.png')} style={styles.burocraciaImage} />
       <Text style={styles.titulo}>Bienvenido a Cita Previa</Text>
       <Text style={styles.descripcion}>
-        Simplificamos el acceso en línea a los trámites públicos más comunes.
-        ¡Facilitamos tu camino hacia la burocracia!
+        Simplifica tu vida al concertar citas previas
+        con distintos organismos de manera rápida y eficiente.
       </Text>
       <TouchableOpacity onPress={() => navigation.navigate("Organismos")}>
             <Text style={styles.organismos}>ACCEDE A LOS DISTINTOS ORGANISMOS</Text>

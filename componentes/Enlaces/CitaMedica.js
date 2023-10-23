@@ -11,9 +11,12 @@ const CitaMedica = () => {
     "La Rioja","Madrid","Murcia","Navarra","País Vasco","Valencia","Ceuta","Melilla"];
 
   return (
-    <ScrollView style={styles.container}>
+    <View style={styles.container}>
+      <View style={styles.stickyHeader}>
+       <Image source={require('../../assets/Citamedica.png')} style={styles.image} />
       <Text style={styles.banner}>Selecciona tu comunidad</Text>
-      <View >
+      </View>
+      <ScrollView >
         {comunidades.map((item, index) => (
           <TouchableOpacity
             key={index}
@@ -25,49 +28,41 @@ const CitaMedica = () => {
             <Text style={styles.comunidadText}>{item}</Text>
           </TouchableOpacity>
         ))}
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </View>
   );
 };
 const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  stickyHeader: {
+    position: 'sticky',
+    top: 0,
+    backgroundColor: "#b8e6df",
+    zIndex: 1,
+    elevation: 3,
+  },
   banner: {
     padding: 10,
-    backgroundColor: "#b8e6df",
-    fontSize:25,
-    marginTop:80,
-    marginBottom:30,
-    color: '#9b0a9b'
-   
-  },
-  comunidadesBanner: {
-    backgroundColor: "#fff",
-    elevation: 3,
-    margin: 10,
-    padding: 10,
-    marginTop:50,
-    fontSize:30,
-  },
-  comunidadesBannerText: {
-    fontSize: 16,
-    fontWeight: "bold",
+    fontSize: 25,
+    color: '#9b0a9b',
   },
   comunidadItem: {
     padding: 10,
     borderBottomWidth: 1,
     borderColor: "#ccc",
   },
-  selectedComunidadItem: {
-    backgroundColor: "#ffcc00", // Color de fondo cuando se selecciona
-  },
   comunidadText: {
     fontSize: 22,
-    color:'#5278ca'
+    color: '#5278ca',
   },
-  
+  image: {
+    width: "100%",
+    height: 200,
+    resizeMode: "cover",
+    marginTop:50
+  },
 });
-
 
 export default CitaMedica;

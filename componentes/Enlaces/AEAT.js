@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 16,
+    textAlign:'center'
   },
   section: {
     marginBottom: 16,
@@ -52,6 +53,7 @@ const styles = StyleSheet.create({
   },
   item: {
     marginBottom: 16,
+    marginTop:50,
     paddingVertical: 8,
     paddingHorizontal: 12,
     borderWidth: 1,
@@ -60,9 +62,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#f0f0f0",
   },
   itemText: {
-    fontSize: 16,
+    fontSize: 22,
     color: "#007AFF",
     fontWeight: "bold",
+    textAlign:'center',
   },
   arroba:{
     fontSize:20,

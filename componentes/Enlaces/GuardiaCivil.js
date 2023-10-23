@@ -11,8 +11,8 @@ const GuardiaCivil = () => {
 
   return (
     <ScrollView style={styles.container}>
-      <Image source={require('../../assets/MUFACE.png')} style={styles.image} />
-      <Text style={styles.titulo}>Servicios de la Benemérita para denuncias</Text>
+      <Image source={require('../../assets/guardiaCivil.jpg')} style={styles.image} />
+      
 
       <View style={styles.serviciosList}>
       
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: "100%",
-    height: 200,
+    height: 300,
     resizeMode: "cover",
     marginBottom: 16,
     marginTop:60,
@@ -55,11 +55,13 @@ const styles = StyleSheet.create({
     borderColor: "#007AFF",
     borderRadius: 8,
     backgroundColor: "#f0f0f0",
+    marginTop:70,
   },
   itemText: {
-    fontSize: 16,
+    fontSize: 22,
     color: "#007AFF",
     fontWeight: "bold",
+    textAlign:'center'
   },arroba:{
     fontSize:20,
     color:'#f41171'

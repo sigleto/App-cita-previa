@@ -11,7 +11,7 @@ const ClasesPasivas = () => {
 
   return (
     <ScrollView style={styles.container}>
-      
+      <Image source={require('../../assets/clasesPasivas.jpg')} style={styles.image} />
       <Text style={styles.titulo}>Cita previa para trámites diversos en Clases Pasivas</Text>
 
       <View style={styles.serviciosList}>
@@ -41,6 +41,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 16,
+    textAlign:'center'
   },
   serviciosList: {
     marginLeft: 16,
@@ -53,11 +54,13 @@ const styles = StyleSheet.create({
     borderColor: "#007AFF",
     borderRadius: 8,
     backgroundColor: "#f0f0f0",
+    marginTop:50,
   },
   itemText: {
-    fontSize: 16,
+    fontSize: 22,
     color: "#007AFF",
     fontWeight: "bold",
+    textAlign:'center'
   },arroba:{
     fontSize:20,
     color:'#f41171'

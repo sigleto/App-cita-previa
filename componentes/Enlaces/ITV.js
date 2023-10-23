@@ -11,8 +11,8 @@ const ITV = () => {
 
   return (
     <ScrollView style={styles.container}>
-     
-      <Text style={styles.titulo}>Servicios de la Dirección General de Tráfico</Text>
+     <Image source={require('../../assets/ITV.jpg')} style={styles.image} />
+      
 
       <View style={styles.serviciosList}>
       
@@ -55,11 +55,13 @@ const styles = StyleSheet.create({
     borderColor: "#007AFF",
     borderRadius: 8,
     backgroundColor: "#f0f0f0",
+    marginTop:50,
   },
   itemText: {
-    fontSize: 16,
+    fontSize: 22,
     color: "#007AFF",
     fontWeight: "bold",
+    textAlign:'center'
   },arroba:{
     fontSize:20,
     color:'#f41171'

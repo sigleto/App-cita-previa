@@ -11,12 +11,12 @@ const DNI = () => {
 
   return (
     <ScrollView style={styles.container}>
-      
+      <Image source={require('../../assets/DNI.png')} style={styles.image} />
       <Text style={styles.titulo}>Cita previa para renovación de DNI/pasaporte</Text>
 
       <View style={styles.serviciosList}>
         <TouchableOpacity style={styles.item} onPress={() => navigation.navigate("AvisoDNI")}>
-          <Text style={styles.itemText}>Cita previa para renovación de DNI</Text>
+          <Text style={styles.itemText}>Cita previa</Text>
         </TouchableOpacity>
       
       </View>
@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
     marginLeft: 16,
   },
   item: {
+    marginTop:50,
     marginBottom: 16,
     paddingVertical: 8,
     paddingHorizontal: 12,
@@ -55,9 +56,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#f0f0f0",
   },
   itemText: {
-    fontSize: 16,
+    fontSize: 22,
     color: "#007AFF",
     fontWeight: "bold",
+    textAlign:'center',
   },arroba:{
     fontSize:20,
     color:'#f41171'

@@ -11,8 +11,8 @@ const RegistrosPropiedad = () => {
 
   return (
     <ScrollView style={styles.container}>
-      <Image source={require('../../assets/MUFACE.png')} style={styles.image} />
-      <Text style={styles.titulo}>Servicios de MUFACE</Text>
+      <Image source={require('../../assets/registroPropiedad.jpg')} style={styles.image} />
+      
 
       <View style={styles.serviciosList}>
       
@@ -58,11 +58,13 @@ const styles = StyleSheet.create({
     borderColor: "#007AFF",
     borderRadius: 8,
     backgroundColor: "#f0f0f0",
-  },
+    marginTop:50,
+    },
   itemText: {
-    fontSize: 16,
+    fontSize: 22,
     color: "#007AFF",
     fontWeight: "bold",
+    textAlign:'center',
   },arroba:{
     fontSize:20,
     color:'#f41171'

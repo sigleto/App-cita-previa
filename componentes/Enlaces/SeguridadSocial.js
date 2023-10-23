@@ -11,11 +11,9 @@ const SeguridadSocial = () => {
 
   return (
     <ScrollView style={styles.container}>
-      
-      
+      <Image source={require('../../assets/seguridadSocial.jpg')} style={styles.image} />
 
       <View style={styles.serviciosList}>
-      
         <TouchableOpacity style={styles.item} onPress={() => openLink('https://w6.seg-social.es/ProsaInternetAnonimo/OnlineAccess?ARQ.SPM.ACTION=LOGIN&ARQ.SPM.APPTYPE=SERVICE&ARQ.IDAPP=CPMSWACS&ORGANISMO=I')}>
           <Text style={styles.itemText}>CITA PREVIA</Text>
         </TouchableOpacity>
@@ -28,10 +26,9 @@ const SeguridadSocial = () => {
 
 const styles = StyleSheet.create({
   container: {
-    
-    flex: 1,
-    
+    flex: 1,    
     padding: 16,
+    backgroundColor: "#ffffff",
   },
   image: {
     width: "100%",
@@ -48,12 +45,23 @@ const styles = StyleSheet.create({
   serviciosList: {
     marginLeft: 16,
   },
+  item: {
+    marginBottom: 16,
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    borderWidth: 1,
+    borderColor: "#007AFF",
+    borderRadius: 8,
+    backgroundColor: "#f0f0f0",
+    marginTop:50,
+     },
   
   itemText: {
-    fontSize: 16,
+    fontSize: 22,
     color: "#007AFF",
     fontWeight: "bold",
-    marginTop:200,
+    textAlign:'center',
+    
   }
 });
 
