@@ -3,31 +3,31 @@ import { View, Text, Image, ScrollView, TouchableOpacity, StyleSheet,Linking } f
 import { useNavigation } from "@react-navigation/native";
 
 
-const CitaMedica = () => {
+const Ayuntamientos = () => {
   const navigation = useNavigation();
 
-  const comunidades = ["Andalucía","Aragón","Asturias","Cantabria","Castilla y León",
-    "Castilla-La Mancha","Cataluña","Extremadura","Galicia","Islas Baleares","Islas Canarias",
-    "La Rioja","Madrid","Murcia","Navarra","País Vasco","Valencia","Ceuta","Melilla"];
+  const municipios = ['Alcalá de Henares','Algeciras','Alicante','Badalona','Badajoz', 'Barcelona','Bilbao','Córdoba',
+    'Cartagena','Castellón de la Plana','El Puerto de Santa María','Elche','Fuenlabrada',
+    'Girona','Getafe','Granada','Hospitalet de Llobregat','Jerez de la Frontera','A Coruña',
+    'Lleida','Hospitalet de Llobregat','Málaga','Marbella','Madrid','Murcia','Móstoles','Oviedo',
+    'Palma de Mallorca','Las Palmas de Gran Canaria','Parla','Reus','Sabadell','Santa Coloma de Gramenet',
+    'Santa Cruz de Tenerife','Sevilla','Tarragona','Terrassa','Telde','Torrejón de Ardoz',
+    'Torrevieja','Valencia','Valladolid','Vigo','Vitoria-Gasteiz','Zaragoza'];
 
   return (
     <View style={styles.container}>
       <View style={styles.stickyHeader}>
-       <Image source={require('../../assets/Citamedica.png')} style={styles.image} />
-      <Text style={styles.banner}>Selecciona tu comunidad</Text>
+       <Image source={require('../../assets/municipios.png')} style={styles.image} />
+      <Text style={styles.banner}>Selecciona tu municipio</Text>
       </View>
       <ScrollView >
-        {comunidades.map((item, index) => (
+        {municipios.map((item, index) => (
           <TouchableOpacity
           key={index}
           style={styles.comunidadItem}
           onPress={() => {
-            if (item === "Galicia") {
-              navigation.navigate("AvisoCitaMedica");
-            } else {
-              navigation.navigate("PaginasMedicas", { comunidad: item });
-            }
-          }}
+                navigation.navigate("PaginasAyuntamientos", { municipio: item });
+             }}
         >
           <Text style={[
               styles.comunidadText,
@@ -77,4 +77,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CitaMedica;
+export default Ayuntamientos;

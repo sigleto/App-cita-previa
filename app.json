@@ -19,7 +19,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/reloj-icon.png",
+        "foregroundImage": "./assets/reloj.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.sigleto.citaprevia"

@@ -31,7 +31,7 @@ const Organismos = () => {
 
   return (
     <ScrollView style={styles.container}>
-      <Text style={styles.tituloOrg}>Elige el tipo de cita previa</Text>
+      <Text style={styles.tituloOrg}>Con que organismo quieres concertar la cita?</Text>
       <View style={styles.organismos}>
         {opciones.map((opcion) => (
           <TouchableOpacity

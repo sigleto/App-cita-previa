@@ -5,7 +5,7 @@ import { createStackNavigator,CardStyleInterpolators } from '@react-navigation/s
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import Home from './Home';
-
+import Ayuntamientos from './Enlaces/Ayuntamientos';
 import Organismos from './Organismos';
 import Contacto from './Contacto';
 import AEAT from './Enlaces/AEAT';
@@ -22,13 +22,14 @@ import Presentacion2 from './Presentacion/Presentacion2';
 import Presentacion3 from './Presentacion/Presentacion3';
 import PaginasMedicas from './paginas/PaginasMedicas';
 import PaginasBancos from './paginas/PaginasBancos';
+import PaginasAyuntamientos from './paginas/PaginasAyuntamientos';
 import { AvisoDNI } from './Avisos/AvisoDNI';
 import SeguridadSocial from './Enlaces/SeguridadSocial';
 import Extranjeria from './Enlaces/Extranjeria';
 import RegistrosCiviles from './Enlaces/RegistrosCiviles';
 import RegistrosPropiedad from './Enlaces/Registrosdelapropiedad';
 import GuardiaCivil from './Enlaces/GuardiaCivil';
-
+import AvisoCitaMedica from './Avisos/AvisoCitaMedica';
 
 const Stack = createStackNavigator();
 
@@ -39,6 +40,7 @@ export function OrganismosStack() {
 
       <Stack.Screen name="OrganismosStack" component={Organismos}options={{ headerShown: false }} />
       <Stack.Screen name="AEAT" component={AEAT} options={{ headerShown: false }} />
+      <Stack.Screen name="Ayuntamientos" component={Ayuntamientos} options={{ headerShown: false }} />
       <Stack.Screen name="SEPE" component={SEPE} options={{ headerShown: false }} />
       <Stack.Screen name="MUFACE" component={MUFACE} options={{ headerShown: false }} />
       <Stack.Screen name="CitaMedica" component={CitaMedica} options={{ headerShown: false }} />
@@ -49,7 +51,9 @@ export function OrganismosStack() {
       <Stack.Screen name="PermisoConducir" component={PermisoConducir}options={{ headerShown: false }} />
       <Stack.Screen name="PaginasMedicas" component={PaginasMedicas} options={{ headerShown: false }} />
       <Stack.Screen name="PaginasBancos" component={PaginasBancos} options={{ headerShown: false }} />
+      <Stack.Screen name="PaginasAyuntamientos" component={PaginasAyuntamientos} options={{ headerShown: false }} />
       <Stack.Screen name="AvisoDNI" component={AvisoDNI} options={{ headerShown: false }} />
+      <Stack.Screen name="AvisoCitaMedica" component={AvisoCitaMedica} options={{ headerShown: false }} />
       <Stack.Screen name="SeguridadSocial" component={SeguridadSocial} options={{ headerShown: false }} />
       <Stack.Screen name="Extranjeria" component={Extranjeria} options={{ headerShown: false }} />
       <Stack.Screen name="RegistrosCiviles" component={RegistrosCiviles} options={{ headerShown: false }} />

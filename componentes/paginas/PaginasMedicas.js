@@ -14,7 +14,7 @@ const PaginasMedicas = ({comunidades}) => {
         'Castilla-La Mancha': 'https://sanidad.castillalamancha.es/ciudadanos/cita-previa',
         "Cataluña": 'https://catsalut.gencat.cat/ca/coneix-catsalut/acces-sistema-salut/com-accedeix/programacio-visites/index.html',
         "Extremadura": 'https://saludextremadura.ses.es/csonline/login/login.xhtml?accion=backToCitaPrevia',
-        "Galicia": 'https://cita.sergas.gal/citainternet/configuracion/pacientes/registroPaciente.jsf?windowId=ac7',
+        
         "Islas Baleares": 'https://porpac.ibsalut.es/services/Appointment.action',
         "Islas Canarias": 'https://www3.gobiernodecanarias.org/citasalud/#/',
         "La Rioja": 'https://cita-previa.riojasalud.es/',
@@ -36,7 +36,7 @@ const PaginasMedicas = ({comunidades}) => {
         if (url) {
           Linking.openURL(url);
         } else {
-          alert("No hay cita")
+          alert("no hay cita")
         }
       }, [comunidades]);
       <TouchableOpacity onPress={() => navigation.goBack()}>
