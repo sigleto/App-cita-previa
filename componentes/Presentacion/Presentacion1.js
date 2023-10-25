@@ -34,7 +34,7 @@ const Presentacion1 = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    
+    backgroundColor:'#d0f3ed',
     justifyContent: "center",
     alignItems: "center",
     
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     textDecorationLine: "underline",
   },
   parrafo: {
-    fontSize: 30,
+    fontSize: 37,
     textAlign: 'center',
     marginBottom: 30,
     paddingHorizontal: 5,

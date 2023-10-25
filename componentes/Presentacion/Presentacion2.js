@@ -13,7 +13,7 @@ const Presentacion2 = () => {
     <View style={styles.container}>
        <SharedElement id="elementId">
       <Text style={styles.parrafo}>
-      Con 'Cita previa', podrás programar tu visita a entidades gubernamentales, médicos, bancos y otros organismos, evitando largas filas y esperas innecesarias.
+      Con 'Cita previa', podrás programar tu visita a entidades gubernamentales, médicos, bancos y otros organismos, evitando esperas innecesarias.
       </Text>
       </SharedElement>
       <View style={styles.buttonContainer}>
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     padding: 20,
     justifyContent: "center",
     alignItems: "center",
-   
+    backgroundColor:'#d0f3ed',
 
   },
   link: {
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     textDecorationLine: "underline",
   },
   parrafo: {
-    fontSize: 30,
+    fontSize: 35,
     textAlign: 'justify',
     marginBottom: 30,
     

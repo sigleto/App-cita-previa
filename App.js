@@ -18,7 +18,7 @@ const App = ({ navigation }) => {
       <NavigationContainer >
         <Drawer.Navigator  initialRouteName="Principal"screenOptions={{ headerShown: false }}  >
           
-          <Drawer.Screen name="Inicioc" component={PrincipalStack}
+          <Drawer.Screen name="Inicio" component={PrincipalStack}
             options={{
               drawerIcon: ({ color, size }) => (
                 <MaterialCommunityIcons name="home" size={size} color={color} />

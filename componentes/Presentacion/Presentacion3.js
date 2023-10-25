@@ -14,7 +14,7 @@ const Presentacion3 = () => {
     <View style={styles.container}>
        <SharedElement id="elementId">
       <Text style={styles.parrafo}>
-      En ningún caso es necesario autenticarse, basta con tus datos básicos para resevar la práctica totalidad de las citas.
+      "No es requerido autenticarse en ningún caso; tus datos básicos son suficientes para reservar la gran mayoría de las citas."
        </Text>
        </SharedElement>
       <View style={styles.buttonContainer}>
@@ -34,14 +34,14 @@ const styles = StyleSheet.create({
     padding: 20,
     justifyContent: "center",
     alignItems: "center",
-   
+    backgroundColor:'#d0f3ed',
   },
   link: {
     color: "blue",
     textDecorationLine: "underline",
   },
   parrafo: {
-    fontSize: 30,
+    fontSize: 35,
     textAlign: 'justify',
     marginBottom: 30,
     paddingHorizontal: 20,

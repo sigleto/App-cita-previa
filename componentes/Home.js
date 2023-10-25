@@ -38,7 +38,7 @@ const Home = () => {
         <TouchableOpacity
           onPress={() =>
             politica(
-              "https://docs.google.com/document/d/1WeAEvL7FxXA_O4_zxrsrNYAwIotUXOKZeOv_mMZOV-c/edit"
+              "https://docs.google.com/document/d/1y7S2w-nDnGqkgO7z5tuL4C8wckRTSXjOl6wgZmaUNcM/edit"
             )
           }
         >
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: 20,
     fontSize:20,
-    color:'#67569a'
+    color:'#063931'
   },
   botonComenzar: {
     backgroundColor: 'blue', // Color de fondo del botón
