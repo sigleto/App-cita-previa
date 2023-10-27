@@ -12,11 +12,11 @@ const SEPE = () => {
   return (
     <ScrollView style={styles.container}>
       <Image source={require('../../assets/SEPE.png')} style={styles.image} />
-      <Text style={styles.titulo}>Servicios del SEPE</Text>
+      
 
       <View style={styles.serviciosList}>
         <TouchableOpacity style={styles.item} onPress={() => openLink('https://sede.sepe.gob.es/portalSede/procedimientos-y-servicios/personas/proteccion-por-desempleo/cita-previa/cita-previa-solicitud.html')}>
-          <Text style={styles.itemText}>PETICION DE CITA PREVIA</Text>
+          <Text style={styles.itemText}>Solicita o gestiona tu cita</Text>
         </TouchableOpacity>
    
       </View>
@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
     marginLeft: 16,
   },
   item: {
+    marginTop:70,
     marginBottom: 16,
     paddingVertical: 8,
     paddingHorizontal: 12,
@@ -55,7 +56,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#f0f0f0",
   },
   itemText: {
-    fontSize: 16,
+    fontSize: 22,
     color: "#007AFF",
     fontWeight: "bold",
   },arroba:{

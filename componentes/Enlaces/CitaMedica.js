@@ -7,8 +7,8 @@ const CitaMedica = () => {
   const navigation = useNavigation();
 
   const comunidades = ["Andalucía","Aragón","Asturias","Cantabria","Castilla y León",
-    "Castilla-La Mancha","Cataluña","Extremadura","Galicia","Islas Baleares","Islas Canarias",
-    "La Rioja","Madrid","Murcia","Navarra","País Vasco","Valencia","Ceuta","Melilla"];
+    "Castilla-La Mancha","Cataluña","Ceuta","Extremadura","Galicia","Islas Baleares","Islas Canarias",
+    "La Rioja","Madrid","Melilla","Murcia","Navarra","País Vasco","Valencia",];
 
   return (
     <View style={styles.container}>

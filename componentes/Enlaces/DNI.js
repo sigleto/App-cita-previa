@@ -16,7 +16,7 @@ const DNI = () => {
 
       <View style={styles.serviciosList}>
         <TouchableOpacity style={styles.item} onPress={() => navigation.navigate("AvisoDNI")}>
-          <Text style={styles.itemText}>Cita previa</Text>
+          <Text style={styles.itemText}>Solicita o gestiona tu cita</Text>
         </TouchableOpacity>
       
       </View>

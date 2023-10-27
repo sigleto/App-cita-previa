@@ -22,7 +22,8 @@
         "foregroundImage": "./assets/reloj.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.sigleto.citaprevia"
+      "package": "com.sigleto.citaprevia",
+      "versionCode": 2
     },
     "web": {
       "favicon": "./assets/favicon.png"

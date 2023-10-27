@@ -15,7 +15,7 @@ const Organismos = () => {
     { nombre: 'Ayuntamientos', ruta: 'Ayuntamientos' },
     { nombre: 'A E A T', ruta: 'AEAT' },
     { nombre: 'Renovación DNI/Pasaporte', ruta: 'DNI' },
-    { nombre: 'Inspección Técnica de vehículos', ruta: 'ITV' },
+    { nombre: 'Inspección Técnica de vehículos', ruta: 'CitaITV' },
     { nombre: 'S E P E', ruta: 'SEPE' },
     { nombre: 'M U F A C E', ruta: 'MUFACE' },
     { nombre: 'Renovación Permiso de Conducir', ruta: 'PermisoConducir' },

@@ -15,6 +15,9 @@ const AEAT = () => {
           <TouchableOpacity style={styles.item} onPress={() =>  Linking.openURL('https://www2.agenciatributaria.gob.es/wlpl/TOCP-MUTE/internet/identificacion' )}>
             <Text style={styles.itemText}>Petición de cita previa</Text>
           </TouchableOpacity>
+          <TouchableOpacity style={styles.item} onPress={() =>  Linking.openURL('https://www2.agenciatributaria.gob.es/wlpl/BUCV-JDIT/AutenticaDniNieContrasteh?ref=%2Fwlpl%2FOVCT-CXEW%2FSelectorAcceso%3Fref%3D%252Fwlpl%252FTOCP-MUTE%252Finternet%252Fgestioncita%253Fnif%253D%2526nombre%253D%26aut%3DCP#top' )}>
+            <Text style={styles.itemText}>Gestiona tus citas</Text>
+          </TouchableOpacity>
         
       </View>
     </ScrollView>

@@ -17,7 +17,7 @@ const GuardiaCivil = () => {
       <View style={styles.serviciosList}>
       
         <TouchableOpacity style={styles.item} onPress={() => openLink('https://ssweb.seap.minhap.es/icpplus/citar?org=GCDEN')}>
-          <Text style={styles.itemText}>CITA PREVIA</Text>
+          <Text style={styles.itemText}>SOLICITA O GESTIONA TU CITA</Text>
         </TouchableOpacity>
        
        

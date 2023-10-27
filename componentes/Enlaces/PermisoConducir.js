@@ -19,6 +19,9 @@ const PermisoConducir = () => {
         <TouchableOpacity style={styles.item} onPress={() => openLink('https://sedeclave.dgt.gob.es/WEB_NCIT_CONSULTA/solicitarCita.faces')}>
           <Text style={styles.itemText}>Cita renovación permiso de conducir</Text>
         </TouchableOpacity>
+        <TouchableOpacity style={styles.item} onPress={() =>  Linking.openURL('https://sedeclave.dgt.gob.es/WEB_NCIT_CONSULTA/consultarCita.faces' )}>
+            <Text style={styles.itemText}>Gestiona tus citas</Text>
+          </TouchableOpacity>
        
       </View>
     </ScrollView>

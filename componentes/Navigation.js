@@ -15,13 +15,14 @@ import CitaMedica from './Enlaces/CitaMedica';
 import Bancos from './Enlaces/Bancos';
 import ClasesPasivas from './Enlaces/ClasesPasivas'
 import DNI from  './Enlaces/DNI'
-import ITV from './Enlaces/ITV';
+import CitaITV from './Enlaces/ITV';
 import PermisoConducir from './Enlaces/PermisoConducir'
 import Presentacion1 from './Presentacion/Presentacion1';
 import Presentacion2 from './Presentacion/Presentacion2';
 import Presentacion3 from './Presentacion/Presentacion3';
 import PaginasMedicas from './paginas/PaginasMedicas';
 import PaginasBancos from './paginas/PaginasBancos';
+import PaginasITV from './paginas/PaginasITV';
 import PaginasAyuntamientos from './paginas/PaginasAyuntamientos';
 import { AvisoDNI } from './Avisos/AvisoDNI';
 import SeguridadSocial from './Enlaces/SeguridadSocial';
@@ -47,10 +48,11 @@ export function OrganismosStack() {
       <Stack.Screen name="Bancos" component={Bancos} options={{ headerShown: false }} />
       <Stack.Screen name="ClasesPasivas" component={ClasesPasivas} options={{ headerShown: false }} />
       <Stack.Screen name="DNI" component={DNI} options={{ headerShown: false }} />
-      <Stack.Screen name="ITV" component={ITV} options={{ headerShown: false }} />
+      <Stack.Screen name="CitaITV" component={CitaITV} options={{ headerShown: false }} />
       <Stack.Screen name="PermisoConducir" component={PermisoConducir}options={{ headerShown: false }} />
       <Stack.Screen name="PaginasMedicas" component={PaginasMedicas} options={{ headerShown: false }} />
       <Stack.Screen name="PaginasBancos" component={PaginasBancos} options={{ headerShown: false }} />
+      <Stack.Screen name="PaginasITV" component={PaginasITV} options={{ headerShown: false }} />
       <Stack.Screen name="PaginasAyuntamientos" component={PaginasAyuntamientos} options={{ headerShown: false }} />
       <Stack.Screen name="AvisoDNI" component={AvisoDNI} options={{ headerShown: false }} />
       <Stack.Screen name="AvisoCitaMedica" component={AvisoCitaMedica} options={{ headerShown: false }} />
