@@ -23,7 +23,7 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.sigleto.citaprevia",
-      "versionCode": 2
+      "versionCode": 3
     },
     "web": {
       "favicon": "./assets/favicon.png"

@@ -43,7 +43,7 @@ const PaginasAyuntamientos = ({municipios}) => {
         'Santa Cruz de Tenerife':'https://sede.santacruzdetenerife.es/sede/cita-previa/reservar',
         'Sevilla':'https://www.sevilla.org/servicios/participacion-ciudadana/plataforma-online-para-solicitud-telematica',
         'Tarragona':'https://citaprevia.tarragona.cat/#nbb',
-        'Terrasa':'https://citaprevia.terrassa.cat/citaprevia/',
+        'Terrassa':'https://citaprevia.terrassa.cat/citaprevia/',
         'Telde':'https://telde.sedelectronica.es/citaprevia.0',
         'Torrejón de Ardoz':'https://www.ayto-torrejon.es/cita_previa',
         'Torrevieja':'https://torrevieja.sedelectronica.es/citaprevia.0',
