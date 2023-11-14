@@ -14,7 +14,7 @@ const Home = () => {
   const openMenu = () => {
     navigation.openDrawer(); // Step 3
   }
-
+ 
   return (
     <View style={styles.container}>
       <MaterialCommunityIcons 
@@ -30,8 +30,11 @@ const Home = () => {
         Simplifica tu vida al concertar citas previas
         con distintos organismos de manera rápida y eficiente.
       </Text>
-      <TouchableOpacity onPress={() => navigation.navigate("Organismos")}>
+      <TouchableOpacity onPress={() =>navigation.navigate('Organismos')}>
             <Text style={styles.organismos}>ACCEDE A LOS DISTINTOS ORGANISMOS</Text>
+        </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate("AvisoGestion")}>
+            <Text style={styles.organismos}>GESTIONA TUS CITAS</Text>
         </TouchableOpacity>
       <View style={styles.privacidadContainer}>
         

@@ -31,6 +31,11 @@ import RegistrosCiviles from './Enlaces/RegistrosCiviles';
 import RegistrosPropiedad from './Enlaces/Registrosdelapropiedad';
 import GuardiaCivil from './Enlaces/GuardiaCivil';
 import AvisoCitaMedica from './Avisos/AvisoCitaMedica';
+import Autentication from './GestionCitas/Autenticacion';
+import ConsultarCitas from './GestionCitas/ConsultarCitas';
+import EventCalendar from './GestionCitas/EventCalendar';
+import { AvisoGestion } from './GestionCitas/AvisoGestion';
+
 
 const Stack = createStackNavigator();
 
@@ -39,7 +44,9 @@ export function OrganismosStack() {
   return (
     <Stack.Navigator>
 
+      
       <Stack.Screen name="OrganismosStack" component={Organismos}options={{ headerShown: false }} />
+      <Stack.Screen name="GestionCitasStack" component={GestionCitasStack}options={{ headerShown: false }} />
       <Stack.Screen name="AEAT" component={AEAT} options={{ headerShown: false }} />
       <Stack.Screen name="Ayuntamientos" component={Ayuntamientos} options={{ headerShown: false }} />
       <Stack.Screen name="SEPE" component={SEPE} options={{ headerShown: false }} />
@@ -55,6 +62,7 @@ export function OrganismosStack() {
       <Stack.Screen name="PaginasITV" component={PaginasITV} options={{ headerShown: false }} />
       <Stack.Screen name="PaginasAyuntamientos" component={PaginasAyuntamientos} options={{ headerShown: false }} />
       <Stack.Screen name="AvisoDNI" component={AvisoDNI} options={{ headerShown: false }} />
+      
       <Stack.Screen name="AvisoCitaMedica" component={AvisoCitaMedica} options={{ headerShown: false }} />
       <Stack.Screen name="SeguridadSocial" component={SeguridadSocial} options={{ headerShown: false }} />
       <Stack.Screen name="Extranjeria" component={Extranjeria} options={{ headerShown: false }} />
@@ -62,6 +70,16 @@ export function OrganismosStack() {
       <Stack.Screen name="RegistrosPropiedad" component={RegistrosPropiedad} options={{ headerShown: false }} />
       <Stack.Screen name="GuardiaCivil" component={GuardiaCivil} options={{ headerShown: false }} />
       
+    </Stack.Navigator>
+  );
+}
+
+export function GestionCitasStack() {
+  return (
+    <Stack.Navigator initialRouteName="Autentication">
+      <Stack.Screen name="Autentication" component={Autentication} options={{ headerShown: false }} />
+      <Stack.Screen name="ConsultarCitas" component={ConsultarCitas} options={{ headerShown: false }} />
+      <Stack.Screen name="EventCalendar" component={EventCalendar} options={{ headerShown: false }} />
     </Stack.Navigator>
   );
 }
@@ -125,6 +143,17 @@ export function PrincipalStack(){
           component={OrganismosStack}
           options={{  headerShown: false }}
         />
+        <Stack.Screen
+          name="GestionCitas"
+          component={GestionCitasStack}
+          options={{  headerShown: false }}
+        />
+        <Stack.Screen
+          name="AvisoGestion"
+          component={AvisoGestion}
+          options={{  headerShown: false }}
+        />
+
         <Stack.Screen
           name="Contacto"
           component={Contacto}
