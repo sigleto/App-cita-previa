@@ -1,4 +1,4 @@
-import React from "react";
+import react,{useEffect} from "react";
 import { View, Text, Linking, StyleSheet, Dimensions } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
@@ -11,6 +11,7 @@ const centerStyle = {
   alignItems: 'center',
 };
 export const AvisoGestion = () => {
+
 
     const navigation=useNavigation()
     return (

@@ -1,10 +1,14 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, TextInput, Button, Alert, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from '@firebase/auth';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword }from '@firebase/auth';
 import { initializeApp } from 'firebase/app';
-import { firebaseConfig,agregarEventoFirestore } from './Firebase';
-import messaging from '@react-native-firebase/messaging';
+import { firebaseConfig, getPushNotificationToken,enviarNotificacionPrueba } from './Firebase';
+import * as Google from 'expo-auth-session/providers/google';
+import * as WebBrowser from 'expo-web-browser';
+import GoogleLoginButton from '../BotonGoogle';
+
+WebBrowser.maybeCompleteAuthSession();
 
 const Autentication = () => {
   const [email, setEmail] = useState('');
@@ -17,51 +21,62 @@ const Autentication = () => {
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
 
+/*FUNCIÓN PARA AUTENTICARSE CON GOOGLE
 
-  /*Obtener el token del dispositivo y guardarlo en Firestore al iniciar sesión
-  useEffect(() => {
-    const getTokenAndSave = async () => {
-      try {
-        const fcmToken = await messaging().getToken();
-        if (auth.currentUser) {
-          // Si el usuario está autenticado, guarda el token en Firestore
-          agregarEventoFirestore(auth.currentUser.uid, fcmToken);
-        }
-      } catch (error) {
-        console.error('Error al obtener el token:', error);
-      }
-    };
 
-    const unsubscribe = messaging().onTokenRefresh(getTokenAndSave);
 
-    return () => unsubscribe();
-  }, [auth.currentUser]); // Solo vuelva a ejecutarse si cambia el usuario autenticado
+  const[accessToken,setAccessToken]=useState(null);
+  const[user,setUser]=useState(null);
+  const[request,response,promptAsync]=Google.useIdTokenAuthRequest({
+    clientId:"909578452911-3hddvc5tj8vdd43qcm1sjc86d06c8v8i.apps.googleusercontent.com",
+    androidClientId:"909578452911-8fn5ic8k5pia6e005gcdqk6a39bp3uvf.apps.googleusercontent.com"
+  })
+ useEffect(()=>{
+  if (response?.type==="success"){
+    setAccessToken(response.authentication.accessToken);
+    accessToken && fetchUserInfo();
+    console.log("User:", user);
+    if (user) {
+      // Redirige al usuario a la página "EventCalendar" al autenticarse con Google
+      navigation.navigate('EventCalendar');}
+  }
+ },[response,accessToken,user])
 
-*/
-  const handleCreateAccount = async () => {
-    if (password !== confirmPassword) {
-      Alert.alert('Las contraseñas no coinciden. Por favor, inténtalo de nuevo.');
-      return;
-    }
+ async function fetchUserInfo(){
+  let response= await fetch("https://googleapis.com/userinfo/v2/me",{
+    headers:{ Authorization:`Bearer ${accessToken}` }
+  })
+  const userInfo=await response.json()
+  setUser(userInfo)
 
-    try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
-      Alert.alert('¡Enhorabuena, cuenta creada!');
-      navigation.navigate("EventCalendar")
-    } catch (error) {
-      const errorMessage = error.code === 'auth/weak-password'
-        ? 'La contraseña debe tener al menos 6 caracteres'
-        : 'Error al crear la cuenta. Por favor, inténtalo de nuevo.';
-      Alert.alert(errorMessage);
-    }
-  };
+ }
+ */
 
+  //FUNCIÓN PARA AUTENTICARSE CON EMAIL Y PASSWORD
   const handleSignIn = async () => {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-      console.log('Autenticado:', user);
+      console.log('Autenticado:', user.email);
+      const obtenerTokens = async () => {
+        try {
+          const tokens = await getPushNotificationToken();
+          console.log('Tokens obtenidos:', tokens);
+          // Aquí puedes realizar otras acciones con los tokens según tus necesidades
+        } catch (error) {
+          console.error('Error al obtener los tokens:', error);
+        }
+      };
+      
+      // Llama a la función para obtener los tokens cuando sea necesario
+      obtenerTokens();
+      navigation.navigate("EventCalendar");
+
+   // FUNCIÓN PARA LA NOTIFICACIÓN DE PRUEBA
+  await enviarNotificacionPrueba();
+  
+      
+      
       navigation.navigate('EventCalendar');
     } catch (error) {
       const errorMessage = error.code === 'auth/user-not-found'
@@ -71,60 +86,95 @@ const Autentication = () => {
     }
   };
 
-  return (
-    <View style={styles.container}>
-      <Text style={styles.titulo}>Debes autenticarte para usar esta opción</Text>
-      {!showLoginForm && !showSignupForm && (
-        <View style={styles.formContainer}>
-          <TouchableOpacity style={styles.button1} onPress={() => setShowLoginForm(true)}>
-            <Text style={styles.buttonText}>Iniciar sesión</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button2} onPress={() => setShowSignupForm(true)}>
-            <Text style={styles.buttonText}>Crear una cuenta</Text>
-          </TouchableOpacity>
-        </View>
-      )}
-      {(showLoginForm || showSignupForm) && (
-        <View style={styles.formContainer}>
-          <TextInput
-            style={styles.input}
-            placeholder="Correo electrónico"
-            value={email}
-            onChangeText={(text) => setEmail(text)}
-          />
-          <TextInput
-            style={styles.input}
-            placeholder="Contraseña"
-            secureTextEntry
-            value={password}
-            onChangeText={(text) => setPassword(text)}
-          />
-          {showSignupForm && (
-            <TextInput
-              style={styles.input}
-              placeholder="Confirmar contraseña"
-              secureTextEntry
-              value={confirmPassword}
-              onChangeText={(text) => setConfirmPassword(text)}
-            />
-          )}
-          {showLoginForm && (
-            <TouchableOpacity style={styles.button1} onPress={handleSignIn}>
-              <Text style={styles.buttonText}>Iniciar sesión</Text>
-            </TouchableOpacity>
-          )}
-          {showSignupForm && (
-            <TouchableOpacity style={styles.button2} onPress={handleCreateAccount}>
-              <Text style={styles.buttonText}>Crear una cuenta</Text>
-            </TouchableOpacity>
-          )}
-        </View>
-      )}
-    </View>
-  );
+//FUNCIÓN PARA CREAR UNA CUENTA
+const handleCreateAccount = async () => {
+  if (password !== confirmPassword) {
+    Alert.alert('Las contraseñas no coinciden. Por favor, inténtalo de nuevo.');
+    return;
+  }
+
+  try {
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+    Alert.alert('¡Enhorabuena, cuenta creada!');
+    const obtenerTokens = async () => {
+      try {
+        const tokens = await getPushNotificationToken();
+        console.log('Tokens obtenidos:', tokens);
+        // Aquí puedes realizar otras acciones con los tokens según tus necesidades
+      } catch (error) {
+        console.error('Error al obtener los tokens:', error);
+      }
+    };
+    
+    // Llama a la función para obtener los tokens cuando sea necesario
+    obtenerTokens();
+ 
+
+    navigation.navigate("EventCalendar");
+  } catch (error) {
+    const errorMessage = error.code === 'auth/weak-password'
+      ? 'La contraseña debe tener al menos 6 caracteres'
+      : 'Error al crear la cuenta. Por favor, inténtalo de nuevo.';
+    Alert.alert(errorMessage);
+  }
 };
 
-
+return (
+  <View style={styles.container}>
+    <Text style={styles.titulo}>Debes autenticarte para usar esta opción</Text>
+    {!showLoginForm && !showSignupForm && (
+      <View style={styles.formContainer}>
+        <TouchableOpacity style={styles.button1} onPress={() => setShowLoginForm(true)}>
+          <Text style={styles.buttonText}>Iniciar sesión</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button2} onPress={() => setShowSignupForm(true)}>
+          <Text style={styles.buttonText}>Crear una cuenta</Text>
+        </TouchableOpacity>
+      </View>
+    )}
+    {(showLoginForm || showSignupForm) && (
+      <View style={styles.formContainer}>
+        <TextInput
+          style={styles.input}
+          placeholder="Correo electrónico"
+          value={email}
+          onChangeText={(text) => setEmail(text)}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Contraseña"
+          secureTextEntry
+          value={password}
+          onChangeText={(text) => setPassword(text)}
+        />
+        {showSignupForm && (
+          <TextInput
+            style={styles.input}
+            placeholder="Confirmar contraseña"
+            secureTextEntry
+            value={confirmPassword}
+            onChangeText={(text) => setConfirmPassword(text)}
+          />
+        )}
+        {showLoginForm && (
+          <TouchableOpacity style={styles.button1} onPress={handleSignIn}>
+            <Text style={styles.buttonText}>Iniciar sesión</Text>
+          </TouchableOpacity>
+        )}
+        {showSignupForm && (
+          <TouchableOpacity style={styles.button2} onPress={handleCreateAccount}>
+            <Text style={styles.buttonText}>Crear una cuenta</Text>
+          </TouchableOpacity>
+        )}
+        {/* Agrega el botón de inicio de sesión con Google */}
+        <GoogleLoginButton onPress={''} />
+        
+      </View>
+    )}
+  </View>
+);
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -147,7 +197,7 @@ const styles = StyleSheet.create({
   button1: {
     marginTop: 10,
     padding: 10,
-    backgroundColor: '#007BFF',
+    backgroundColor: '#4285F4',
     borderRadius: 5,
     alignItems: 'center',
   },
@@ -161,14 +211,15 @@ const styles = StyleSheet.create({
   buttonText: {
     color: '#fff',
     fontWeight: 'bold',
-    fontSize:20,
+    fontSize:18,
   },
   titulo:{
     marginBottom:30,
     fontSize:22,
     color:'#bb6702',
     textAlign:'center'
-  }
+  },
+  
 });
 
 export default Autentication;

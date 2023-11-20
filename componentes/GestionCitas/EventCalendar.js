@@ -1,16 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, Button, FlatList, StyleSheet } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { agregarEventoFirestore,firebaseConfig } from './Firebase';
+import { agregarEventoFirestore, firebaseConfig, getPushNotificationToken } from './Firebase';
 import { useNavigation } from '@react-navigation/native';
 import format from 'date-fns/format';
-import es from 'date-fns/locale/es'
+import es from 'date-fns/locale/es';
 import { getAuth } from '@firebase/auth';
 import { initializeApp } from 'firebase/app';
 
-export default function EventCalendar() {
-
-  const navigation=useNavigation()
+const EventCalendar = () => {
+  const navigation = useNavigation();
 
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [eventos, setEventos] = useState([]);
@@ -22,6 +21,7 @@ export default function EventCalendar() {
   const user = auth.currentUser;
   const userId = user.uid;
 
+ 
 
   const addEvent = () => {
     if (selectedDate && eventText) {
@@ -82,9 +82,8 @@ export default function EventCalendar() {
           )}
         />
       </View>
-      
-      
-       <View style={{ marginBottom: 40 }} />
+
+      <View style={{ marginBottom: 40 }} />
       <Button
         title="Consulta las citas concertadas"
         onPress={() => navigation.navigate('ConsultarCitas')}
@@ -92,7 +91,8 @@ export default function EventCalendar() {
       />
     </View>
   );
-}
+};
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -153,3 +153,5 @@ const styles = StyleSheet.create({
     marginBottom:15,
   },
 });
+
+export default EventCalendar
