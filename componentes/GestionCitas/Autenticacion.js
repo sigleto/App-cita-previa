@@ -21,7 +21,7 @@ const Autentication = () => {
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
 
-/*FUNCIÓN PARA AUTENTICARSE CON GOOGLE
+//FUNCIÓN PARA AUTENTICARSE CON GOOGLE
 
 
 
@@ -50,7 +50,7 @@ const Autentication = () => {
   setUser(userInfo)
 
  }
- */
+ 
 
   //FUNCIÓN PARA AUTENTICARSE CON EMAIL Y PASSWORD
   const handleSignIn = async () => {
@@ -167,7 +167,7 @@ return (
           </TouchableOpacity>
         )}
         {/* Agrega el botón de inicio de sesión con Google */}
-        <GoogleLoginButton onPress={''} />
+        <GoogleLoginButton onPress={promptAsync} />
         
       </View>
     )}
@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor:'#e0fbd6',
+    backgroundColor:'#eaedee',
   },
   formContainer: {
     width: '80%',
@@ -201,7 +201,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   button2: {
-    marginTop: 10,
+    marginTop: 20,
     padding: 10,
     backgroundColor: '#cb9553',
     borderRadius: 5,
@@ -210,13 +210,16 @@ const styles = StyleSheet.create({
   buttonText: {
     color: '#fff',
     fontWeight: 'bold',
-    fontSize:18,
+    fontSize:20,
   },
   titulo:{
     marginBottom:30,
     fontSize:22,
-    color:'#bb6702',
+    color:'#510233',
     textAlign:'center'
+  },
+  hidden: {
+    display: 'none',
   },
   
 });

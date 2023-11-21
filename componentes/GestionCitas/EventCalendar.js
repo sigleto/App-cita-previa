@@ -27,8 +27,8 @@ const EventCalendar = () => {
     try {
       const notificationId = await scheduleNotificationAsync({
         content: {
-          title: 'Recordatorio de evento',
-          body: `¡No olvides tu evento: ${eventText} a las ${format(dateTime, 'HH:mm')}`,
+          title: 'Recordatorio de cita',
+          body: `¡No olvides tu cita: ${eventText} a las ${format(dateTime, 'HH:mm')}`,
         },
         trigger: {
           date: dateTime,
@@ -64,7 +64,7 @@ const EventCalendar = () => {
       agregarEventoFirestore({ dateTime: selectedDate, text: eventText, userId });
 
       // Calcular la hora del recordatorio (30 minutos antes del evento)
-      const reminderTime = new Date(selectedDate.getTime() - 30 * 60000); // 30 minutos en milisegundos
+      const reminderTime = new Date(selectedDate.getTime() - 48 * 60 * 60 * 1000); //48 horas antes
 
       // Enviar notificación push 30 minutos antes del evento
       scheduleNotification(reminderTime, eventText);

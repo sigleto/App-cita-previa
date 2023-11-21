@@ -38,36 +38,39 @@ export default function ConsultarCitas() {
     consultarCitas();
   }, [userId]);
 
+  // Verificar si las citas están cargando
+  if (loading) {
+    return <Text>Cargando...</Text>;
+  }
+  console.log(citas.length)
+  // Verificar si las citas están definidas y tienen longitud
+  if (!citas || citas.length === 1) {
+    return <Text style={styles.texto2}>Todavía no tienes citas guardadas</Text>;
+  }
+
+  // Renderizar la lista de citas
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Citas concertadas</Text>
-      {loading ? (
-        <Text>Cargando...</Text>
-      ) : citas.length === 0 ? (
-        <Text style={styles.texto}>Todavía no tienes citas guardadas</Text>
-      ) : (
-        <FlatList
-          data={citas}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item }) => (
-            <View style={styles.citaItem}>
-              {item.dateTime && ( // Asegúrate de que la propiedad sea dateTime
-                <>
-                  <Text style={styles.texto}>
-                    Fecha: {format(item.dateTime.toDate(), "dd 'de' LLLL 'de' yyyy", { locale: es })}
-                  </Text>
-                  <Text style={styles.texto}>Evento: {item.text}</Text>
-                </>
-              )}
-            </View>
-          )}
-        />
-      )}
+      <FlatList
+        data={citas}
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={({ item }) => (
+          <View style={styles.citaItem}>
+            {item.dateTime && (
+              <>
+                <Text style={styles.texto}>
+                  Fecha: {format(item.dateTime.toDate(), "dd 'de' LLLL 'de' yyyy", { locale: es })}
+                </Text>
+                <Text style={styles.texto}>Evento: {item.text}</Text>
+              </>
+            )}
+          </View>
+        )}
+      />
     </View>
   );
 }
-
-
 
 const styles = StyleSheet.create({
   container: {
@@ -92,6 +95,13 @@ const styles = StyleSheet.create({
   texto: {
     fontSize: 20,
     color: '#333', // Agrega este estilo para el color del texto
+  },
+  texto2: {
+    marginTop:'60%',
+    textAlign:'center',
+    
+    fontSize: 20,
+    color: 'blue', // Agrega este estilo para el color del texto
   },
 
 });
