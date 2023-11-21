@@ -51,31 +51,3 @@ export const getPushNotificationToken = async () => {
   }
 };
 
-// Función para enviar una notificación de prueba
-export const enviarNotificacionPrueba = async () => {
-  try {
-    const tokens = await getPushNotificationToken();
-    
-    // Puedes personalizar el cuerpo y título de la notificación según tus necesidades
-    const notification = {
-      to: tokens.expoPushToken,
-      sound: 'default',
-      title: 'Notificación de prueba',
-      body: 'Este es un mensaje de prueba',
-    };
-
-    await fetch('https://exp.host/--/api/v2/push/send', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Accept-encoding': 'gzip, deflate',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(notification),
-    });
-
-    console.log('Notificación de prueba enviada con éxito', notification);
-  } catch (error) {
-    console.error('Error al enviar la notificación de prueba:', error);
-  }
-};

@@ -3,12 +3,11 @@ import { View, Text, FlatList, StyleSheet } from 'react-native';
 import { getFirestore, collection, getDocs } from 'firebase/firestore';
 import { getAuth } from '@firebase/auth';
 import format from 'date-fns/format';
-import es from 'date-fns/locale/es'
-
+import es from 'date-fns/locale/es';
 
 export default function ConsultarCitas() {
   const [citas, setCitas] = useState([]);
-  const [loading, setLoading] = useState(true); // Nuevo estado para manejar la carga
+  const [loading, setLoading] = useState(true);
   const db = getFirestore();
   const auth = getAuth();
   const user = auth.currentUser;
@@ -29,9 +28,10 @@ export default function ConsultarCitas() {
         });
 
         setCitas(citasData);
-        setLoading(false); // Marcar como cargado cuando se completan las consultas
+        setLoading(false);
       } catch (error) {
         console.error('Error al consultar citas: ', error);
+        setLoading(false);
       }
     };
 
@@ -47,13 +47,18 @@ export default function ConsultarCitas() {
         <Text style={styles.texto}>Todavía no tienes citas guardadas</Text>
       ) : (
         <FlatList
-          
           data={citas}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => (
             <View style={styles.citaItem}>
-              <Text style={styles.texto}>Fecha: {format(item.date.toDate(), "dd 'de' LLLL 'de' yyyy", { locale: es })}</Text>
-              <Text style={styles.texto}>Evento: {item.text}</Text>
+              {item.dateTime && ( // Asegúrate de que la propiedad sea dateTime
+                <>
+                  <Text style={styles.texto}>
+                    Fecha: {format(item.dateTime.toDate(), "dd 'de' LLLL 'de' yyyy", { locale: es })}
+                  </Text>
+                  <Text style={styles.texto}>Evento: {item.text}</Text>
+                </>
+              )}
             </View>
           )}
         />
@@ -61,6 +66,7 @@ export default function ConsultarCitas() {
     </View>
   );
 }
+
 
 
 const styles = StyleSheet.create({
@@ -79,11 +85,13 @@ const styles = StyleSheet.create({
   citaItem: {
     backgroundColor: '#fff',
     padding: 10,
-   
     marginBottom: 10,
-    fontSize:20,
+    fontSize: 20,
+    color: '#333', // Agrega este estilo para el color del texto
   },
-  texto:{
-    fontSize:20,
+  texto: {
+    fontSize: 20,
+    color: '#333', // Agrega este estilo para el color del texto
   },
+
 });

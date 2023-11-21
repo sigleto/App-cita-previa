@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { View, Text, TextInput, Button, FlatList, StyleSheet } from 'react-native';
-import DateTimePicker from '@react-native-community/datetimepicker';
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { agregarEventoFirestore, firebaseConfig, getPushNotificationToken } from './Firebase';
 import { useNavigation } from '@react-navigation/native';
 import format from 'date-fns/format';
 import es from 'date-fns/locale/es';
 import { getAuth } from '@firebase/auth';
 import { initializeApp } from 'firebase/app';
+import { scheduleNotificationAsync } from 'expo-notifications';
 
 const EventCalendar = () => {
   const navigation = useNavigation();
@@ -14,26 +15,59 @@ const EventCalendar = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [eventos, setEventos] = useState([]);
   const [eventText, setEventText] = useState('');
-  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
   const user = auth.currentUser;
   const userId = user.uid;
 
- 
+  // Función para programar una notificación push en un momento específico
+  const scheduleNotification = async (dateTime, eventText) => {
+    try {
+      const notificationId = await scheduleNotificationAsync({
+        content: {
+          title: 'Recordatorio de evento',
+          body: `¡No olvides tu evento: ${eventText} a las ${format(dateTime, 'HH:mm')}`,
+        },
+        trigger: {
+          date: dateTime,
+        },
+      });
 
-  const addEvent = () => {
-    if (selectedDate && eventText) {
-      const newEvent = {
-        date: selectedDate,
-        text: eventText,
-        userId: userId,
-      };
-      setEventos([...eventos, newEvent]);
+      console.log('Notificación programada con éxito. ID:', notificationId);
+    } catch (error) {
+      console.error('Error al programar la notificación:', error);
+    }
+  };
+
+  const showDatePicker = () => {
+    setDatePickerVisibility(true);
+  };
+
+  const hideDatePicker = () => {
+    setDatePickerVisibility(false);
+  };
+
+  const handleConfirm = (date) => {
+    setSelectedDate(date);
+    hideDatePicker();
+  };
+
+  const addEvent = async () => {
+    if (eventText) {
+      const newEvent = { dateTime: selectedDate, text: eventText };
+      setEventos([...eventos, newEvent]); // Actualizar estado local
       setEventText('');
-      setShowDatePicker(false);
-      agregarEventoFirestore(newEvent);
+
+      // Agregar la nueva cita a Firestore
+      agregarEventoFirestore({ dateTime: selectedDate, text: eventText, userId });
+
+      // Calcular la hora del recordatorio (30 minutos antes del evento)
+      const reminderTime = new Date(selectedDate.getTime() - 30 * 60000); // 30 minutos en milisegundos
+
+      // Enviar notificación push 30 minutos antes del evento
+      scheduleNotification(reminderTime, eventText);
     }
   };
 
@@ -41,30 +75,18 @@ const EventCalendar = () => {
     <View style={styles.container}>
       <Text style={styles.header}>Calendario de Citas</Text>
       <Text style={styles.usuario}>Usuario: {user.email}</Text>
-      {showDatePicker && (
-        <DateTimePicker
-          style={styles.datePicker}
-          value={selectedDate}
-          mode="date"
-          format="DD-MM-YYYY"
-          onChange={(event, date) => {
-            if (event.type === 'set') {
-              setSelectedDate(date);
-              setShowDatePicker(false);
-            }
-          }}
-        />
-      )}
-      {!showDatePicker && (
-        <Button
-          title="Seleccionar Fecha"
-          onPress={() => setShowDatePicker(true)}
-          style={[styles.selectDateButton]}
-        />
-      )}
+      <Button title="Seleccionar Fecha y Hora" onPress={showDatePicker} />
+      <DateTimePickerModal
+        isVisible={isDatePickerVisible}
+        mode="datetime"
+        onConfirm={handleConfirm}
+        onCancel={hideDatePicker}
+      />
       <View style={{ marginBottom: 20 }} />
       <View style={styles.eventForm}>
-        <Text style={styles.selectedDateText}>Fecha seleccionada: {format(selectedDate, "dd 'de' LLLL 'de' yyyy", { locale: es })}</Text>
+        <Text style={styles.selectedDateText}>
+          Fecha y Hora seleccionadas: {format(selectedDate, "dd 'de' LLLL 'de' yyyy 'a las' HH:mm", { locale: es })}
+        </Text>
         <TextInput
           style={styles.eventInput}
           placeholder="Evento"
@@ -77,7 +99,7 @@ const EventCalendar = () => {
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => (
             <Text style={styles.eventItem}>
-              {item.date.toString()}: {item.text}
+              {format(item.dateTime, "dd 'de' LLLL 'de' yyyy 'a las' HH:mm", { locale: es })}: {item.text}
             </Text>
           )}
         />
@@ -92,6 +114,9 @@ const EventCalendar = () => {
     </View>
   );
 };
+
+
+
 
 const styles = StyleSheet.create({
   container: {

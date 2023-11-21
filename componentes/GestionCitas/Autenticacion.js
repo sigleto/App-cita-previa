@@ -72,8 +72,7 @@ const Autentication = () => {
       obtenerTokens();
       navigation.navigate("EventCalendar");
 
-   // FUNCIÓN PARA LA NOTIFICACIÓN DE PRUEBA
-  await enviarNotificacionPrueba();
+  
   
       
       
