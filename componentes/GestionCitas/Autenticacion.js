@@ -166,8 +166,8 @@ return (
             <Text style={styles.buttonText}>Crear una cuenta</Text>
           </TouchableOpacity>
         )}
-        {/* Agrega el botón de inicio de sesión con Google */}
-        <GoogleLoginButton onPress={promptAsync} />
+        {/* Agrega el botón de inicio de sesión con Google
+        <GoogleLoginButton onPress={promptAsync} />*/}
         
       </View>
     )}

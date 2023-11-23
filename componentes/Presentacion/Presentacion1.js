@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     textDecorationLine: "underline",
   },
   parrafo: {
-    fontSize: 37,
+    fontSize: 30,
     textAlign: 'center',
     marginBottom: 30,
     paddingHorizontal: 5,

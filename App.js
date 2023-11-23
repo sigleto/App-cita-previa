@@ -7,6 +7,7 @@ import { PrincipalStack, PresentacionStack } from './componentes/Navigation';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { enableScreens } from 'react-native-screens';
 import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
+import DescargoResponsabilidad from './componentes/DescargoResponsabilidad';
 
 enableScreens();
 
@@ -41,6 +42,15 @@ const App = ({ navigation }) => {
           options={{
             drawerIcon: ({ color, size }) => (
               <MaterialCommunityIcons name="information" size={size} color={color} />
+            ),drawerLabelStyle: {
+              fontSize: 20,
+            }
+          }}
+          />
+          <Drawer.Screen name="Descargo de Responsabilidad" component={DescargoResponsabilidad} 
+          options={{
+            drawerIcon: ({ color, size }) => (
+              <MaterialCommunityIcons name="account-details" size={size} color={color} />
             ),drawerLabelStyle: {
               fontSize: 20,
             }

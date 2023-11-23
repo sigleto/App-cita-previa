@@ -35,7 +35,7 @@ import Autentication from './GestionCitas/Autenticacion';
 import ConsultarCitas from './GestionCitas/ConsultarCitas';
 import EventCalendar from './GestionCitas/EventCalendar';
 import { AvisoGestion } from './GestionCitas/AvisoGestion';
-
+import DescargoResponsabilidad from './DescargoResponsabilidad';
 
 const Stack = createStackNavigator();
 
@@ -159,6 +159,11 @@ export function PrincipalStack(){
           component={Contacto}
           options={{ headerShown: false }}
         />
+        <Stack.Screen
+          name="Descargo"
+          component={DescargoResponsabilidad}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
    
   );
@@ -170,6 +175,7 @@ export function DrawerNavigator() {
     <Drawer.Navigator>
       <Drawer.Screen name="Contacto" component={Contacto} />
       <Drawer.Screen name="PresentacionStack" component={PresentacionStack} />
+      <Drawer.Screen name="DescargoResponsabilidad" component={DescargoResponsabilidad} />
       <Drawer.Screen
         name="PoliticaPrivacidad"
         component={() => {
