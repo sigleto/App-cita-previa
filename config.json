@@ -1,0 +1,39 @@
+{
+  "expo": {
+    "name": "cita-previa",
+    "slug": "cita-previa",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/reloj.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/reloj.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.sigleto.citaprevia",
+      "versionCode": 6
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "4aee27fb-d1f8-4bdf-84d6-3e253d2267c7"
+      }
+    },
+    "scheme":"https"
+  }
+}

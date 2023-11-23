@@ -7,6 +7,7 @@ import { firebaseConfig, getPushNotificationToken,enviarNotificacionPrueba } fro
 import * as Google from 'expo-auth-session/providers/google';
 import * as WebBrowser from 'expo-web-browser';
 import GoogleLoginButton from '../BotonGoogle';
+import {CLIENT_ID,ANDROID_CLIENT_ID} from '@env'
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -28,8 +29,8 @@ const Autentication = () => {
   const[accessToken,setAccessToken]=useState(null);
   const[user,setUser]=useState(null);
   const[request,response,promptAsync]=Google.useIdTokenAuthRequest({
-    clientId:"909578452911-3hddvc5tj8vdd43qcm1sjc86d06c8v8i.apps.googleusercontent.com",
-    androidClientId:"909578452911-8fn5ic8k5pia6e005gcdqk6a39bp3uvf.apps.googleusercontent.com"
+    clientId: CLIENT_ID,
+    androidClientId: ANDROID_CLIENT_ID
   })
  useEffect(()=>{
   if (response?.type==="success"){
@@ -51,7 +52,6 @@ const Autentication = () => {
 
  }
  
-
   //FUNCIÓN PARA AUTENTICARSE CON EMAIL Y PASSWORD
   const handleSignIn = async () => {
     try {

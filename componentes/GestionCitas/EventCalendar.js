@@ -29,6 +29,7 @@ const EventCalendar = () => {
         content: {
           title: 'Recordatorio de cita',
           body: `¡No olvides tu cita: ${eventText} a las ${format(dateTime, 'HH:mm')}`,
+          data: { openAppOnClick: false },
         },
         trigger: {
           date: dateTime,

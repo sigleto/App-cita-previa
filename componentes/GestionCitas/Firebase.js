@@ -1,16 +1,18 @@
 import { collection, addDoc, getFirestore } from 'firebase/firestore';
 import { initializeApp } from "firebase/app";
 import * as Notifications from 'expo-notifications';
+import {API_KEY,AUTH_DOMAIN,PROJECT_ID,
+  STORAGE_BUCKET,MESSAGING_SENDER_ID,APP_ID,MEASUREMENT_ID} from '@env'
 
 
 export const firebaseConfig = {
-  apiKey: "AIzaSyCa8Kfj6xhxzh7zp-BOoPJJiYLezvAz9Gs",
-  authDomain: "eventos-de-citas-25052.firebaseapp.com",
-  projectId: "eventos-de-citas-25052",
-  storageBucket: "eventos-de-citas-25052.appspot.com",
-  messagingSenderId: "909578452911",
-  appId: "1:909578452911:web:eee074998652d53249b95a",
-  measurementId: "G-241833JQ5F"
+  apiKey: API_KEY,
+  authDomain: AUTH_DOMAIN,
+  projectId: PROJECT_ID,
+  storageBucket: STORAGE_BUCKET,
+  messagingSenderId: MESSAGING_SENDER_ID,
+  appId: APP_ID,
+  measurementId: MEASUREMENT_ID
 };
 
 const app = initializeApp(firebaseConfig);
