@@ -32,16 +32,23 @@ const Autentication = () => {
     clientId: CLIENT_ID,
     androidClientId: ANDROID_CLIENT_ID
   })
- useEffect(()=>{
-  if (response?.type==="success"){
-    setAccessToken(response.authentication.accessToken);
-    accessToken && fetchUserInfo();
-    console.log("User:", user);
-    if (user) {
-      // Redirige al usuario a la página "EventCalendar" al autenticarse con Google
-      navigation.navigate('EventCalendar');}
-  }
- },[response,accessToken,user])
+ 
+  useEffect(() => {
+    const fetchData = async () => {
+      if (response?.type === "success") {
+        setAccessToken(response.authentication.accessToken);
+        if (accessToken) {
+          await fetchUserInfo();
+          console.log("User:", user);  // Aquí, después de que se ha actualizado 'user'
+          if (user) {
+            navigation.navigate('EventCalendar');
+          }
+        }
+      }
+    };
+  
+    fetchData();
+  }, [response, accessToken, user]);
 
  async function fetchUserInfo(){
   let response= await fetch("https://googleapis.com/userinfo/v2/me",{
@@ -71,12 +78,8 @@ const Autentication = () => {
       // Llama a la función para obtener los tokens cuando sea necesario
       obtenerTokens();
       navigation.navigate("EventCalendar");
-
-  
-  
-      
-      
-      navigation.navigate('EventCalendar');
+   
+     
     } catch (error) {
       const errorMessage = error.code === 'auth/user-not-found'
         ? 'Usuario no encontrado. Por favor, verifica tu correo electrónico.'
@@ -166,8 +169,8 @@ return (
             <Text style={styles.buttonText}>Crear una cuenta</Text>
           </TouchableOpacity>
         )}
-        {/* Agrega el botón de inicio de sesión con Google
-        <GoogleLoginButton onPress={promptAsync} />*/}
+        {/*Agrega el botón de inicio de sesión con Google*/ }
+        <GoogleLoginButton onPress={promptAsync} />
         
       </View>
     )}

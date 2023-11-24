@@ -56,7 +56,7 @@ const Contacto = () => {
           <View style={styles.campos}>
             <Text style={styles.zona}>E-Mail</Text>
             <TextInput
-              placeholder="Sólo si quieres que te contestemos"
+              placeholder="Sólo si quieres que te contestemos o para comunicarnos que deseas borrar ti cuenta"
               onChangeText={field.onChange}
               value={field.value}
               style={styles.inputc}

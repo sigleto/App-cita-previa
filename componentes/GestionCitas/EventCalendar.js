@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, FlatList, StyleSheet } from 'react-native';
+import { View, Text, TextInput, Button, FlatList, StyleSheet,TouchableOpacity,Alert } from 'react-native';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { agregarEventoFirestore, firebaseConfig, getPushNotificationToken } from './Firebase';
 import { useNavigation } from '@react-navigation/native';
@@ -33,7 +33,7 @@ const EventCalendar = () => {
         },
         trigger: {
           date: dateTime,
-        },
+        }
       });
 
       console.log('Notificación programada con éxito. ID:', notificationId);
@@ -71,6 +71,28 @@ const EventCalendar = () => {
       scheduleNotification(reminderTime, eventText);
     }
   };
+  //FUNCIÓN PARA ELIMINAR LA CUENTA
+  const handleDeleteAccount = async () => {
+    try {
+      await user.delete();
+      // Realiza cualquier otra acción necesaria después de la eliminación de la cuenta
+      console.log('Cuenta eliminada con éxito');
+      navigation.navigate('Home'); // Redirige al usuario a la pantalla de autenticación
+    } catch (error) {
+      console.error('Error al eliminar la cuenta:', error);
+    }
+  };
+//AVISO PARA ANTES DE ELIMINAR LA CUENTA:
+const showDeleteAccountAlert = () => {
+  Alert.alert(
+    'Eliminar Cuenta',
+    '¿Estás seguro de que quieres eliminar tu cuenta? Se eliminarán todos tus datos y citas guardadas.Esta acción es irreversible.',
+    [
+      { text: 'Cancelar', style: 'cancel' },
+      { text: 'Eliminar', onPress: handleDeleteAccount, style: 'destructive' },
+    ]
+  );
+};
 
   return (
     <View style={styles.container}>
@@ -112,6 +134,9 @@ const EventCalendar = () => {
         onPress={() => navigation.navigate('ConsultarCitas')}
         style={styles.selectCitaButton}
       />
+      <TouchableOpacity style={styles.borrarCuenta} onPress={showDeleteAccountAlert}>
+      <Text style={styles.buttonText}>Eliminar Cuenta</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -178,6 +203,15 @@ const styles = StyleSheet.create({
     color:'#b3612e',
     marginBottom:15,
   },
+  borrarCuenta:{
+    backgroundColor: '#e74c3c', // Cambia el color del botón
+    color: '#fff',
+    padding:5,
+    borderRadius: 5,
+    marginTop:60,
+    marginLeft:130,
+
+  }
 });
 
 export default EventCalendar
