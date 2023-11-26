@@ -8,6 +8,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { enableScreens } from 'react-native-screens';
 import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import DescargoResponsabilidad from './componentes/DescargoResponsabilidad';
+import SeguridadDatos from './componentes/SeguridadDatos';
 
 enableScreens();
 
@@ -42,6 +43,15 @@ const App = ({ navigation }) => {
           options={{
             drawerIcon: ({ color, size }) => (
               <MaterialCommunityIcons name="information" size={size} color={color} />
+            ),drawerLabelStyle: {
+              fontSize: 20,
+            }
+          }}
+          />
+          <Drawer.Screen name="Seguridad de tus datos" component={SeguridadDatos} 
+          options={{
+            drawerIcon: ({ color, size }) => (
+              <MaterialCommunityIcons name="security" size={size} color={color} />
             ),drawerLabelStyle: {
               fontSize: 20,
             }

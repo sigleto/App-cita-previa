@@ -4,6 +4,9 @@ import { getFirestore, collection, getDocs } from 'firebase/firestore';
 import { getAuth } from '@firebase/auth';
 import format from 'date-fns/format';
 import es from 'date-fns/locale/es';
+import CryptoJS from 'react-native-crypto-js';
+import {CLAVE_KRYPTO} from '@env'
+
 
 export default function ConsultarCitas() {
   const [citas, setCitas] = useState([]);
@@ -23,7 +26,10 @@ export default function ConsultarCitas() {
         eventosSnapshot.forEach((doc) => {
           const eventData = doc.data();
           if (eventData.userId === userId) {
-            citasData.push(eventData);
+            // Desencriptar el texto del evento
+            const decryptedText = CryptoJS.AES.decrypt(eventData.text, CLAVE_KRYPTO).toString(CryptoJS.enc.Utf8);
+            // Almacenar el evento desencriptado en el array
+            citasData.push({ ...eventData, text: decryptedText });
           }
         });
 
@@ -37,6 +43,7 @@ export default function ConsultarCitas() {
 
     consultarCitas();
   }, [userId]);
+
 
   // Verificar si las citas están cargando
   if (loading) {

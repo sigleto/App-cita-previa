@@ -8,6 +8,9 @@ import es from 'date-fns/locale/es';
 import { getAuth } from '@firebase/auth';
 import { initializeApp } from 'firebase/app';
 import { scheduleNotificationAsync } from 'expo-notifications';
+import CryptoJS from 'react-native-crypto-js';
+import {CLAVE_KRYPTO} from '@env'
+
 
 const EventCalendar = () => {
   const navigation = useNavigation();
@@ -57,20 +60,18 @@ const EventCalendar = () => {
 
   const addEvent = async () => {
     if (eventText) {
-      const newEvent = { dateTime: selectedDate, text: eventText };
-      setEventos([...eventos, newEvent]); // Actualizar estado local
+      const encryptedText = CryptoJS.AES.encrypt(eventText, CLAVE_KRYPTO).toString();
+      const newEvent = { dateTime: selectedDate, text: encryptedText };
+      setEventos([...eventos, newEvent]);
       setEventText('');
-
-      // Agregar la nueva cita a Firestore
-      agregarEventoFirestore({ dateTime: selectedDate, text: eventText, userId });
-
-      // Calcular la hora del recordatorio (30 minutos antes del evento)
-      const reminderTime = new Date(selectedDate.getTime() - 48 * 60 * 60 * 1000); //48 horas antes
-
-      // Enviar notificación push 30 minutos antes del evento
+  
+      agregarEventoFirestore({ dateTime: selectedDate, text: encryptedText, userId });
+  
+      const reminderTime = new Date(selectedDate.getTime() - 48 * 60 * 60 * 1000);
       scheduleNotification(reminderTime, eventText);
     }
   };
+  
   //FUNCIÓN PARA ELIMINAR LA CUENTA
   const handleDeleteAccount = async () => {
     try {
@@ -117,7 +118,7 @@ const showDeleteAccountAlert = () => {
           onChangeText={(text) => setEventText(text)}
         />
         <Button title="Agrega la cita" onPress={addEvent} />
-        <FlatList
+        {/*<FlatList
           data={eventos}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => (
@@ -125,7 +126,7 @@ const showDeleteAccountAlert = () => {
               {format(item.dateTime, "dd 'de' LLLL 'de' yyyy 'a las' HH:mm", { locale: es })}: {item.text}
             </Text>
           )}
-        />
+        />*/}
       </View>
 
       <View style={{ marginBottom: 40 }} />
