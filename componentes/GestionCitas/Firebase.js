@@ -23,7 +23,7 @@ export const agregarEventoFirestore = async (evento) => {
   try {
     const docRef = await addDoc(collection(db, "eventos"), evento);
     console.log("Evento agregado con ID: ", docRef.id);
-    alert ('Perfecto!!... Te mandaremos un recordatorio 48 horas antes de la cita')
+    alert ('Perfecto!!... Te mandaremos un recordatorio  antes de la cita')
   } catch (e) {
     console.error("Error al agregar el evento: ", e);
   }

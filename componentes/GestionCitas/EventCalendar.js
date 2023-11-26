@@ -10,6 +10,7 @@ import { initializeApp } from 'firebase/app';
 import { scheduleNotificationAsync } from 'expo-notifications';
 import CryptoJS from 'react-native-crypto-js';
 import {CLAVE_KRYPTO} from '@env'
+import { Picker } from '@react-native-picker/picker'
 
 
 const EventCalendar = () => {
@@ -19,6 +20,8 @@ const EventCalendar = () => {
   const [eventos, setEventos] = useState([]);
   const [eventText, setEventText] = useState('');
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  const [reminderTimeBeforeEvent, setReminderTimeBeforeEvent] = useState(6 * 60 * 60 * 1000); // Valor predeterminado: 6 horas antes
+  const [isDateTimeSelected, setIsDateTimeSelected] = useState(false);
 
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
@@ -33,6 +36,8 @@ const EventCalendar = () => {
           title: 'Recordatorio de cita',
           body: `¡No olvides tu cita: ${eventText} a las ${format(dateTime, 'HH:mm')}`,
           data: { openAppOnClick: false },
+          sound: '../../assets/alerta.mp3',
+          autoCancel: true
         },
         trigger: {
           date: dateTime,
@@ -67,7 +72,7 @@ const EventCalendar = () => {
   
       agregarEventoFirestore({ dateTime: selectedDate, text: encryptedText, userId });
   
-      const reminderTime = new Date(selectedDate.getTime() - 48 * 60 * 60 * 1000);
+      const reminderTime = new Date(selectedDate.getTime() - reminderTimeBeforeEvent);
       scheduleNotification(reminderTime, eventText);
     }
   };
@@ -101,11 +106,28 @@ const showDeleteAccountAlert = () => {
       <Text style={styles.usuario}>Usuario: {user.email}</Text>
       <Button title="Seleccionar Fecha y Hora" onPress={showDatePicker} />
       <DateTimePickerModal
-        isVisible={isDatePickerVisible}
-        mode="datetime"
-        onConfirm={handleConfirm}
-        onCancel={hideDatePicker}
-      />
+      isVisible={isDatePickerVisible}
+      mode="datetime"
+      onConfirm={(date) => {
+        handleConfirm(date);
+        setIsDateTimeSelected(true); // Actualiza el estado cuando se confirma la fecha y la hora
+      }}
+      onCancel={hideDatePicker}
+    />
+       {isDateTimeSelected && (
+      <View>
+        <Text style={styles.resalto}>Seleccione cuánto tiempo antes desea recibir el aviso:</Text>
+        <Picker
+           
+          selectedValue={reminderTimeBeforeEvent}
+          onValueChange={(itemValue) => setReminderTimeBeforeEvent(itemValue)}
+        >
+          <Picker.Item label="6 horas antes" value={6 * 60 * 60 * 1000} />
+      <Picker.Item label="24 horas antes" value={24 * 60 * 60 * 1000} />
+      <Picker.Item label="48 horas antes" value={48 * 60 * 60 * 1000} />
+        </Picker>
+      </View>
+    )}
       <View style={{ marginBottom: 20 }} />
       <View style={styles.eventForm}>
         <Text style={styles.selectedDateText}>
@@ -212,7 +234,15 @@ const styles = StyleSheet.create({
     marginTop:60,
     marginLeft:130,
 
+  },
+  resalto:{
+    color:"#4da305",
+    fontSize:18,
+    fontWeight:'bold'
   }
+ 
+  
+
 });
 
 export default EventCalendar
