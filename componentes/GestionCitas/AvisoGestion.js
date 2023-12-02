@@ -12,7 +12,7 @@ export const AvisoGestion = () => {
     <View style={[styles.container, styles.centeredContainer]}>
       <View style={styles.avisoContainer}>
         <Text style={styles.avisoTexto}>
-          Aquí podrás guardar todas tus citas una vez concertadas y consultarlas cuando quieras. Además, te enviaremos un recordatorio de tu cita 48 horas antes de la misma.
+          Aquí podrás guardar todas tus citas una vez concertadas y consultarlas cuando quieras. Además, te enviaremos un recordatorio de tu cita en el momento que tu eligas.
         </Text>
         <TouchableOpacity
           style={styles.continuarButton}

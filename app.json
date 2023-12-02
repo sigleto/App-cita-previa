@@ -14,17 +14,19 @@
     "assetBundlePatterns": [
       "**/*"
     ],
+    "plugins": ["@react-native-google-signin/google-signin"]
+    ,
     "ios": {
       "supportsTablet": true
     },
     "android": {
-      
+      "package": "com.sigleto.citaprevia",
+      "versionCode": 9,
       "adaptiveIcon": {
         "foregroundImage": "./assets/reloj.png",
         "backgroundColor": "#ffffff"
-      },
-      "package": "com.sigleto.citaprevia",
-      "versionCode": 8
+      }
+      
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -33,7 +35,6 @@
       "eas": {
         "projectId": "4aee27fb-d1f8-4bdf-84d6-3e253d2267c7"
       }
-    },
-    "scheme":"https"
+    }
   }
 }

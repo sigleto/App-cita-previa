@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { View, TextInput, Button, Alert, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword }from '@firebase/auth';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,sendPasswordResetEmail }from '@firebase/auth';
 import { initializeApp } from 'firebase/app';
 import { firebaseConfig, getPushNotificationToken,enviarNotificacionPrueba } from './Firebase';
-import * as Google from 'expo-auth-session/providers/google';
-import * as WebBrowser from 'expo-web-browser';
 import GoogleLoginButton from '../BotonGoogle';
+//import { GoogleSignin, GoogleSigninButton, statusCodes } from '@react-native-google-signin/google-signin';
 import {CLIENT_ID,ANDROID_CLIENT_ID} from '@env'
 
-WebBrowser.maybeCompleteAuthSession();
+
 
 const Autentication = () => {
   const [email, setEmail] = useState('');
@@ -22,44 +21,52 @@ const Autentication = () => {
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
 
-//FUNCIÓN PARA AUTENTICARSE CON GOOGLE
+ /*FUNCIÓN PARA AUTENTICARSE CON GOOGLE
+const [error,setError]=useState();
+const [userInfo,setUserInfo]=useState();
 
 
-
-  const[accessToken,setAccessToken]=useState(null);
-  const[user,setUser]=useState(null);
-  const[request,response,promptAsync]=Google.useIdTokenAuthRequest({
-    clientId: CLIENT_ID,
-    androidClientId: ANDROID_CLIENT_ID
-  })
- 
-  useEffect(() => {
-    const fetchData = async () => {
-      if (response?.type === "success") {
-        setAccessToken(response.authentication.accessToken);
-        if (accessToken) {
-          await fetchUserInfo();
-          console.log("User:", user);  // Aquí, después de que se ha actualizado 'user'
-          if (user) {
-            navigation.navigate('EventCalendar');
-          }
-        }
-      }
-    };
-  
-    fetchData();
-  }, [response, accessToken, user]);
-
- async function fetchUserInfo(){
-  let response= await fetch("https://googleapis.com/userinfo/v2/me",{
-    headers:{ Authorization:`Bearer ${accessToken}` }
-  })
-  const userInfo=await response.json()
-  setUser(userInfo)
-
+ const configureGoogleSignin=()=>{
+  GoogleSignin.configure({
+    webClientId:CLIENT_ID,
+    androidClientId:ANDROID_CLIENT_ID,
+    forceCodeForRefreshToken: true, 
+    
+    });
  }
+
+useEffect(() => {
+  configureGoogleSignin()
  
-  //FUNCIÓN PARA AUTENTICARSE CON EMAIL Y PASSWORD
+}, []);
+
+ 
+const handleGoogleSignIn = async () => {
+  try {
+    await GoogleSignin.hasPlayServices();
+    const userInfo = await GoogleSignin.signIn();
+    setUserInfo(userInfo);
+    setError(undefined);
+// Navega a la pantalla EventCalendar solo si el inicio de sesión con Google es exitoso
+    Alert.alert("passsaaa")
+  } catch (error) {
+    console.log(error);
+    switch(error.code){
+      case statusCodes.SIGN_IN_CANCELLED:
+        Alert.alert("cancelado");break;
+      case statusCodes.IN_PROGRESS:
+        Alert.alert ('en progreso');break;
+      case statusCodes.PLAY_SERVICES_NOT_AVAILABLE:
+        Alert,alert("no disponible");break;
+      default: 
+      Alert.alert ("algo falla");
+      setError(error);
+
+    }
+  }
+};
+*/
+//FUNCIÓN PARA AUTENTICARSE CON EMAIL Y PASSWORD
   const handleSignIn = async () => {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
@@ -78,7 +85,7 @@ const Autentication = () => {
       // Llama a la función para obtener los tokens cuando sea necesario
       obtenerTokens();
       navigation.navigate("EventCalendar");
-   
+        
      
     } catch (error) {
       const errorMessage = error.code === 'auth/user-not-found'
@@ -87,6 +94,25 @@ const Autentication = () => {
       Alert.alert(errorMessage);
     }
   };
+// FUNCIÓN PARA RECUPERAR LA CONTRASEÑA
+const handleForgotPassword = async () => {
+  try {
+    // Validar si se ha proporcionado una dirección de correo electrónico
+    if (!email) {
+      Alert.alert('Error', 'Por favor, introduce tu dirección de correo electrónico.');
+      return;
+    }
+
+    await sendPasswordResetEmail(auth, email);
+    Alert.alert('Correo de restablecimiento enviado', 'Se ha enviado un correo electrónico con instrucciones para restablecer tu contraseña.');
+  } catch (error) {
+    console.error('Error al enviar el correo de restablecimiento:', error);
+    // Manejar otros errores aquí si es necesario
+    Alert.alert('Error', 'Hubo un error al enviar el correo de restablecimiento. Por favor, inténtalo de nuevo.');
+  }
+};
+
+
 
 //FUNCIÓN PARA CREAR UNA CUENTA
 const handleCreateAccount = async () => {
@@ -130,6 +156,7 @@ return (
         <TouchableOpacity style={styles.button1} onPress={() => setShowLoginForm(true)}>
           <Text style={styles.buttonText}>Iniciar sesión</Text>
         </TouchableOpacity>
+
         <TouchableOpacity style={styles.button2} onPress={() => setShowSignupForm(true)}>
           <Text style={styles.buttonText}>Crear una cuenta</Text>
         </TouchableOpacity>
@@ -140,7 +167,6 @@ return (
         <TextInput
           style={styles.input}
           placeholder="Correo electrónico"
-          value={email}
           onChangeText={(text) => setEmail(text)}
         />
         <TextInput
@@ -169,14 +195,24 @@ return (
             <Text style={styles.buttonText}>Crear una cuenta</Text>
           </TouchableOpacity>
         )}
-        {/*Agrega el botón de inicio de sesión con Google
-        <GoogleLoginButton onPress={promptAsync} />*/ }
+        {showLoginForm && (
+          <TouchableOpacity  onPress={handleForgotPassword}>
+            <Text style={styles.button3}>¿Olvidaste tu contraseña?</Text>
+          </TouchableOpacity>
+        )}
         
+       {/* <GoogleSigninButton
+          size={GoogleSigninButton.Size.Standard}
+          color={GoogleSigninButton.Color.Dark}
+          onPress={handleGoogleSignIn}
+        />*/}
+      
       </View>
     )}
   </View>
 );
 };
+
 
 const styles = StyleSheet.create({
   container: {
@@ -210,6 +246,13 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     alignItems: 'center',
   },
+  button3: {
+    fontWeight:'bold',
+    padding: 10,
+    marginVertical: 10,
+    borderRadius: 5,
+    alignItems: 'center',
+  },
   buttonText: {
     color: '#fff',
     fontWeight: 'bold',
@@ -224,6 +267,7 @@ const styles = StyleSheet.create({
   hidden: {
     display: 'none',
   },
+  
   
 });
 

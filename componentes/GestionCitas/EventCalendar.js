@@ -104,7 +104,7 @@ const showDeleteAccountAlert = () => {
     <View style={styles.container}>
       <Text style={styles.header}>Calendario de Citas</Text>
       <Text style={styles.usuario}>Usuario: {user.email}</Text>
-      <Button title="Seleccionar Fecha y Hora" onPress={showDatePicker} />
+      <Button title="Selecciona Fecha y Hora" onPress={showDatePicker} />
       <DateTimePickerModal
       isVisible={isDatePickerVisible}
       mode="datetime"
@@ -116,15 +116,15 @@ const showDeleteAccountAlert = () => {
     />
        {isDateTimeSelected && (
       <View>
-        <Text style={styles.resalto}>Seleccione cuánto tiempo antes desea recibir el aviso:</Text>
+        <Text style={styles.resalto}>Selecciona cuánto tiempo antes deseas recibir el aviso:</Text>
         <Picker
-           
+           style={styles.picker}
           selectedValue={reminderTimeBeforeEvent}
           onValueChange={(itemValue) => setReminderTimeBeforeEvent(itemValue)}
         >
-          <Picker.Item label="6 horas antes" value={6 * 60 * 60 * 1000} />
-      <Picker.Item label="24 horas antes" value={24 * 60 * 60 * 1000} />
-      <Picker.Item label="48 horas antes" value={48 * 60 * 60 * 1000} />
+        <Picker.Item label="6 horas antes" value={6 * 60 * 60 * 1000} />
+        <Picker.Item label="24 horas antes" value={24 * 60 * 60 * 1000} />
+        <Picker.Item label="48 horas antes" value={48 * 60 * 60 * 1000} />
         </Picker>
       </View>
     )}
@@ -160,10 +160,11 @@ const showDeleteAccountAlert = () => {
       <TouchableOpacity style={styles.borrarCuenta} onPress={showDeleteAccountAlert}>
       <Text style={styles.buttonText}>Eliminar Cuenta</Text>
       </TouchableOpacity>
+      
+
     </View>
   );
 };
-
 
 
 
@@ -236,9 +237,16 @@ const styles = StyleSheet.create({
 
   },
   resalto:{
+    marginTop:20,
     color:"#4da305",
     fontSize:18,
     fontWeight:'bold'
+  },
+  picker:{
+    marginTop:20,
+    color:'#cd0a25',
+    backgroundColor:'#f5bcc4'
+
   }
  
   

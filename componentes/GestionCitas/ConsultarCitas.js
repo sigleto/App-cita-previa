@@ -51,7 +51,7 @@ export default function ConsultarCitas() {
   }
   console.log(citas.length)
   // Verificar si las citas están definidas y tienen longitud
-  if (!citas || citas.length === 1) {
+  if (!citas || citas.length === 0) {
     return <Text style={styles.texto2}>Todavía no tienes citas guardadas</Text>;
   }
 

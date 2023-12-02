@@ -11,7 +11,7 @@ const Presentacion3 = () => {
     <View style={styles.container}>
       <SharedElement id="elementId">
         <Text style={styles.parrafo}>
-          {"Te ofrecemos también la posibilidad de guardar tus citas y consultarlas cuando quieras. Además, te avisaremos dos días antes de la fecha de la cita."}
+          {"Te ofrecemos también la posibilidad de guardar tus citas y consultarlas cuando quieras. Además, te recordaremos tus eventos mmediante una notificación a tu dispositivo con la antelación que tu eligas."}
         </Text>
       </SharedElement>
       <View style={styles.buttonContainer}>

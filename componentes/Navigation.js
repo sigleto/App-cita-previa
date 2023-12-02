@@ -38,6 +38,7 @@ import { AvisoGestion } from './GestionCitas/AvisoGestion';
 import DescargoResponsabilidad from './DescargoResponsabilidad';
 import SeguridadDatos from './SeguridadDatos';
 
+
 const Stack = createStackNavigator();
 
 
@@ -63,8 +64,7 @@ export function OrganismosStack() {
       <Stack.Screen name="PaginasITV" component={PaginasITV} options={{ headerShown: false }} />
       <Stack.Screen name="PaginasAyuntamientos" component={PaginasAyuntamientos} options={{ headerShown: false }} />
       <Stack.Screen name="AvisoDNI" component={AvisoDNI} options={{ headerShown: false }} />
-      
-      <Stack.Screen name="AvisoCitaMedica" component={AvisoCitaMedica} options={{ headerShown: false }} />
+       <Stack.Screen name="AvisoCitaMedica" component={AvisoCitaMedica} options={{ headerShown: false }} />
       <Stack.Screen name="SeguridadSocial" component={SeguridadSocial} options={{ headerShown: false }} />
       <Stack.Screen name="Extranjeria" component={Extranjeria} options={{ headerShown: false }} />
       <Stack.Screen name="RegistrosCiviles" component={RegistrosCiviles} options={{ headerShown: false }} />
@@ -134,6 +134,7 @@ export function PrincipalStack(){
   return (
    
       <Stack.Navigator>
+        
         <Stack.Screen
           name="Home"
           component={Home}

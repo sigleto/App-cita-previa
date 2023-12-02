@@ -7,7 +7,7 @@ import { SharedElement } from "react-navigation-shared-element";
 const SeguridadDatos = () => {
   const navegacion = useNavigation();
 
-  const salto = () => { navegacion.navigate("Organismos") }
+  const salto = () => { navegacion.navigate("Home") }
 
   return (
     <ScrollView style={styles.container}>

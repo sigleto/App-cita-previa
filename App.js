@@ -48,7 +48,7 @@ const App = ({ navigation }) => {
             }
           }}
           />
-          <Drawer.Screen name="Seguridad de tus datos" component={SeguridadDatos} 
+          <Drawer.Screen name="Datos seguros" component={SeguridadDatos} 
           options={{
             drawerIcon: ({ color, size }) => (
               <MaterialCommunityIcons name="security" size={size} color={color} />
@@ -57,7 +57,7 @@ const App = ({ navigation }) => {
             }
           }}
           />
-          <Drawer.Screen name="Descargo de Responsabilidad" component={DescargoResponsabilidad} 
+          <Drawer.Screen name="Responsabilidad" component={DescargoResponsabilidad} 
           options={{
             drawerIcon: ({ color, size }) => (
               <MaterialCommunityIcons name="account-details" size={size} color={color} />
