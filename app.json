@@ -2,6 +2,7 @@
   "expo": {
     "name": "cita-previa",
     "slug": "cita-previa",
+    "scheme":"com.sigleto.citaprevia",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/reloj.png",
@@ -21,11 +22,12 @@
     },
     "android": {
       "package": "com.sigleto.citaprevia",
-      "versionCode": 9,
+      "versionCode": 16,
       "adaptiveIcon": {
         "foregroundImage": "./assets/reloj.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "googleServicesFile": "google-services.json"
       
     },
     "web": {

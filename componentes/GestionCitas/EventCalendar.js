@@ -13,7 +13,7 @@ import {CLAVE_KRYPTO} from '@env'
 import { Picker } from '@react-native-picker/picker'
 
 
-const EventCalendar = () => {
+const EventCalendar = ({ route } ) => {
   const navigation = useNavigation();
 
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -26,7 +26,8 @@ const EventCalendar = () => {
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
   const user = auth.currentUser;
-  const userId = user.uid;
+  const userId = user ? user.uid : null;
+  const userEmail = route.params?.userEmail || (user && user.email) || 'Usuario Desconocido';
 
   // Función para programar una notificación push en un momento específico
   const scheduleNotification = async (dateTime, eventText) => {
@@ -99,11 +100,11 @@ const showDeleteAccountAlert = () => {
     ]
   );
 };
-
+ 
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Calendario de Citas</Text>
-      <Text style={styles.usuario}>Usuario: {user.email}</Text>
+      <Text style={styles.usuario}>Usuario: {userEmail}</Text>
       <Button title="Selecciona Fecha y Hora" onPress={showDatePicker} />
       <DateTimePickerModal
       isVisible={isDatePickerVisible}

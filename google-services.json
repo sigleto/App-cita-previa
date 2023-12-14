@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "909578452911",
+    "project_id": "eventos-de-citas-25052",
+    "storage_bucket": "eventos-de-citas-25052.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:909578452911:android:34d1b1402576248b49b95a",
+        "android_client_info": {
+          "package_name": "com.sigleto.citaprevia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "909578452911-bi9eira2bt5991mc8bqgv9livbphhgtf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sigleto.citaprevia",
+            "certificate_hash": "44aeb606bb50e06da9d80a6deb6e35b10862dcaf"
+          }
+        },
+        {
+          "client_id": "909578452911-nt2e1hh7a6fjmiss9hoo0hqdtfp3int9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sigleto.citaprevia",
+            "certificate_hash": "421189cae6ba8931c6e55eef440034600517a8c0"
+          }
+        },
+        {
+          "client_id": "909578452911-3hddvc5tj8vdd43qcm1sjc86d06c8v8i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDRj5kmA4sCsQgnwD2nTKd7NtInRLMCBTs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "909578452911-3hddvc5tj8vdd43qcm1sjc86d06c8v8i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

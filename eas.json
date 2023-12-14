@@ -1,6 +1,6 @@
 {
   "cli": {
-    "version": ">= 5.4.0"
+    "version": ">= 5.9.1"
   },
   "build": {
     "development": {
@@ -10,7 +10,10 @@
     "preview": {
       "distribution": "internal"
     },
-    "production": { }
+    "production": { "env": {
+      "EXPO_PUBLIC_CLIENT_ID":"909578452911-3hddvc5tj8vdd43qcm1sjc86d06c8v8i.apps.googleusercontent.com",
+      "EXPO_PUBLIC_ANDROID_CLIENT_ID":"909578452911-nt2e1hh7a6fjmiss9hoo0hqdtfp3int9.apps.googleusercontent.com"
+    } }
   },
   "submit": {
     "production": {}

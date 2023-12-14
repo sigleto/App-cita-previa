@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { View, TextInput, Button, Alert, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,sendPasswordResetEmail }from '@firebase/auth';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,sendPasswordResetEmail, initializeAuth, getReactNativePersistence  }from '@firebase/auth';
 import { initializeApp } from 'firebase/app';
-import { firebaseConfig, getPushNotificationToken,enviarNotificacionPrueba } from './Firebase';
+import { firebaseConfig, getPushNotificationToken} from './Firebase';
 import GoogleLoginButton from '../BotonGoogle';
-//import { GoogleSignin, GoogleSigninButton, statusCodes } from '@react-native-google-signin/google-signin';
-import {CLIENT_ID,ANDROID_CLIENT_ID} from '@env'
+import { GoogleSignin, GoogleSigninButton, statusCodes } from '@react-native-google-signin/google-signin';
+import {EXPO_PUBLIC_CLIENT_ID,EXPO_PUBLIC_ANDROID_CLIENT_ID} from '@env'
+import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
 
-
+const app=initializeApp(firebaseConfig)
+const auth = getAuth(app);
 
 const Autentication = () => {
   const [email, setEmail] = useState('');
@@ -18,21 +20,16 @@ const Autentication = () => {
   const [showSignupForm, setShowSignupForm] = useState(false);
   const navigation = useNavigation();
 
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
 
- /*FUNCIÓN PARA AUTENTICARSE CON GOOGLE
+  
+  
+ //FUNCIÓN PARA AUTENTICARSE CON GOOGLE
 const [error,setError]=useState();
 const [userInfo,setUserInfo]=useState();
 
 
  const configureGoogleSignin=()=>{
-  GoogleSignin.configure({
-    webClientId:CLIENT_ID,
-    androidClientId:ANDROID_CLIENT_ID,
-    forceCodeForRefreshToken: true, 
-    
-    });
+  GoogleSignin.configure();
  }
 
 useEffect(() => {
@@ -47,10 +44,12 @@ const handleGoogleSignIn = async () => {
     const userInfo = await GoogleSignin.signIn();
     setUserInfo(userInfo);
     setError(undefined);
+    console.log(userInfo.user.email)
+    
 // Navega a la pantalla EventCalendar solo si el inicio de sesión con Google es exitoso
-    Alert.alert("passsaaa")
+    navigation.navigate("EventCalendar", { userEmail: userInfo.user.email })
   } catch (error) {
-    console.log(error);
+    
     switch(error.code){
       case statusCodes.SIGN_IN_CANCELLED:
         Alert.alert("cancelado");break;
@@ -65,7 +64,7 @@ const handleGoogleSignIn = async () => {
     }
   }
 };
-*/
+
 //FUNCIÓN PARA AUTENTICARSE CON EMAIL Y PASSWORD
   const handleSignIn = async () => {
     try {
@@ -201,11 +200,11 @@ return (
           </TouchableOpacity>
         )}
         
-       {/* <GoogleSigninButton
+    <GoogleSigninButton
           size={GoogleSigninButton.Size.Standard}
           color={GoogleSigninButton.Color.Dark}
           onPress={handleGoogleSignIn}
-        />*/}
+        />
       
       </View>
     )}
