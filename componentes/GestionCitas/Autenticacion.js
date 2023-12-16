@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { View, TextInput, Button, Alert, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,sendPasswordResetEmail, initializeAuth, getReactNativePersistence  }from '@firebase/auth';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,sendPasswordResetEmail, GoogleAuthProvider,signInWithCredential }from '@firebase/auth';
 import { initializeApp } from 'firebase/app';
 import { firebaseConfig, getPushNotificationToken} from './Firebase';
 import GoogleLoginButton from '../BotonGoogle';
 import { GoogleSignin, GoogleSigninButton, statusCodes } from '@react-native-google-signin/google-signin';
 import {EXPO_PUBLIC_CLIENT_ID,EXPO_PUBLIC_ANDROID_CLIENT_ID} from '@env'
 import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
+
+
 
 const app=initializeApp(firebaseConfig)
 const auth = getAuth(app);
@@ -29,7 +31,9 @@ const [userInfo,setUserInfo]=useState();
 
 
  const configureGoogleSignin=()=>{
-  GoogleSignin.configure();
+  GoogleSignin.configure({  webClientId: EXPO_PUBLIC_CLIENT_ID, // Reemplaza con tu propio webClientId
+  offlineAccess: true, // Necesario para obtener el refreshToken 
+  } );
  }
 
 useEffect(() => {
@@ -39,17 +43,28 @@ useEffect(() => {
 
  
 const handleGoogleSignIn = async () => {
+  
   try {
+   
     await GoogleSignin.hasPlayServices();
     const userInfo = await GoogleSignin.signIn();
     setUserInfo(userInfo);
-    setError(undefined);
-    console.log(userInfo.user.email)
+    setError(undefined); 
+    console.log(userInfo.user.givenName)
     
+// Guardar el usuario en Firebase al iniciar sesión con Google
+if (userInfo) {
+  
+  console.log (userInfo)
+  const { idToken, accessToken } = userInfo;
+  const credential = GoogleAuthProvider.credential(idToken, accessToken);
+  await signInWithCredential(auth,credential);
+}
+
 // Navega a la pantalla EventCalendar solo si el inicio de sesión con Google es exitoso
     navigation.navigate("EventCalendar", { userEmail: userInfo.user.email })
   } catch (error) {
-    
+    console.error(error); 
     switch(error.code){
       case statusCodes.SIGN_IN_CANCELLED:
         Alert.alert("cancelado");break;
@@ -58,7 +73,7 @@ const handleGoogleSignIn = async () => {
       case statusCodes.PLAY_SERVICES_NOT_AVAILABLE:
         Alert,alert("no disponible");break;
       default: 
-      Alert.alert ("algo falla");
+      Alert.alert ("Error",error.message);
       setError(error);
 
     }
