@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, FlatList, StyleSheet,TouchableOpacity,Alert } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet,TouchableOpacity,Alert } from 'react-native';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { agregarEventoFirestore, firebaseConfig, getPushNotificationToken } from './Firebase';
 import { useNavigation } from '@react-navigation/native';
@@ -7,7 +7,7 @@ import format from 'date-fns/format';
 import es from 'date-fns/locale/es';
 import { getAuth } from '@firebase/auth';
 import { initializeApp } from 'firebase/app';
-import { scheduleNotificationAsync } from 'expo-notifications';
+import * as Notifications from 'expo-notifications';
 import CryptoJS from 'react-native-crypto-js';
 import {CLAVE_KRYPTO} from '@env'
 import { Picker } from '@react-native-picker/picker'
@@ -30,14 +30,27 @@ const EventCalendar = ({ route } ) => {
   const userEmail = route.params?.userEmail || (user && user.email) || 'Usuario Desconocido';
 
   // Función para programar una notificación push en un momento específico
+  Notifications.setNotificationHandler({
+    handleNotification: async () => ({
+      shouldShowAlert: true,
+      shouldPlaySound: true,
+      shouldSetBadge: false,
+    }),
+  });
+  
+  
+  
   const scheduleNotification = async (dateTime, eventText) => {
     try {
-      const notificationId = await scheduleNotificationAsync({
+      const notificationId = await Notifications.scheduleNotificationAsync({
         content: {
           title: 'Recordatorio de cita',
           body: `¡No olvides tu cita: ${eventText} a las ${format(dateTime, 'HH:mm')}`,
           data: { openAppOnClick: false },
-          sound: '../../assets/alerta.mp3',
+          sound: '../../assets/alarma.wav',
+          vibrate:true,
+          
+
           autoCancel: true
         },
         trigger: {
@@ -83,7 +96,7 @@ const EventCalendar = ({ route } ) => {
     try {
       await user.delete();
       // Realiza cualquier otra acción necesaria después de la eliminación de la cuenta
-      console.log('Cuenta eliminada con éxito');
+      Alert.alert('Tu cuenta y toda la información asociada a la misma ha sido eliminada');
       navigation.navigate('Home'); // Redirige al usuario a la pantalla de autenticación
     } catch (error) {
       console.error('Error al eliminar la cuenta:', error);

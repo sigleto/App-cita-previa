@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button,View, Text, TextInput, TouchableOpacity, StyleSheet,Image,ScrollView } from 'react-native';
+import { Button,View, Text, TextInput, TouchableOpacity, StyleSheet,Image,ScrollView,Alert } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import { useNavigation } from '@react-navigation/native'; // Asumiendo que estás utilizando React Navigation
 import { MaterialCommunityIcons,MaterialIcons } from "@expo/vector-icons";
@@ -18,7 +18,7 @@ const Contacto = () => {
         headers: { 'Content-Type': 'application/json' },
       });
       if (response.ok) {
-        console.log('Datos enviados correctamente');
+        Alert.alert('¡¡Muchas gracias por tu colaboración!!');
         reset();
         navigation.navigate('Home');
       } else {

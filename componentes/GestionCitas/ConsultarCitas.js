@@ -67,7 +67,7 @@ export default function ConsultarCitas() {
             {item.dateTime && (
               <>
                 <Text style={styles.texto}>
-                  Fecha: {format(item.dateTime.toDate(), "dd 'de' LLLL 'de' yyyy", { locale: es })}
+                Fecha y Hora: {format(item.dateTime.toDate(), "dd 'de' LLLL 'de' yyyy 'a las' HH:mm", { locale: es })}
                 </Text>
                 <Text style={styles.texto}>Evento: {item.text}</Text>
               </>

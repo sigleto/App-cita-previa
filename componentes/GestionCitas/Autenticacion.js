@@ -54,7 +54,7 @@ const handleGoogleSignIn = async () => {
     
 // Guardar el usuario en Firebase al iniciar sesión con Google
 if (userInfo) {
-  
+ 
   console.log (userInfo)
   const { idToken, accessToken } = userInfo;
   const credential = GoogleAuthProvider.credential(idToken, accessToken);

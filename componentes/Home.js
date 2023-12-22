@@ -60,12 +60,13 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   logo: {
-    width: '70%',
-    height: '22%',
-    marginTop:60,
+    width: '67%',
+    height: '24%',
+    marginTop:55,
+    
   },
   burocraciaImage: {
-    width: '70%',
+    width: '67%',
     height: '22%',
   },
   titulo: {
@@ -75,8 +76,8 @@ const styles = StyleSheet.create({
   },
   descripcion: {
     textAlign: 'center',
-    marginTop: 20,
-    fontSize:20,
+    marginTop: 18,
+    fontSize:18,
     color:'#063931'
   },
   botonComenzar: {
@@ -96,7 +97,7 @@ const styles = StyleSheet.create({
     padding: 8,
   },
   organismos:{
-    marginTop:20,
+    marginTop:18,
     marginBottom: 16,
     paddingVertical: 8,
     paddingHorizontal: 12,
