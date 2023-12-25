@@ -11,23 +11,21 @@ const Contacto = () => {
   
   const accion = async (data) => {
     try {
-      const response = await fetch('https://app-cita-previa.vercel.app/Contacto', {
+      await fetch('https://app-cita-previa.vercel.app/Contacto', {
         method: 'POST',
         mode: 'cors',
         body: JSON.stringify(data),
         headers: { 'Content-Type': 'application/json' },
       });
-      if (response.ok) {
-        Alert.alert('¡¡Muchas gracias por tu colaboración!!');
-        reset();
-        navigation.navigate('Home');
-      } else {
-        console.log('Error al enviar los datos. Código de estado:', response.status);
-      }
+      console.log(data)
+      Alert.alert('¡¡Muchas gracias por tu colaboración!!');
+      reset();
+      navigation.navigate('Home'); // Reemplaza 'Inicio' con el nombre de tu ruta de inicio
     } catch (error) {
       console.log('Error al enviar los datos:', error);
     }
   };
+
 
   return (
     <ScrollView style={styles.container}>
