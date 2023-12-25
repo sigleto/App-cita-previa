@@ -3,8 +3,12 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import router from './Routes/routes.js';
+import sgMail from '@sendgrid/mail'
+
 const app=express()
 dotenv.config();
+
+sgMail.setApiKey(process.env.SENDGRID_KEY);
 
 mongoose.connect(process.env.MONGO_KEY, {
     useNewUrlParser: true,
@@ -20,5 +24,8 @@ mongoose.connect(process.env.MONGO_KEY, {
 
   app.use(cors())
   app.use(express.json())
+
   app.use(router)
+
+  
   app.listen(process.env.PORT||4000,()=>console.log("escuchando en 4000"))

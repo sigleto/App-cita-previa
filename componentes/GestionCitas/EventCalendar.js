@@ -49,6 +49,7 @@ const EventCalendar = ({ route } ) => {
           data: { openAppOnClick: false },
           sound: '../../assets/alarma.wav',
           vibrate:true,
+          vibrationPattern: [0, 250, 250, 250],
           
 
           autoCancel: true
@@ -135,6 +136,7 @@ const showDeleteAccountAlert = () => {
            style={styles.picker}
           selectedValue={reminderTimeBeforeEvent}
           onValueChange={(itemValue) => setReminderTimeBeforeEvent(itemValue)}
+          mode='dropdown'
         >
         <Picker.Item label="6 horas antes" value={6 * 60 * 60 * 1000} />
         <Picker.Item label="24 horas antes" value={24 * 60 * 60 * 1000} />

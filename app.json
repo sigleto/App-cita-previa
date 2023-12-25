@@ -23,7 +23,8 @@
       [
         "expo-notifications",
         { "icon":"./assets/notifica.png",
-          "sounds": [
+        
+         "sounds": [
             "./assets/alarma.wav"
           ]
         }
@@ -34,7 +35,7 @@
     },
     "android": {
       "package": "com.sigleto.citaprevia",
-      "versionCode": 22,
+      "versionCode": 24,
       "adaptiveIcon": {
         "foregroundImage": "./assets/reloj.png",
         "backgroundColor": "#ffffff"

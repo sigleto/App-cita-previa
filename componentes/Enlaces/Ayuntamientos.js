@@ -6,13 +6,13 @@ import { useNavigation } from "@react-navigation/native";
 const Ayuntamientos = () => {
   const navigation = useNavigation();
 
-  const municipios = ['Alcalá de Henares','Algeciras','Alicante','Badalona','Badajoz', 'Barcelona','Bilbao','Córdoba',
-    'Cartagena','Castellón de la Plana','El Puerto de Santa María','Elche','Fuenlabrada',
-    'Girona','Getafe','Granada','Hospitalet de Llobregat','Jerez de la Frontera','A Coruña',
-    'Lleida','Hospitalet de Llobregat','Málaga','Marbella','Madrid','Murcia','Móstoles','Oviedo',
-    'Palma de Mallorca','Las Palmas de Gran Canaria','Parla','Reus','Sabadell','Santa Coloma de Gramenet',
-    'Santa Cruz de Tenerife','Sevilla','Tarragona','Terrassa','Telde','Torrejón de Ardoz',
-    'Torrevieja','Valencia','Valladolid','Vigo','Vitoria-Gasteiz','Zaragoza'];
+  const municipios = ['A Coruña','Albacete','Alcalá de Henares','Algeciras','Alicante','Almería','Ávila','Badalona','Badajoz', 'Barcelona','Bilbao','Burgos','Córdoba',
+    'Cartagena','Castellón de la Plana','Ciudad Real','Córdoba','Cuenca','Dos Hermanas','El Puerto de Santa María','Elche','Fuenlabrada',
+    'Getafe','Gijón','Girona','Granada','Guadalajara','Hospitalet de Llobregat','Huelva','Huesca','Jaén','Jerez de la Frontera','Las Palmas de Gran Canaria',
+    'Lleida','Logroño','Lugo','Málaga','Marbella','Madrid','Murcia','Móstoles','Oviedo','Palencia',
+    'Palma de Mallorca','Pamplona','Parla','Pontevedra','Reus','Sabadell','Salamanca','San Sebastian','Santa Coloma de Gramenet',
+    'Santa Cruz de Tenerife','Sevilla','Soria','Tarragona','Terrassa','Telde','Teruel','Toledo','Torrejón de Ardoz',
+    'Torrevieja','Valencia','Valladolid','Vigo','Vitoria-Gasteiz','Zamora','Zaragoza'];
 
   return (
     <View style={styles.container}>

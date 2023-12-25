@@ -13,6 +13,7 @@ const Organismos = () => {
     { nombre: 'CitaMédica', ruta: 'CitaMedica' },
     { nombre: 'Bancos', ruta: 'Bancos' },
     { nombre: 'Ayuntamientos', ruta: 'Ayuntamientos' },
+    { nombre: 'Comunidades Autónomas', ruta: 'ComunidadesAutonomas' },
     { nombre: 'A E A T', ruta: 'AEAT' },
     { nombre: 'Renovación DNI/Pasaporte', ruta: 'DNI' },
     { nombre: 'Inspección Técnica de vehículos', ruta: 'CitaITV' },

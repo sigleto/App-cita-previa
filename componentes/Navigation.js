@@ -6,6 +6,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import Home from './Home';
 import Ayuntamientos from './Enlaces/Ayuntamientos';
+import ComunidadesAutonomas from './Enlaces/ComunidadesAutonomas';
 import Organismos from './Organismos';
 import Contacto from './Contacto';
 import AEAT from './Enlaces/AEAT';
@@ -24,6 +25,7 @@ import PaginasMedicas from './paginas/PaginasMedicas';
 import PaginasBancos from './paginas/PaginasBancos';
 import PaginasITV from './paginas/PaginasITV';
 import PaginasAyuntamientos from './paginas/PaginasAyuntamientos';
+import PaginasComunidades from './paginas/PaginasComunidades';
 import { AvisoDNI } from './Avisos/AvisoDNI';
 import SeguridadSocial from './Enlaces/SeguridadSocial';
 import Extranjeria from './Enlaces/Extranjeria';
@@ -51,6 +53,7 @@ export function OrganismosStack() {
       <Stack.Screen name="GestionCitasStack" component={GestionCitasStack}options={{ headerShown: false }} />
       <Stack.Screen name="AEAT" component={AEAT} options={{ headerShown: false }} />
       <Stack.Screen name="Ayuntamientos" component={Ayuntamientos} options={{ headerShown: false }} />
+      <Stack.Screen name="ComunidadesAutonomas" component={ComunidadesAutonomas} options={{ headerShown: false }} />
       <Stack.Screen name="SEPE" component={SEPE} options={{ headerShown: false }} />
       <Stack.Screen name="MUFACE" component={MUFACE} options={{ headerShown: false }} />
       <Stack.Screen name="CitaMedica" component={CitaMedica} options={{ headerShown: false }} />
@@ -63,6 +66,7 @@ export function OrganismosStack() {
       <Stack.Screen name="PaginasBancos" component={PaginasBancos} options={{ headerShown: false }} />
       <Stack.Screen name="PaginasITV" component={PaginasITV} options={{ headerShown: false }} />
       <Stack.Screen name="PaginasAyuntamientos" component={PaginasAyuntamientos} options={{ headerShown: false }} />
+      <Stack.Screen name="PaginasComunidades" component={PaginasComunidades} options={{ headerShown: false }} />
       <Stack.Screen name="AvisoDNI" component={AvisoDNI} options={{ headerShown: false }} />
        <Stack.Screen name="AvisoCitaMedica" component={AvisoCitaMedica} options={{ headerShown: false }} />
       <Stack.Screen name="SeguridadSocial" component={SeguridadSocial} options={{ headerShown: false }} />
