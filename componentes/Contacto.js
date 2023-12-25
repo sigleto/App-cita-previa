@@ -101,7 +101,6 @@ const Contacto = () => {
     </ScrollView>
   );
 };
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
