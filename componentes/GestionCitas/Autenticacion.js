@@ -62,7 +62,7 @@ if (userInfo) {
 }
 
 // Navega a la pantalla EventCalendar solo si el inicio de sesión con Google es exitoso
-    navigation.navigate("EventCalendar", { userEmail: userInfo.user.email })
+    navigation.navigate("EventCalendar1", { userEmail: userInfo.user.email })
   } catch (error) {
     console.error(error); 
     switch(error.code){
@@ -98,7 +98,7 @@ if (userInfo) {
       
       // Llama a la función para obtener los tokens cuando sea necesario
       obtenerTokens();
-      navigation.navigate("EventCalendar");
+      navigation.navigate("EventCalendar1");
         
      
     } catch (error) {

@@ -6,7 +6,7 @@ import format from 'date-fns/format';
 import es from 'date-fns/locale/es';
 import CryptoJS from 'react-native-crypto-js';
 import {CLAVE_KRYPTO} from '@env'
-
+import df from "../../assets/agenda.png"
 
 export default function ConsultarCitas() {
   const [citas, setCitas] = useState([]);
@@ -32,7 +32,7 @@ export default function ConsultarCitas() {
             citasData.push({ ...eventData, text: decryptedText });
           }
         });
-
+        citasData.sort((a, b) => a.dateTime.toMillis() - b.dateTime.toMillis());
         setCitas(citasData);
         setLoading(false);
       } catch (error) {
@@ -85,7 +85,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
-    backgroundColor: '#f0f7f8',
+    backgroundColor:'#f9d788',
+    
   },
   header: {
     fontSize: 24,
@@ -93,7 +94,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   citaItem: {
-    backgroundColor: '#fff',
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
     padding: 10,
     marginBottom: 10,
     fontSize: 20,

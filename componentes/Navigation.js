@@ -35,7 +35,8 @@ import GuardiaCivil from './Enlaces/GuardiaCivil';
 import AvisoCitaMedica from './Avisos/AvisoCitaMedica';
 import Autentication from './GestionCitas/Autenticacion';
 import ConsultarCitas from './GestionCitas/ConsultarCitas';
-import EventCalendar from './GestionCitas/EventCalendar';
+import EventCalendar1 from './GestionCitas/EventCalendar1';
+import EventCalendar2 from './GestionCitas/EventCalendar2';
 import { AvisoGestion } from './GestionCitas/AvisoGestion';
 import DescargoResponsabilidad from './DescargoResponsabilidad';
 import SeguridadDatos from './SeguridadDatos';
@@ -84,7 +85,8 @@ export function GestionCitasStack() {
     <Stack.Navigator initialRouteName="Autentication">
       <Stack.Screen name="Autentication" component={Autentication} options={{ headerShown: false }} />
       <Stack.Screen name="ConsultarCitas" component={ConsultarCitas} options={{ headerShown: false }} />
-      <Stack.Screen name="EventCalendar" component={EventCalendar} options={{ headerShown: false }} />
+      <Stack.Screen name="EventCalendar1" component={EventCalendar1} options={{ headerShown: false }} />
+      <Stack.Screen name="EventCalendar2" component={EventCalendar2} options={{ headerShown: false }} />
     </Stack.Navigator>
   );
 }
