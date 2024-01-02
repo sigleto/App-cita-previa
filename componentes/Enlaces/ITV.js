@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, Image, ScrollView, TouchableOpacity, StyleSheet,Linking } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-
+import Anuncio from "../Avisos/Anuncio";
 
 const CitaITV = () => {
   const navigation = useNavigation();
@@ -15,6 +15,7 @@ const CitaITV = () => {
       <View style={styles.stickyHeader}>
        <Image source={require('../../assets/ITV.jpg')} style={styles.image} />
       <Text style={styles.banner}>Selecciona tu comunidad</Text>
+      <Anuncio/>
       </View>
       <ScrollView >
         {comunidades.map((item, index) => (

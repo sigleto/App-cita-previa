@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, Image, ScrollView, TouchableOpacity, StyleSheet,Linking } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-
+import Anuncio from "../Avisos/Anuncio";
 
 const Comunidades = () => {
   const navigation = useNavigation();
@@ -15,6 +15,7 @@ const Comunidades = () => {
       <View style={styles.stickyHeader}>
        <Image source={require('../../assets/CA.png')} style={styles.image} />
       <Text style={styles.banner}>Selecciona tu Comunidad Autónoma</Text>
+      <Anuncio/>
       </View>
       <ScrollView >
         {comunidades.map((item, index) => (

@@ -35,7 +35,7 @@ const EventCalendar2 = ({ route } ) => {
   const userId = user ? user.uid : null;
   const userEmail = route.params?.userEmail || (user && user.email) || 'Usuario Desconocido';
 
-
+const volver=()=>{navigation.navigate("Home")}
   
   // Función para programar una notificación push en un momento específico
   Notifications.setNotificationHandler({
@@ -144,6 +144,9 @@ return (
       onPress={() => navigation.navigate('ConsultarCitas')}
       style={styles.selectCitaButton}
     />
+    <TouchableOpacity style={styles.vuelta} onPress={volver}>
+    <Text style={styles.buttonText}>Volver</Text>
+    </TouchableOpacity>
     <TouchableOpacity style={styles.borrarCuenta} onPress={showDeleteAccountAlert}>
     <Text style={styles.buttonText}>Eliminar Cuenta</Text>
     </TouchableOpacity>
@@ -215,7 +218,7 @@ usuario:{
   marginBottom:15,
 },
 borrarCuenta:{
-  backgroundColor: '#e74c3c', // Cambia el color del botón
+  backgroundColor: '#fd2d08', // Cambia el color del botón
   color: '#fff',
   padding:5,
   borderRadius: 5,
@@ -234,7 +237,18 @@ picker:{
   color:'#cd0a25',
   backgroundColor:'#f5bcc4'
 
-}
+},
+
+vuelta: {
+  backgroundColor:'#36a7ce',
+  color: '#fff',
+  padding: 5,
+  borderRadius: 5,
+  marginTop: 60,
+  marginLeft: 20,
+  fontSize: 16, // Ajusta esta propiedad para establecer el tamaño del texto
+},
+
 
 
 

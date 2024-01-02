@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, Image, ScrollView, TouchableOpacity, Linking, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import Anuncio from "../Avisos/Anuncio";
 
 const SeguridadSocial = () => {
   const navigation = useNavigation();
@@ -15,6 +16,7 @@ const SeguridadSocial = () => {
 
       <View style={styles.serviciosList}>
         <TouchableOpacity style={styles.item} onPress={() => openLink('https://w6.seg-social.es/ProsaInternetAnonimo/OnlineAccess?ARQ.SPM.ACTION=LOGIN&ARQ.SPM.APPTYPE=SERVICE&ARQ.IDAPP=CPMSWACS&ORGANISMO=I')}>
+         <Anuncio/>
           <Text style={styles.itemText}>CITA PREVIA</Text>
         </TouchableOpacity>
        

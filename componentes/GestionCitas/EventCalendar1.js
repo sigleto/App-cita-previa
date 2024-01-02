@@ -153,6 +153,7 @@ return (
         padding: 10,
         borderRadius: 5,
         marginTop: 90,
+        fontWeight:'bold',
       },
       resalto: {
         marginTop: 20,

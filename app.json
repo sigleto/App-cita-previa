@@ -35,12 +35,13 @@
     },
     "android": {
       "package": "com.sigleto.citaprevia",
-      "versionCode": 27,
+      "versionCode": 29,
       "adaptiveIcon": {
         "foregroundImage": "./assets/reloj.png",
         "backgroundColor": "#ffffff"
       },
-      "googleServicesFile": "google-services.json"
+      "googleServicesFile": "google-services.json",
+      "permissions": ["com.google.android.gms.permission.AD_ID"]
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -50,5 +51,9 @@
         "projectId": "4aee27fb-d1f8-4bdf-84d6-3e253d2267c7"
       }
     }
+  },
+  "react-native-google-mobile-ads": {
+    "android_app_id": "ca-app-pub-9777143216104753~5477018926"
+    
   }
 }

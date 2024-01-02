@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, Image, ScrollView, TouchableOpacity, StyleSheet,Linking } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import PaginasBancos from "../paginas/PaginasBancos";
+import Anuncio from "../Avisos/Anuncio";
 const Bancos = () => {
   const navigation = useNavigation();
 
@@ -13,6 +13,7 @@ const Bancos = () => {
       <View style={styles.stickyHeader}>
        <Image source={require('../../assets/Bancos.jpg')} style={styles.image} />
       <Text style={styles.banner}>Selecciona tu entidad bancaria</Text>
+      <Anuncio/>
       </View>
       <ScrollView>  
         {entidades.map((item, index) => (

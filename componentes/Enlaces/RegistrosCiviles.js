@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, Image, ScrollView, TouchableOpacity, Linking, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import Anuncio from "../Avisos/Anuncio";
 
 const RegistrosCiviles = () => {
   const navigation = useNavigation();
@@ -18,6 +19,7 @@ const RegistrosCiviles = () => {
       
         <TouchableOpacity style={styles.item} onPress={() => openLink('https://sede.administracionespublicas.gob.es/icpplustiej/citar?i=es&org=JUS-RC')}>
           <Text style={styles.itemText}>CITA PREVIA</Text>
+          <Anuncio/>
         </TouchableOpacity>
        
        

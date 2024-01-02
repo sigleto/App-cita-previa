@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, Image, ScrollView, TouchableOpacity, Linking, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import Anuncio from "../Avisos/Anuncio";
 
 const Extranjeria = () => {
   const navigation = useNavigation();
@@ -17,7 +18,8 @@ const Extranjeria = () => {
       <View style={styles.serviciosList}>
       
         <TouchableOpacity style={styles.item} onPress={() => openLink('https://icp.administracionelectronica.gob.es/icpplus/index.html')}>
-          <Text style={styles.itemText}>CITA PREVIA</Text>
+        <Anuncio/>
+        <Text style={styles.itemText}>CITA PREVIA</Text>
         </TouchableOpacity>
        
        

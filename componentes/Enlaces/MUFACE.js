@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, Image, ScrollView, TouchableOpacity, Linking, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import Anuncio from "../Avisos/Anuncio";
 
 const MUFACE = () => {
   const navigation = useNavigation();
@@ -13,7 +14,7 @@ const MUFACE = () => {
     <ScrollView style={styles.container}>
       <Image source={require('../../assets/MUFACE.png')} style={styles.image} />
       <Text style={styles.titulo}>Servicios de MUFACE</Text>
-
+      <Anuncio/>
       <View style={styles.serviciosList}>
       
         <TouchableOpacity style={styles.item} onPress={() => openLink('https://ssweb.seap.minhap.es/icpplus/citar?org=MUFACE')}>

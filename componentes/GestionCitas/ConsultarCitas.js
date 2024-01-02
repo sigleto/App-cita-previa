@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, StyleSheet } from 'react-native';
+import { View, Text, FlatList, StyleSheet,TouchableOpacity } from 'react-native';
 import { getFirestore, collection, getDocs } from 'firebase/firestore';
 import { getAuth } from '@firebase/auth';
 import format from 'date-fns/format';
 import es from 'date-fns/locale/es';
 import CryptoJS from 'react-native-crypto-js';
 import {CLAVE_KRYPTO} from '@env'
-import df from "../../assets/agenda.png"
+import Anuncio from '../Avisos/Anuncio';
+import { useNavigation } from '@react-navigation/native';
+
+
+
 
 export default function ConsultarCitas() {
   const [citas, setCitas] = useState([]);
@@ -15,6 +19,10 @@ export default function ConsultarCitas() {
   const auth = getAuth();
   const user = auth.currentUser;
   const userId = user.uid;
+
+const navigation=useNavigation();
+
+const atras=()=>{navigation.navigate("EventCalendar2")}
 
   useEffect(() => {
     const consultarCitas = async () => {
@@ -59,6 +67,7 @@ export default function ConsultarCitas() {
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Citas concertadas</Text>
+      <Anuncio/>
       <FlatList
         data={citas}
         keyExtractor={(item, index) => index.toString()}
@@ -75,6 +84,9 @@ export default function ConsultarCitas() {
           </View>
         )}
       />
+      <TouchableOpacity style={styles.atras} onPress={atras}>
+    <Text style={styles.texto}>Atrás</Text>
+    </TouchableOpacity>
     </View>
   );
 }
@@ -111,5 +123,16 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: 'blue', // Agrega este estilo para el color del texto
   },
+  atras: {
+    backgroundColor:'#6ef8e9',
+    color: '#fff',
+    padding: 5,
+    borderRadius: 5,
+    marginTop: 60,
+    marginLeft: 20,
+    fontSize: 16, // Ajusta esta propiedad para establecer el tamaño del texto
+  },
+  
+  
 
 });

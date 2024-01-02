@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, Image, ScrollView, TouchableOpacity, Linking, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import Anuncio from "../Avisos/Anuncio";
 
 const RegistrosPropiedad = () => {
   const navigation = useNavigation();
@@ -13,7 +14,7 @@ const RegistrosPropiedad = () => {
     <ScrollView style={styles.container}>
       <Image source={require('../../assets/registroPropiedad.jpg')} style={styles.image} />
       
-
+      <Anuncio/>
       <View style={styles.serviciosList}>
       
         <TouchableOpacity style={styles.item} onPress={() => openLink('https://www.registradores.org/informacion-al-ciudadano/cita-previa/cita-previa-registros')}>

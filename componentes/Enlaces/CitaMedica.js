@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, Image, ScrollView, TouchableOpacity, StyleSheet,Linking } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-
+import Anuncio from "../Avisos/Anuncio";
 
 const CitaMedica = () => {
   const navigation = useNavigation();
@@ -15,6 +15,7 @@ const CitaMedica = () => {
       <View style={styles.stickyHeader}>
        <Image source={require('../../assets/Citamedica.png')} style={styles.image} />
       <Text style={styles.banner}>Selecciona tu comunidad</Text>
+      <Anuncio/>
       </View>
       <ScrollView >
         {comunidades.map((item, index) => (

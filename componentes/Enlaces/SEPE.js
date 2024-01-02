@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, Image, ScrollView, TouchableOpacity, Linking, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import Anuncio from "../Avisos/Anuncio";
 
 const SEPE = () => {
   const navigation = useNavigation();
@@ -16,7 +17,8 @@ const SEPE = () => {
 
       <View style={styles.serviciosList}>
         <TouchableOpacity style={styles.item} onPress={() => openLink('https://sede.sepe.gob.es/portalSede/procedimientos-y-servicios/personas/proteccion-por-desempleo/cita-previa/cita-previa-solicitud.html')}>
-          <Text style={styles.itemText}>Solicita o gestiona tu cita</Text>
+        <Anuncio/>
+        <Text style={styles.itemText}>Solicita o gestiona tu cita</Text>
         </TouchableOpacity>
    
       </View>

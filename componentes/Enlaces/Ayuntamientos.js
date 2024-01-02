@@ -1,6 +1,7 @@
-import React from "react";
+import React,{useEffect,useState} from "react";
 import { View, Text, Image, ScrollView, TouchableOpacity, StyleSheet,Linking } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import Anuncio from "../Avisos/Anuncio";
 
 
 const Ayuntamientos = () => {
@@ -14,11 +15,13 @@ const Ayuntamientos = () => {
     'Santa Cruz de Tenerife','Sevilla','Soria','Tarragona','Terrassa','Telde','Teruel','Toledo','Torrejón de Ardoz',
     'Torrevieja','Valencia','Valladolid','Vigo','Vitoria-Gasteiz','Zamora','Zaragoza'];
 
+ 
   return (
     <View style={styles.container}>
       <View style={styles.stickyHeader}>
        <Image source={require('../../assets/municipios.png')} style={styles.image} />
       <Text style={styles.banner}>Selecciona tu municipio</Text>
+      <Anuncio/>
       </View>
       <ScrollView >
         {municipios.map((item, index) => (

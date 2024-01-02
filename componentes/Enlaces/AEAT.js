@@ -1,15 +1,16 @@
 import React from "react";
 import { View, Text, Image, ScrollView, TouchableOpacity, StyleSheet,Linking } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import Anuncio from "../Avisos/Anuncio";
 
 const AEAT = () => {
   const navigation = useNavigation();
-
+  
   return (
     <ScrollView style={styles.container}>
       <Image source={require('../../assets/AEAT.jpg')} style={styles.image} />
       <Text style={styles.titulo}>Cita previa para la AEAT</Text>
-
+      <Anuncio/>
       <View style={styles.section}>
                   
           <TouchableOpacity style={styles.item} onPress={() =>  Linking.openURL('https://www2.agenciatributaria.gob.es/wlpl/TOCP-MUTE/internet/identificacion' )}>
