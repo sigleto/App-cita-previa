@@ -1,4 +1,3 @@
-
 import React, { useState,useEffect} from 'react';
 import { View, Text, TextInput, Button, StyleSheet,TouchableOpacity,Alert } from 'react-native';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
@@ -8,9 +7,6 @@ import format from 'date-fns/format';
 import es from 'date-fns/locale/es';
 import { getAuth } from '@firebase/auth';
 import { initializeApp } from 'firebase/app';
-import * as Notifications from 'expo-notifications';
-import CryptoJS from 'react-native-crypto-js';
-import {CLAVE_KRYPTO} from '@env'
 import { Picker } from '@react-native-picker/picker'
 
 
@@ -21,7 +17,7 @@ const EventCalendar1 = ({ route } ) => {
   const [eventos, setEventos] = useState([]);
   const [eventText, setEventText] = useState('');
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-  const [reminderTimeBeforeEvent, setReminderTimeBeforeEvent] = useState(6 * 60 * 60 * 1000); // Valor predeterminado: 6 horas antes
+  const [reminderTimeBeforeEvent, setReminderTimeBeforeEvent] = useState(24 * 60 * 60 * 1000); // Valor predeterminado: 6 horas antes
   const [isDateTimeSelected, setIsDateTimeSelected] = useState(false);
 
   const app = initializeApp(firebaseConfig);
@@ -107,9 +103,9 @@ return (
           onValueChange={(itemValue) => setReminderTimeBeforeEvent(itemValue)}
           mode='dropdown'
         >
-        <Picker.Item label="6 horas antes" value={6 * 60 * 60 * 1000} />
         <Picker.Item label="24 horas antes" value={24 * 60 * 60 * 1000} />
-        <Picker.Item label="48 horas antes" value={48 * 60 * 60 * 1000} />
+        <Picker.Item label="dos días antes" value={48 * 60 * 60 * 1000} />
+        <Picker.Item label="tres días antes" value={72 * 60 * 60 * 1000} />
         </Picker>
         </View>
     )}
@@ -124,8 +120,6 @@ return (
     </View>
 )
      };
-
-
 
      const styles = StyleSheet.create({
       container: {

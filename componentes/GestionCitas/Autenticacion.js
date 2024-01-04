@@ -164,7 +164,7 @@ const handleCreateAccount = async () => {
 
 return (
   <View style={styles.container}>
-    <Text style={styles.titulo}>Debes autenticarte para usar esta opción</Text>
+    
     {!showLoginForm && !showSignupForm && (
       <View style={styles.formContainer}>
         <TouchableOpacity style={styles.button1} onPress={() => setShowLoginForm(true)}>

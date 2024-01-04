@@ -8,7 +8,7 @@ export const AvisoCitaMedica = () => {
   return (
     <View style={styles.container}>
       <View style={styles.aviso}>
-        <Text style={styles.texto}>¡ATENCIÓN!: Esta comunidad autónoma no permite concertar citas por Internet desde un dispositivo móvil mediante enlaces a páginas web. Para concertar cita tendrás que descargarte la App "Sergas Móbil".</Text>
+        <Text style={styles.texto}>¡ATENCIÓN!: Esta comunidad autónoma no permite concertar citas por Internet desde un dispositivo móvil mediante enlaces a páginas web. Para concertar cita tendrás que descargarte la App "Sergas Móbil (https://play.google.com/store/apps/details?id=es.sergas.appbox&hl=es&gl=US)".</Text>
         <TouchableOpacity style={styles.avisoLink} onPress={volver}>
           <Text style={styles.avisoLink}>VOLVER</Text>
         </TouchableOpacity>

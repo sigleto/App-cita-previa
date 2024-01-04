@@ -10,7 +10,7 @@ import { initializeApp } from 'firebase/app';
 import * as Notifications from 'expo-notifications';
 import CryptoJS from 'react-native-crypto-js';
 import {CLAVE_KRYPTO} from '@env'
-import { Picker } from '@react-native-picker/picker'
+
 
 
 const EventCalendar2 = ({ route } ) => {
@@ -55,12 +55,9 @@ const volver=()=>{navigation.navigate("Home")}
           title: 'Recordatorio de cita',
           body: `¡No olvides tu cita: ${eventText} a las ${format(dateTime, 'HH:mm')}`,
           data: { openAppOnClick: false },
-          sound: '../../assets/alarma.wav',
-          vibrate:true,
-          vibrationPattern: [0, 250, 250, 250],
-          
-
-          autoCancel: true
+          vibrate:false,
+          lightColor: '#FF231F7C',
+          sound: Platform.OS === "android" ? '../../assets/alarma.wav' : "default",
         },
         trigger: {
           date: dateTime,
@@ -83,7 +80,9 @@ const volver=()=>{navigation.navigate("Home")}
       agregarEventoFirestore({ dateTime: selectedDate, text: encryptedText, userId });
   
       const reminderTime = new Date(selectedDate.getTime() - reminderTimeBeforeEvent);
+      const secondReminderTime = new Date(selectedDate.getTime() - 6 * 60 * 60 * 1000); 
       scheduleNotification(reminderTime, eventText);
+      scheduleNotification(secondReminderTime, eventText);
     }
   };
   

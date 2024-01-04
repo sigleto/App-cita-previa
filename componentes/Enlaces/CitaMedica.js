@@ -6,9 +6,9 @@ import Anuncio from "../Avisos/Anuncio";
 const CitaMedica = () => {
   const navigation = useNavigation();
 
-  const comunidades = ["Andalucía","Aragón","Asturias","Cantabria","Castilla y León",
-    "Castilla-La Mancha","Cataluña","Ceuta","Extremadura","Galicia","Islas Baleares","Islas Canarias",
-    "La Rioja","Madrid","Melilla","Murcia","Navarra","País Vasco","Valencia",];
+  const comunidades = ["Andalucía-SAS","Aragón-SALUD","Asturias-SESPA","Cantabria-SCS","Castilla y León-SACYL",
+    "Castilla-La Mancha-SESCAM","Cataluña-CatSalut","Ceuta","Extremadura-SES","Galicia","Islas Baleares-IB-SALUT","Islas Canarias-SCS",
+    "La Rioja-SERIS","Madrid-SERMAS","Melilla","Murcia-SMS","Navarra-SNS-O","País Vasco-Osakidetza","Valencia-GVA Sanitat",];
 
   return (
     <View style={styles.container}>
