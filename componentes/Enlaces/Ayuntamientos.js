@@ -21,7 +21,7 @@ const Ayuntamientos = () => {
       <View style={styles.stickyHeader}>
        <Image source={require('../../assets/municipios.png')} style={styles.image} />
       <Text style={styles.banner}>Selecciona tu municipio</Text>
-      <Anuncio/>
+      <Anuncio/>  
       </View>
       <ScrollView >
         {municipios.map((item, index) => (

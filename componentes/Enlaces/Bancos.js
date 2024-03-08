@@ -13,7 +13,7 @@ const Bancos = () => {
       <View style={styles.stickyHeader}>
        <Image source={require('../../assets/Bancos.jpg')} style={styles.image} />
       <Text style={styles.banner}>Selecciona tu entidad bancaria</Text>
-      <Anuncio/>
+      <Anuncio/>  
       </View>
       <ScrollView>  
         {entidades.map((item, index) => (

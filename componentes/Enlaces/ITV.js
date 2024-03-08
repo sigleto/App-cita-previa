@@ -15,7 +15,7 @@ const CitaITV = () => {
       <View style={styles.stickyHeader}>
        <Image source={require('../../assets/ITV.jpg')} style={styles.image} />
       <Text style={styles.banner}>Selecciona tu comunidad</Text>
-      <Anuncio/>
+      <Anuncio/>  
       </View>
       <ScrollView >
         {comunidades.map((item, index) => (

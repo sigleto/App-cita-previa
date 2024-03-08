@@ -13,12 +13,12 @@ const Extranjeria = () => {
   return (
     <ScrollView style={styles.container}>
       <Image source={require('../../assets/extranjeria.jpg')} style={styles.image} />
-      
+      <Anuncio/>  
 
       <View style={styles.serviciosList}>
       
         <TouchableOpacity style={styles.item} onPress={() => openLink('https://icp.administracionelectronica.gob.es/icpplus/index.html')}>
-        <Anuncio/>
+        
         <Text style={styles.itemText}>CITA PREVIA</Text>
         </TouchableOpacity>
        

@@ -5,10 +5,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 
 const Home = () => {
-  const politica = (url) => {
-    Linking.openURL(url);
-  };
-
+  
   const navigation=useNavigation()
 
   const openMenu = () => {
@@ -38,15 +35,7 @@ const Home = () => {
         </TouchableOpacity>
       <View style={styles.privacidadContainer}>
         
-        <TouchableOpacity
-          onPress={() =>
-            politica(
-              "https://docs.google.com/document/d/1y7S2w-nDnGqkgO7z5tuL4C8wckRTSXjOl6wgZmaUNcM/edit"
-            )
-          }
-        >
-          <Text style={styles.privacidad}>Política de privacidad</Text>
-        </TouchableOpacity>
+        
       </View>
     </View>
   );

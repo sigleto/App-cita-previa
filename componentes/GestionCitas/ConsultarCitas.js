@@ -67,7 +67,7 @@ const atras=()=>{navigation.navigate("EventCalendar2")}
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Citas concertadas</Text>
-      <Anuncio/>
+     
       <FlatList
         data={citas}
         keyExtractor={(item, index) => index.toString()}

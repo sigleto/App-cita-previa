@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { InterstitialAd, AdEventType, TestIds } from 'react-native-google-mobile-ads';
 
 const Anuncio = () => {
-  const adUnitId = __DEV__ ? TestIds.INTERSTITIAL : 'ca-app-pub-9777143216104753/7604472904';
+  const adUnitId = __DEV__ ? TestIds.INTERSTITIAL : 'ca-app-pub-6921150380725872/4465456013';
   const interstitial = InterstitialAd.createForAdRequest(adUnitId, {
     keywords: ['fashion', 'clothing'],
   });

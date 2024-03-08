@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, Image, ScrollView, TouchableOpacity, Linking, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import Anuncio from "../Avisos/Anuncio";
 
 const ClasesPasivas = () => {
   const navigation = useNavigation();
@@ -13,7 +14,7 @@ const ClasesPasivas = () => {
     <ScrollView style={styles.container}>
       <Image source={require('../../assets/clasesPasivas.jpg')} style={styles.image} />
       <Text style={styles.titulo}>Cita previa para trámites diversos en Clases Pasivas</Text>
-
+      <Anuncio/>  
       <View style={styles.serviciosList}>
       <TouchableOpacity style={styles.item} onPress={() => openLink('https://ssweb.seap.minhap.es/icpplus/citar?org=DGCP')}>
           <Text style={styles.itemText}>CITA PREVIA</Text>

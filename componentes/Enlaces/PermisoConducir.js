@@ -14,7 +14,7 @@ const PermisoConducir = () => {
     <ScrollView style={styles.container}>
      <Image source={require('../../assets/permisoConducir.png')} style={styles.image} />
       <Text style={styles.titulo}>Servicios de la Dirección General de Tráfico</Text>
-      <Anuncio/>
+      <Anuncio/>  
       <View style={styles.serviciosList}>
         
         <TouchableOpacity style={styles.item} onPress={() => openLink('https://sedeclave.dgt.gob.es/WEB_NCIT_CONSULTA/solicitarCita.faces')}>

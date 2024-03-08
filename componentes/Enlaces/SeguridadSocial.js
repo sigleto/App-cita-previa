@@ -13,10 +13,10 @@ const SeguridadSocial = () => {
   return (
     <ScrollView style={styles.container}>
       <Image source={require('../../assets/seguridadSocial.jpg')} style={styles.image} />
-
+      <Anuncio/>  
       <View style={styles.serviciosList}>
         <TouchableOpacity style={styles.item} onPress={() => openLink('https://w6.seg-social.es/ProsaInternetAnonimo/OnlineAccess?ARQ.SPM.ACTION=LOGIN&ARQ.SPM.APPTYPE=SERVICE&ARQ.IDAPP=CPMSWACS&ORGANISMO=I')}>
-         <Anuncio/>
+         
           <Text style={styles.itemText}>CITA PREVIA</Text>
         </TouchableOpacity>
        

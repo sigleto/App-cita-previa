@@ -13,7 +13,7 @@ const RegistrosCiviles = () => {
   return (
     <ScrollView style={styles.container}>
       <Image source={require('../../assets/registrosCiviles.png')} style={styles.image} />
-      
+      <Anuncio/>  
 
       <View style={styles.serviciosList}>
       

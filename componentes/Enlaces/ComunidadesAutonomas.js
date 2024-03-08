@@ -15,7 +15,7 @@ const Comunidades = () => {
       <View style={styles.stickyHeader}>
        <Image source={require('../../assets/CA.png')} style={styles.image} />
       <Text style={styles.banner}>Selecciona tu Comunidad Autónoma</Text>
-      <Anuncio/>
+      <Anuncio/>  
       </View>
       <ScrollView >
         {comunidades.map((item, index) => (

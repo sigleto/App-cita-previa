@@ -13,7 +13,7 @@ const GuardiaCivil = () => {
     <ScrollView style={styles.container}>
       <Image source={require('../../assets/guardiaCivil.jpg')} style={styles.image} />
       
-
+ 
       <View style={styles.serviciosList}>
       
         <TouchableOpacity style={styles.item} onPress={() => openLink('https://ssweb.seap.minhap.es/icpplus/citar?org=GCDEN')}>

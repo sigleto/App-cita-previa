@@ -9,6 +9,7 @@ import { enableScreens } from 'react-native-screens';
 import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import DescargoResponsabilidad from './componentes/DescargoResponsabilidad';
 import SeguridadDatos from './componentes/SeguridadDatos';
+import PoliticaPrivacidad from './componentes/PoliticaPrivacidad';
 
 enableScreens();
 
@@ -58,6 +59,15 @@ const App = ({ navigation }) => {
           }}
           />
           <Drawer.Screen name="Responsabilidad" component={DescargoResponsabilidad} 
+          options={{
+            drawerIcon: ({ color, size }) => (
+              <MaterialCommunityIcons name="account-details" size={size} color={color} />
+            ),drawerLabelStyle: {
+              fontSize: 20,
+            }
+          }}
+          />
+          <Drawer.Screen name="Politica" component={PoliticaPrivacidad} 
           options={{
             drawerIcon: ({ color, size }) => (
               <MaterialCommunityIcons name="account-details" size={size} color={color} />

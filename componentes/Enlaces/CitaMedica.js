@@ -15,7 +15,7 @@ const CitaMedica = () => {
       <View style={styles.stickyHeader}>
        <Image source={require('../../assets/Citamedica.png')} style={styles.image} />
       <Text style={styles.banner}>Selecciona tu comunidad</Text>
-      <Anuncio/>
+      <Anuncio/>  
       </View>
       <ScrollView >
         {comunidades.map((item, index) => (

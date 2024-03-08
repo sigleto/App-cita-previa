@@ -40,6 +40,7 @@ import EventCalendar2 from './GestionCitas/EventCalendar2';
 import { AvisoGestion } from './GestionCitas/AvisoGestion';
 import DescargoResponsabilidad from './DescargoResponsabilidad';
 import SeguridadDatos from './SeguridadDatos';
+import PoliticaPrivacidad from './PoliticaPrivacidad';
 
 
 const Stack = createStackNavigator();
@@ -177,31 +178,17 @@ export function PrincipalStack(){
           component={DescargoResponsabilidad}
           options={{ headerShown: false }}
         />
+        <Stack.Screen
+          name="Politica"
+          component={PoliticaPrivacidad}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
    
   );
 };
 
-const Drawer=createDrawerNavigator()
-export function DrawerNavigator() {
-  return (
-    <Drawer.Navigator>
-      <Drawer.Screen name="Contacto" component={Contacto} />
-      <Drawer.Screen name="PresentacionStack" component={PresentacionStack} />
-      <Drawer.Screen name="SeguridadDatos" component={SeguridadDatos} />
-      <Drawer.Screen name="DescargoResponsabilidad" component={DescargoResponsabilidad} />
-      <Drawer.Screen
-        name="PoliticaPrivacidad"
-        component={() => {
-          Linking.openURL(
-            'https://docs.google.com/document/d/1WeAEvL7FxXA_O4_zxrsrNYAwIotUXOKZeOv_mMZOV-c/edit'
-          );
-          return null;
-        }}
-      />
-    </Drawer.Navigator>
-  );
-};
+
 
 
 const styles = StyleSheet.create({

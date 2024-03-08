@@ -13,8 +13,8 @@ const RegistrosPropiedad = () => {
   return (
     <ScrollView style={styles.container}>
       <Image source={require('../../assets/registroPropiedad.jpg')} style={styles.image} />
+      <Anuncio/>  
       
-      <Anuncio/>
       <View style={styles.serviciosList}>
       
         <TouchableOpacity style={styles.item} onPress={() => openLink('https://www.registradores.org/informacion-al-ciudadano/cita-previa/cita-previa-registros')}>

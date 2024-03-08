@@ -16,7 +16,8 @@
       "backgroundColor": "#ffffff"
     },
     "assetBundlePatterns": [
-      "**/*"
+      "**/*",
+      "app-ads.txt"
     ],
     "plugins": [
       "@react-native-google-signin/google-signin",
@@ -35,7 +36,7 @@
     },
     "android": {
       "package": "com.sigleto.citaprevia",
-      "versionCode": 30,
+      "versionCode": 35,
       "adaptiveIcon": {
         "foregroundImage": "./assets/reloj.png",
         "backgroundColor": "#ffffff"
@@ -53,7 +54,8 @@
     }
   },
   "react-native-google-mobile-ads": {
-    "android_app_id": "ca-app-pub-9777143216104753~5477018926"
+    "android_app_id": "ca-app-pub-6921150380725872~2513138145"
+    
     
   }
 }

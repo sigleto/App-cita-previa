@@ -14,7 +14,7 @@ const MUFACE = () => {
     <ScrollView style={styles.container}>
       <Image source={require('../../assets/MUFACE.png')} style={styles.image} />
       <Text style={styles.titulo}>Servicios de MUFACE</Text>
-      <Anuncio/>
+      <Anuncio/>  
       <View style={styles.serviciosList}>
       
         <TouchableOpacity style={styles.item} onPress={() => openLink('https://ssweb.seap.minhap.es/icpplus/citar?org=MUFACE')}>
