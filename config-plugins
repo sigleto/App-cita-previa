@@ -1,0 +1,8 @@
+// config-plugins/withGoogleMobileAds.js
+const { withPlugins } = require('@expo/config-plugins');
+
+module.exports = function withGoogleMobileAds(config) {
+  return withPlugins(config, [
+    // Aquí puedes agregar las configuraciones específicas que necesite el paquete
+  ]);
+};
