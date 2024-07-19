@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, TextInput, Button, Alert, StyleSheet, TouchableOpacity, Text } from 'react-native';
+import { View, TextInput, Button, Alert, StyleSheet, TouchableOpacity, Text,Image} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,sendPasswordResetEmail, GoogleAuthProvider,signInWithCredential }from '@firebase/auth';
 import { initializeApp } from 'firebase/app';
@@ -164,7 +164,10 @@ const handleCreateAccount = async () => {
 
 return (
   <View style={styles.container}>
-    
+    <Image source={require('../../assets/citaprevia.png')} style={styles.image} />
+        <Text style={styles.avisoTexto}>
+          ¡Bienvenid@ de nuevo!
+        </Text>
     {!showLoginForm && !showSignupForm && (
       <View style={styles.formContainer}>
         <TouchableOpacity style={styles.button1} onPress={() => setShowLoginForm(true)}>
@@ -233,7 +236,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor:'#eaedee',
+    backgroundColor:'#c6ff65',
   },
   formContainer: {
     width: '80%',
@@ -281,6 +284,21 @@ const styles = StyleSheet.create({
   hidden: {
     display: 'none',
   },
+  image: {
+    width: 200, // Tamaño ajustado para que parezca un ícono
+    height: 200, // Tamaño ajustado para que parezca un ícono
+     // Mantiene la proporción de la imagen
+    marginBottom: 40, // Espacio entre la imagen y el texto
+    
+  },
+  avisoTexto: {
+    fontSize: 25,
+    marginBottom: 15,
+    textAlign: "justify",
+    color: "#0e0f0f", // Cambié el color del texto a uno más oscuro
+    fontWeight:'bold',
+  },
+ 
   
   
 });

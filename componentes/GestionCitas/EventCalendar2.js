@@ -57,7 +57,7 @@ const volver=()=>{navigation.navigate("Home")}
           data: { openAppOnClick: false },
           vibrate:false,
           lightColor: '#FF231F7C',
-          sound: Platform.OS === "android" ? '../../assets/alarma.wav' : "default",
+          
         },
         trigger: {
           date: dateTime,

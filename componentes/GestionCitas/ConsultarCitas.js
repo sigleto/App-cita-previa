@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, StyleSheet,TouchableOpacity } from 'react-native';
-import { getFirestore, collection, getDocs } from 'firebase/firestore';
+import { View, Text, FlatList, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import { getFirestore, collection, getDocs, doc, deleteDoc } from 'firebase/firestore';
 import { getAuth } from '@firebase/auth';
 import format from 'date-fns/format';
 import es from 'date-fns/locale/es';
 import CryptoJS from 'react-native-crypto-js';
-import {CLAVE_KRYPTO} from '@env'
+import { CLAVE_KRYPTO } from '@env';
 import Anuncio from '../Avisos/Anuncio';
 import { useNavigation } from '@react-navigation/native';
-
-
-
 
 export default function ConsultarCitas() {
   const [citas, setCitas] = useState([]);
@@ -20,9 +17,11 @@ export default function ConsultarCitas() {
   const user = auth.currentUser;
   const userId = user.uid;
 
-const navigation=useNavigation();
+  const navigation = useNavigation();
 
-const atras=()=>{navigation.navigate("EventCalendar2")}
+  const atras = () => {
+    navigation.navigate("EventCalendar2");
+  };
 
   useEffect(() => {
     const consultarCitas = async () => {
@@ -37,7 +36,7 @@ const atras=()=>{navigation.navigate("EventCalendar2")}
             // Desencriptar el texto del evento
             const decryptedText = CryptoJS.AES.decrypt(eventData.text, CLAVE_KRYPTO).toString(CryptoJS.enc.Utf8);
             // Almacenar el evento desencriptado en el array
-            citasData.push({ ...eventData, text: decryptedText });
+            citasData.push({ id: doc.id, ...eventData, text: decryptedText });
           }
         });
         citasData.sort((a, b) => a.dateTime.toMillis() - b.dateTime.toMillis());
@@ -52,41 +51,60 @@ const atras=()=>{navigation.navigate("EventCalendar2")}
     consultarCitas();
   }, [userId]);
 
+  const handleDelete = async (id) => {
+    try {
+      await deleteDoc(doc(db, 'eventos', id));
+      setCitas(citas.filter(cita => cita.id !== id));
+    } catch (error) {
+      console.error('Error al eliminar cita: ', error);
+    }
+  };
 
-  // Verificar si las citas están cargando
+  const confirmDelete = (id) => {
+    Alert.alert(
+      "Eliminar Cita",
+      "¿Estás seguro de que quieres eliminar esta cita?",
+      [
+        { text: "Cancelar", style: "cancel" },
+        { text: "Eliminar", onPress: () => handleDelete(id) }
+      ]
+    );
+  };
+
   if (loading) {
     return <Text>Cargando...</Text>;
   }
-  console.log(citas.length)
-  // Verificar si las citas están definidas y tienen longitud
+
   if (!citas || citas.length === 0) {
     return <Text style={styles.texto2}>Todavía no tienes citas guardadas</Text>;
   }
 
-  // Renderizar la lista de citas
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Citas concertadas</Text>
-     
+      <Anuncio />
       <FlatList
         data={citas}
-        keyExtractor={(item, index) => index.toString()}
+        keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <View style={styles.citaItem}>
             {item.dateTime && (
               <>
                 <Text style={styles.texto}>
-                Fecha y Hora: {format(item.dateTime.toDate(), "dd 'de' LLLL 'de' yyyy 'a las' HH:mm", { locale: es })}
+                  Fecha y Hora: {format(item.dateTime.toDate(), "dd 'de' LLLL 'de' yyyy 'a las' HH:mm", { locale: es })}
                 </Text>
                 <Text style={styles.texto}>Evento: {item.text}</Text>
+                <TouchableOpacity style={styles.deleteButton} onPress={() => confirmDelete(item.id)}>
+                  <Text style={styles.deleteButtonText}>Eliminar</Text>
+                </TouchableOpacity>
               </>
             )}
           </View>
         )}
       />
       <TouchableOpacity style={styles.atras} onPress={atras}>
-    <Text style={styles.texto}>Atrás</Text>
-    </TouchableOpacity>
+        <Text style={styles.texto}>Atrás</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -97,8 +115,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
-    backgroundColor:'#f9d788',
-    
+    backgroundColor: '#f9d788',
   },
   header: {
     fontSize: 24,
@@ -117,14 +134,13 @@ const styles = StyleSheet.create({
     color: '#333', // Agrega este estilo para el color del texto
   },
   texto2: {
-    marginTop:'60%',
-    textAlign:'center',
-    
+    marginTop: '60%',
+    textAlign: 'center',
     fontSize: 20,
     color: 'blue', // Agrega este estilo para el color del texto
   },
   atras: {
-    backgroundColor:'#6ef8e9',
+    backgroundColor: '#6ef8e9',
     color: '#fff',
     padding: 5,
     borderRadius: 5,
@@ -132,7 +148,12 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     fontSize: 16, // Ajusta esta propiedad para establecer el tamaño del texto
   },
-  
-  
-
+  deleteButton: {
+    backgroundColor: 'transparent', // Mantener el fondo transparente si lo deseas
+    padding: 5,
+  },
+  deleteButtonText: {
+    color: 'red', // Cambia el color del texto a rojo
+    fontSize: 16, // Ajusta el tamaño del texto según tus preferencias
+  },
 });

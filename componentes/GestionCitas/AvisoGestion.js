@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, Dimensions, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, Dimensions, TouchableOpacity,Image} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 const windowWidth = Dimensions.get("window").width;
@@ -11,8 +11,9 @@ export const AvisoGestion = () => {
   return (
     <View style={[styles.container, styles.centeredContainer]}>
       <View style={styles.avisoContainer}>
+      <Image source={require('../../assets/agendareloj.jpg')} style={styles.image} />
         <Text style={styles.avisoTexto}>
-          Aquí podrás guardar todas tus citas o eventos y consultarlas cuando quieras. Además, te enviaremos un recordatorio de tu cita en el momento que tu eligas.
+          ¡Bienvenido/a a tu agenda personal ! Aquí podrás guardar todas tus citas o eventos y consultarlas cuando quieras. Además, te enviaremos un recordatorio de tu cita en el momento que tú eligas.
         </Text>
         <TouchableOpacity
           style={styles.continuarButton}
@@ -30,14 +31,14 @@ const styles = StyleSheet.create({
     flex: 1,
     width: windowWidth,
     height: windowHeight,
-    backgroundColor: "#f8f9fa", // Cambié el color de fondo a uno más claro
+    backgroundColor: "#d0ff80", // Cambié el color de fondo a uno más claro
   },
   centeredContainer: {
     justifyContent: "center",
     alignItems: "center",
   },
   avisoContainer: {
-    backgroundColor: "#e2e3e5", // Cambié el color de fondo del aviso
+    backgroundColor: "white", // Cambié el color de fondo del aviso
     padding: 20,
     marginVertical: 20,
     borderRadius: 12,
@@ -48,17 +49,31 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     textAlign: "justify",
     color: "#0e0f0f", // Cambié el color del texto a uno más oscuro
+    fontWeight:'bold',
   },
-  continuarButton: {
-    backgroundColor: "#007BFF",
-    padding: 10,
-    borderRadius: 8,
-    alignItems: "center",
-  },
-  continuarButtonText: {
-    color: "#fff",
-    fontSize: 18,
-    fontWeight: "bold",
+  
+continuarButton: {
+  backgroundColor: "#007BFF",
+  paddingVertical: 8, // Ajusta el padding vertical para hacerlo más corto
+  paddingHorizontal: 16, // Ajusta el padding horizontal para ajustar el tamaño del botón
+  borderRadius: 8,
+  alignItems: "center",
+  marginTop: 20, // Espacio entre el texto y el botón
+  marginLeft:80,
+  maxWidth: 170, // Ancho máximo del botón (ajústalo según tus necesidades)
+},
+continuarButtonText: {
+  color: "#fff",
+  fontSize: 16, // Ajusta el tamaño del texto si es necesario
+  fontWeight: "bold",
+
+},
+  image: {
+    width: 100, // Tamaño ajustado para que parezca un ícono
+    height: 100, // Tamaño ajustado para que parezca un ícono
+    resizeMode: "contain", // Mantiene la proporción de la imagen
+    marginBottom: 10, // Espacio entre la imagen y el texto
+    marginLeft:110,
   },
 });
 
