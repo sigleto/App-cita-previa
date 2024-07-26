@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: windowWidth,
     height: windowHeight,
-    backgroundColor: "#d0ff80", // Cambié el color de fondo a uno más claro
+    backgroundColor: "#d5ff8c", // Cambié el color de fondo a uno más claro
   },
   centeredContainer: {
     justifyContent: "center",
