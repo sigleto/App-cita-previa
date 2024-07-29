@@ -1,42 +1,38 @@
-import React, { useState,useEffect} from 'react';
-import { View, Text, TextInput, Button, StyleSheet,TouchableOpacity,Alert } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-import { agregarEventoFirestore, firebaseConfig, getPushNotificationToken } from './Firebase';
+import { CheckBox } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 import format from 'date-fns/format';
 import es from 'date-fns/locale/es';
 import { getAuth } from '@firebase/auth';
 import { initializeApp } from 'firebase/app';
-import { Picker } from '@react-native-picker/picker'
+import { firebaseConfig } from './Firebase'; // Asegúrate de importar firebaseConfig correctamente
 
-
-const EventCalendar1 = ({ route } ) => {
+const EventCalendar1 = ({ route }) => {
   const navigation = useNavigation();
 
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [eventos, setEventos] = useState([]);
   const [eventText, setEventText] = useState('');
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-  const [reminderTimeBeforeEvent, setReminderTimeBeforeEvent] = useState(24 * 60 * 60 * 1000); // Valor predeterminado: 6 horas antes
+  const [reminderTimes, setReminderTimes] = useState({
+    oneDay: false,
+    twoDays: false,
+    threeDays: false,
+  });
   const [isDateTimeSelected, setIsDateTimeSelected] = useState(false);
 
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
   const user = auth.currentUser;
-  const userId = user ? user.uid : null;
   const userEmail = route.params?.userEmail || (user && user.email) || 'Usuario Desconocido';
-
- 
-
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);
-    
   };
 
   const hideDatePicker = () => {
     setDatePickerVisibility(false);
-   
   };
 
   const handleConfirm = (date) => {
@@ -45,81 +41,89 @@ const EventCalendar1 = ({ route } ) => {
   };
 
   const pasarPagina = () => {
-    navigation.navigate('EventCalendar2',{ selectedDate: selectedDate.getTime(),
-      reminderTimeBeforeEvent: reminderTimeBeforeEvent,}); // Reemplaza 'eventCalendar2' con el nombre real de tu pantalla de destino
+    const reminderTimesInMs = [];
+    if (reminderTimes.oneDay) reminderTimesInMs.push(24 * 60 * 60 * 1000);
+    if (reminderTimes.twoDays) reminderTimesInMs.push(48 * 60 * 60 * 1000);
+    if (reminderTimes.threeDays) reminderTimesInMs.push(72 * 60 * 60 * 1000);
+
+    navigation.navigate('EventCalendar2', {
+      selectedDate: selectedDate.getTime(),
+      reminderTimes: reminderTimesInMs,
+    });
   };
 
-  
   const [backgroundColor, setBackgroundColor] = useState('#014b49');
 
   const startColorAnimation = () => {
     const intervalId = setInterval(() => {
       setBackgroundColor((prevColor) => (prevColor === '#014b49' ? '#960305' : '#014b49'));
-    }, 1000); // Cambia el color cada 2 segundos (ajusta según sea necesario)
+    }, 1000);
 
-    // Detén la animación después de cierto tiempo (por ejemplo, después de 10 segundos)
     setTimeout(() => {
       clearInterval(intervalId);
-      setBackgroundColor('#014b49'); // Restaura el color original
-    }, 10000); // Detener la animación después de 10 segundos (ajusta según sea necesario)
+      setBackgroundColor('#014b49');
+    }, 10000);
   };
 
   useEffect(() => {
-    startColorAnimation(); // Inicia la animación cuando se carga el componente
+    startColorAnimation();
   }, []);
 
-
-return (
-  <View style={styles.container}>
-    <Text style={styles.header}>Calendario de Citas</Text>
-    <Text style={styles.usuario}>Usuario: {userEmail}</Text>
-    <Text style={styles.opcion}>Guarda una nueva cita</Text>
-    <TouchableOpacity style={styles.relleno} onPress={showDatePicker}>
-        <Text style={[styles.selectDateTimeText,{ backgroundColor: backgroundColor }]}>Selecciona Fecha y Hora de la cita</Text>
+  return (
+    <View style={styles.container}>
+      <Text style={styles.header}>Calendario de Citas</Text>
+      <Text style={styles.usuario}>Usuario: {userEmail}</Text>
+      <Text style={styles.opcion}>Guarda una nueva cita</Text>
+      <TouchableOpacity style={styles.relleno} onPress={showDatePicker}>
+        <Text style={[styles.selectDateTimeText, { backgroundColor: backgroundColor }]}>Selecciona Fecha y Hora de la cita</Text>
       </TouchableOpacity>
-    <DateTimePickerModal
-    isVisible={isDatePickerVisible}
-    mode="datetime"
-    onConfirm={(date) => {
-      handleConfirm(date);
-      setIsDateTimeSelected(true); // Actualiza el estado cuando se confirma la fecha y la hora
-    }}
-    onCancel={hideDatePicker}
-    
-    />
+      <DateTimePickerModal
+        isVisible={isDatePickerVisible}
+        mode="datetime"
+        onConfirm={(date) => {
+          handleConfirm(date);
+          setIsDateTimeSelected(true);
+        }}
+        onCancel={hideDatePicker}
+      />
       {isDateTimeSelected && (
-      <Text style={styles.selectedDateText}>
-        Fecha y Hora seleccionadas: {format(selectedDate, "dd 'de' LLLL 'de' yyyy 'a las' HH:mm", { locale: es })}
-      </Text>
-    )}
-     
-     {isDateTimeSelected && (
-       
-      <View>
-        <Text style={styles.resalto}>Selecciona cuánto tiempo antes deseas recibir el aviso:</Text>
-        <Picker
-           style={styles.picker}
-          selectedValue={reminderTimeBeforeEvent}
-          onValueChange={(itemValue) => setReminderTimeBeforeEvent(itemValue)}
-          mode='dropdown'
-        >
-        <Picker.Item label="24 horas antes" value={24 * 60 * 60 * 1000} />
-        <Picker.Item label="dos días antes" value={48 * 60 * 60 * 1000} />
-        <Picker.Item label="tres días antes" value={72 * 60 * 60 * 1000} />
-        </Picker>
+        <Text style={styles.selectedDateText}>
+          Fecha y Hora seleccionadas: {format(selectedDate, "dd 'de' LLLL 'de' yyyy 'a las' HH:mm", { locale: es })}
+        </Text>
+      )}
+
+      {isDateTimeSelected && (
+        <View>
+          <Text style={styles.resalto}>Selecciona cuánto tiempo antes deseas recibir el aviso:</Text>
+          <CheckBox
+            title='24 horas antes'
+            checked={reminderTimes.oneDay}
+            onPress={() => setReminderTimes({ ...reminderTimes, oneDay: !reminderTimes.oneDay })}
+          />
+          <CheckBox
+            title='Dos días antes'
+            checked={reminderTimes.twoDays}
+            onPress={() => setReminderTimes({ ...reminderTimes, twoDays: !reminderTimes.twoDays })}
+          />
+          <CheckBox
+            title='Tres días antes'
+            checked={reminderTimes.threeDays}
+            onPress={() => setReminderTimes({ ...reminderTimes, threeDays: !reminderTimes.threeDays })}
+          />
         </View>
-    )}
-     <TouchableOpacity
-            style={styles.selectDateButton}
-            onPress={pasarPagina}
-          >
-            <Text >CONTINUAR</Text>
-          </TouchableOpacity>
+      )}
 
-
+      <TouchableOpacity
+        style={styles.selectDateButton}
+        onPress={pasarPagina}
+      >
+        <Text>CONTINUAR</Text>
+      </TouchableOpacity>
     </View>
-)
-     };
+  );
+};
+
+
 
      const styles = StyleSheet.create({
       container: {
