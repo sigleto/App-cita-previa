@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, Alert, Share } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import format from 'date-fns/format';
 import es from 'date-fns/locale/es';
@@ -26,7 +26,6 @@ const EventCalendar2 = ({ route }) => {
 
   const volver = () => { navigation.navigate("Home") }
 
-  // Función para programar una notificación push en un momento específico
   Notifications.setNotificationHandler({
     handleNotification: async () => ({
       shouldShowAlert: true,
@@ -71,6 +70,26 @@ const EventCalendar2 = ({ route }) => {
     }
   };
 
+  const shareEvent = async () => {
+    try {
+      const result = await Share.share({
+        message: `Tengo una cita programada el ${format(selectedDate, "dd 'de' LLLL 'de' yyyy 'a las' HH:mm", { locale: es })}. Detalles: ${eventText}`,
+      });
+
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          console.log('Compartido en: ', result.activityType);
+        } else {
+          console.log('Compartido con éxito.');
+        }
+      } else if (result.action === Share.dismissedAction) {
+        console.log('Compartición cancelada.');
+      }
+    } catch (error) {
+      console.error('Error al compartir:', error);
+    }
+  };
+
   const handleDeleteAccount = async () => {
     try {
       await user.delete();
@@ -108,6 +127,9 @@ const EventCalendar2 = ({ route }) => {
           onChangeText={(text) => setEventText(text)}
         />
         <Button title="Agrega la cita" onPress={addEvent} />
+        <TouchableOpacity style={styles.shareButtonC} onPress={shareEvent}>
+          <Text style={styles.buttonText}>Compartir Evento</Text>
+        </TouchableOpacity>
       </View>
 
       <View style={{ marginBottom: 40 }} />
@@ -127,99 +149,94 @@ const EventCalendar2 = ({ route }) => {
 };
 
 const styles = StyleSheet.create({
-container: {
-  flex: 1,
-  alignItems: 'center',
-  justifyContent: 'center',
-  padding: 20,
-  backgroundColor: '#e7faed', // Cambia el color de fondo
-},
-header: {
-  fontSize: 24,
-  fontWeight: 'bold',
-  marginBottom: 20,
-  color: '#908788', // Cambia el color del texto
-},
-datePicker: {
-  width: '100%',
-},
-eventForm: {
-  width: '100%',
-  backgroundColor: '#fff',
-  padding: 20,
-  borderRadius: 10,
-  elevation: 2,
-},
-selectedDateText: {
-  fontSize: 16,
-  marginBottom: 10,
-},
-eventInput: {
-  borderWidth: 1,
-  borderColor: '#ccc',
-  borderRadius: 5,
-  padding: 10,
-  marginBottom: 10,
-},
-eventItem: {
-  fontSize: 16,
-  marginBottom: 5,
-},
-selectDateButton: {
-  backgroundColor: '#e74c3c', // Cambia el color del botón
-  color: '#fff',
-  padding: 10,
-  borderRadius: 5,
-  marginTop:20,
-  
-},
-selectCitaButton: {
-  backgroundColor: '#e74c3c', // Cambia el color del botón
-  color: '#fff',
-  padding: 10,
-  borderRadius: 5,
-  
-},
-usuario:{
-  fontSize:20,
-  color:'#b3612e',
-  marginBottom:15,
-},
-borrarCuenta:{
-  backgroundColor: '#fd2d08', // Cambia el color del botón
-  color: '#fff',
-  padding:5,
-  borderRadius: 5,
-  marginTop:60,
-  marginLeft:130,
-
-},
-resalto:{
-  marginTop:20,
-  color:"#4da305",
-  fontSize:18,
-  fontWeight:'bold'
-},
-picker:{
-  marginTop:20,
-  color:'#cd0a25',
-  backgroundColor:'#f5bcc4'
-
-},
-
-vuelta: {
-  backgroundColor:'#36a7ce',
-  color: '#fff',
-  padding: 5,
-  borderRadius: 5,
-  marginTop: 60,
-  marginLeft: 20,
-  fontSize: 16, // Ajusta esta propiedad para establecer el tamaño del texto
-},
-
-
-
-
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 20,
+    backgroundColor: '#e7faed',
+  },
+  header: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    color: '#908788',
+  },
+  usuario: {
+    fontSize: 20,
+    color: '#b3612e',
+    marginBottom: 15,
+  },
+  eventForm: {
+    width: '100%',
+    backgroundColor: '#fff',
+    padding: 20,
+    borderRadius: 10,
+    elevation: 2,
+  },
+  selectedDateText: {
+    fontSize: 16,
+    marginBottom: 10,
+  },
+  eventInput: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 5,
+    padding: 10,
+    marginBottom: 10,
+  },
+  shareButton: {
+    backgroundColor: '#3498db',
+    color: '#fff',
+    padding: 10,
+    borderRadius: 5,
+    marginTop: 10,
+  },
+  shareButtonC: {
+    backgroundColor: 'olive',
+    color: '#fff',
+    padding: 4,
+    borderRadius: 5,
+    marginTop: 10,
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 16,
+    textAlign: 'center',
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 16,
+    textAlign: 'center',
+  },
+  buttonTextC: {
+    color: '#fff',
+    fontSize: 16,
+    textAlign: 'center',
+  },
+  selectCitaButton: {
+    backgroundColor: '#e74c3c',
+    color: '#fff',
+    padding: 10,
+    borderRadius: 5,
+  },
+  borrarCuenta: {
+    backgroundColor: '#fd2d08',
+    color: '#fff',
+    padding: 5,
+    borderRadius: 5,
+    marginTop: 60,
+    marginLeft: 130,
+  },
+  vuelta: {
+    backgroundColor: '#36a7ce',
+    color: '#fff',
+    padding: 5,
+    borderRadius: 5,
+    marginTop: 60,
+    marginLeft: 25,
+    fontSize: 16,
+  },
 });
 
-export default EventCalendar2
+export default EventCalendar2;
