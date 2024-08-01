@@ -1,9 +1,9 @@
-import { collection, addDoc, getFirestore } from 'firebase/firestore';
 import { initializeApp } from "firebase/app";
+import { initializeAuth, getReactNativePersistence } from "firebase/auth";
+import ReactNativeAsyncStorage from "@react-native-async-storage/async-storage";
+import { getFirestore, collection, addDoc } from "firebase/firestore";
 import * as Notifications from 'expo-notifications';
-import {API_KEY,AUTH_DOMAIN,PROJECT_ID,
-  STORAGE_BUCKET,MESSAGING_SENDER_ID,APP_ID,MEASUREMENT_ID} from '@env'
-
+import { API_KEY, AUTH_DOMAIN, PROJECT_ID, STORAGE_BUCKET, MESSAGING_SENDER_ID, APP_ID, MEASUREMENT_ID } from '@env';
 
 export const firebaseConfig = {
   apiKey: API_KEY,
@@ -16,6 +16,12 @@ export const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
+
+// Inicializar Firebase Auth con persistencia en React Native
+const auth = initializeAuth(app, {
+  persistence: getReactNativePersistence(ReactNativeAsyncStorage)
+});
+
 const db = getFirestore(app);
 
 // Función para agregar un evento a Firestore
@@ -23,13 +29,11 @@ export const agregarEventoFirestore = async (evento) => {
   try {
     const docRef = await addDoc(collection(db, "eventos"), evento);
     console.log("Evento agregado con ID: ", docRef.id);
-    alert ('Perfecto!!... Te mandaremos un recordatorio  antes de la cita.Asegúrate de que la aplicación tiene permisos para notificaciones en tu dispositivo')
+    alert ('Perfecto!!... Te mandaremos un recordatorio antes de la cita. Asegúrate de que la aplicación tiene permisos para notificaciones en tu dispositivo');
   } catch (e) {
     console.error("Error al agregar el evento: ", e);
   }
 };
-
-
 
 // Función para obtener el token de Expo Push y FCM
 export const getPushNotificationToken = async () => {
