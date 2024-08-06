@@ -20,19 +20,11 @@
       "@react-native-google-signin/google-signin",
       [
         "expo-notifications",
-        {
-          "icon": "./assets/notifica.png",
-          "sounds": [
+        { "icon":"./assets/notifica.png",
+        
+         "sounds": [
             "./assets/alarma.wav"
           ]
-        }
-      ],
-      "expo-secure-store",
-      [
-        "react-native-google-mobile-ads",
-        {
-          "android_app_id": "ca-app-pub-6921150380725872~2513138145",
-          "ios_app_id": "TU_IOS_APP_ID_AQUÍ"
         }
       ]
     ],
@@ -41,15 +33,14 @@
     },
     "android": {
       "package": "com.sigleto.citaprevia",
-      "versionCode": 42,
+      "versionCode": 43,
       "adaptiveIcon": {
         "foregroundImage": "./assets/reloj.png",
         "backgroundColor": "#ffffff"
       },
       "googleServicesFile": "google-services.json",
-      "permissions": [
-        "com.google.android.gms.permission.AD_ID"
-      ]
+      "permissions": ["com.google.android.gms.permission.AD_ID"],
+      "jsEngine": "jsc"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -59,5 +50,8 @@
         "projectId": "4aee27fb-d1f8-4bdf-84d6-3e253d2267c7"
       }
     }
+  },
+  "react-native-google-mobile-ads": {
+    "android_app_id": "ca-app-pub-6921150380725872~2513138145"
   }
 }
