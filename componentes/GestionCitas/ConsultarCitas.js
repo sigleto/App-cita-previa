@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, StyleSheet, TouchableOpacity, ActivityIndicator, Alert, Animated } from 'react-native';
+import { View, Text, FlatList, StyleSheet, TouchableOpacity, Alert, Animated, Switch } from 'react-native';
 import { getFirestore, collection, getDocs, doc, deleteDoc } from 'firebase/firestore';
 import { getAuth } from '@firebase/auth';
 import format from 'date-fns/format';
@@ -9,20 +9,26 @@ import { CLAVE_KRYPTO } from '@env';
 import Anuncio from '../Avisos/Anuncio';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
+import { Calendar, LocaleConfig } from 'react-native-calendars';
+
+LocaleConfig.locales['es'] = {
+  monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+  monthNamesShort: ['Ene.','Feb.','Mar.','Abr.','May.','Jun.','Jul.','Ago.','Sept.','Oct.','Nov.','Dic.'],
+  dayNames: ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'],
+  dayNamesShort: ['Dom.','Lun.','Mar.','Mié.','Jue.','Vie.','Sáb.'],
+  today: 'Hoy'
+};
+LocaleConfig.defaultLocale = 'es';
 
 export default function ConsultarCitas() {
   const [citas, setCitas] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [fadeAnim] = useState(new Animated.Value(0));
+  const [isCalendarView, setIsCalendarView] = useState(false);
   const db = getFirestore();
   const auth = getAuth();
   const user = auth.currentUser;
   const userId = user.uid;
   const navigation = useNavigation();
-
-  const atras = () => {
-    navigation.navigate("EventCalendar2");
-  };
 
   useEffect(() => {
     const consultarCitas = async () => {
@@ -48,13 +54,6 @@ export default function ConsultarCitas() {
     };
 
     consultarCitas();
-
-    Animated.timing(fadeAnim, {
-      toValue: 1,
-      duration: 500,
-      useNativeDriver: true,
-    }).start();
-
   }, [userId]);
 
   const handleDelete = async (id) => {
@@ -77,54 +76,78 @@ export default function ConsultarCitas() {
     );
   };
 
-  if (loading) {
-    return (
-      <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="#00A896" />
-      </View>
-    );
-  }
-
-  if (!citas || citas.length === 0) {
-    return <Text style={styles.emptyText}>Todavía no tienes citas guardadas</Text>;
-  }
+  const marcarFechas = citas.reduce((acc, cita) => {
+    const fecha = format(cita.dateTime.toDate(), 'yyyy-MM-dd');
+    acc[fecha] = { marked: true, dotColor: '#00A896' };
+    return acc;
+  }, {});
 
   return (
-    <Animated.View style={[styles.container, { opacity: fadeAnim }]}>
+    <View style={styles.container}>
       <Text style={styles.header}>Citas concertadas</Text>
       <Anuncio />
-      <FlatList
-        data={citas}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <View style={styles.citaItem}>
-            {item.dateTime && (
-              <>
-                <Text style={styles.texto}>
-                  <Ionicons name="calendar-outline" size={20} color="#333" />
-                  {' '}
-                  <Text style={styles.boldText}>
-                    {format(item.dateTime.toDate(), "dd 'de' LLLL 'de' yyyy 'a las' HH:mm", { locale: es })}
+      
+      {/* Toggle para cambiar entre vista de lista y vista de calendario */}
+      <View style={styles.switchContainer}>
+        <Text style={styles.switchText}>Vista Calendario</Text>
+        <Switch
+          value={isCalendarView}
+          onValueChange={() => setIsCalendarView(!isCalendarView)}
+        />
+      </View>
+
+      {isCalendarView ? (
+        <Calendar
+          markedDates={marcarFechas}
+          onDayPress={(day) => {
+            const fechaSeleccionada = citas.filter(cita =>
+              format(cita.dateTime.toDate(), 'yyyy-MM-dd') === day.dateString
+            );
+            Alert.alert('Citas para este día', fechaSeleccionada.map(cita => cita.text).join('\n'));
+          }}
+          theme={{
+            selectedDayBackgroundColor: '#00A896',
+            todayTextColor: '#00A896',
+            arrowColor: '#00A896',
+            dotColor: '#00A896',
+            selectedDotColor: '#ffffff',
+          }}
+        />
+      ) : (
+        <FlatList
+          data={citas}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <View style={styles.citaItem}>
+              {item.dateTime && (
+                <>
+                  <Text style={styles.texto}>
+                    <Ionicons name="calendar-outline" size={20} color="#333" />
+                    {' '}
+                    <Text style={styles.boldText}>
+                      {format(item.dateTime.toDate(), "dd 'de' LLLL 'de' yyyy 'a las' HH:mm", { locale: es })}
+                    </Text>
                   </Text>
-                </Text>
-                <Text style={styles.texto}>
-                  <Ionicons name="clipboard-outline" size={20} color="#333" />
-                  {' '}
-                  <Text style={styles.boldText}>{item.text}</Text>
-                </Text>
-                <TouchableOpacity style={styles.deleteButton} onPress={() => confirmDelete(item.id)}>
-                  <Ionicons name="trash-outline" size={24} color="red" />
-                </TouchableOpacity>
-              </>
-            )}
-          </View>
-        )}
-      />
-      <TouchableOpacity style={styles.atras} onPress={atras}>
+                  <Text style={styles.texto}>
+                    <Ionicons name="clipboard-outline" size={20} color="#333" />
+                    {' '}
+                    <Text style={styles.boldText}>{item.text}</Text>
+                  </Text>
+                  <TouchableOpacity style={styles.deleteButton} onPress={() => confirmDelete(item.id)}>
+                    <Ionicons name="trash-outline" size={24} color="red" />
+                  </TouchableOpacity>
+                </>
+              )}
+            </View>
+          )}
+        />
+      )}
+
+      <TouchableOpacity style={styles.atras} onPress={() => navigation.navigate("EventCalendar2")}>
         <Ionicons name="arrow-back-outline" size={24} color="#fff" />
         <Text style={styles.atrasText}>Atrás</Text>
       </TouchableOpacity>
-    </Animated.View>
+    </View>
   );
 }
 
@@ -139,6 +162,16 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#333',
     marginBottom: 20,
+  },
+  switchContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  switchText: {
+    fontSize: 18,
+    color: '#333',
+    marginRight: 10,
   },
   citaItem: {
     backgroundColor: '#fff',
@@ -181,17 +214,5 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 18,
     marginLeft: 5,
-  },
-  emptyText: {
-    marginTop: '60%',
-    textAlign: 'center',
-    fontSize: 20,
-    color: '#555',
-  },
-  loadingContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#f0f0f0',
   },
 });
