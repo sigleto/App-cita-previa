@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, FlatList, StyleSheet, TouchableOpacity, ActivityIndicator, Alert, Animated } from 'react-native';
 import { getFirestore, collection, getDocs, doc, deleteDoc } from 'firebase/firestore';
 import { getAuth } from '@firebase/auth';
 import format from 'date-fns/format';
@@ -8,15 +8,16 @@ import CryptoJS from 'react-native-crypto-js';
 import { CLAVE_KRYPTO } from '@env';
 import Anuncio from '../Avisos/Anuncio';
 import { useNavigation } from '@react-navigation/native';
+import { Ionicons } from '@expo/vector-icons';
 
 export default function ConsultarCitas() {
   const [citas, setCitas] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [fadeAnim] = useState(new Animated.Value(0));
   const db = getFirestore();
   const auth = getAuth();
   const user = auth.currentUser;
   const userId = user.uid;
-
   const navigation = useNavigation();
 
   const atras = () => {
@@ -33,9 +34,7 @@ export default function ConsultarCitas() {
         eventosSnapshot.forEach((doc) => {
           const eventData = doc.data();
           if (eventData.userId === userId) {
-            // Desencriptar el texto del evento
             const decryptedText = CryptoJS.AES.decrypt(eventData.text, CLAVE_KRYPTO).toString(CryptoJS.enc.Utf8);
-            // Almacenar el evento desencriptado en el array
             citasData.push({ id: doc.id, ...eventData, text: decryptedText });
           }
         });
@@ -49,6 +48,13 @@ export default function ConsultarCitas() {
     };
 
     consultarCitas();
+
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 500,
+      useNativeDriver: true,
+    }).start();
+
   }, [userId]);
 
   const handleDelete = async (id) => {
@@ -72,15 +78,19 @@ export default function ConsultarCitas() {
   };
 
   if (loading) {
-    return <Text>Cargando...</Text>;
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#00A896" />
+      </View>
+    );
   }
 
   if (!citas || citas.length === 0) {
-    return <Text style={styles.texto2}>Todavía no tienes citas guardadas</Text>;
+    return <Text style={styles.emptyText}>Todavía no tienes citas guardadas</Text>;
   }
 
   return (
-    <View style={styles.container}>
+    <Animated.View style={[styles.container, { opacity: fadeAnim }]}>
       <Text style={styles.header}>Citas concertadas</Text>
       <Anuncio />
       <FlatList
@@ -91,11 +101,19 @@ export default function ConsultarCitas() {
             {item.dateTime && (
               <>
                 <Text style={styles.texto}>
-                  Fecha y Hora: {format(item.dateTime.toDate(), "dd 'de' LLLL 'de' yyyy 'a las' HH:mm", { locale: es })}
+                  <Ionicons name="calendar-outline" size={20} color="#333" />
+                  {' '}
+                  <Text style={styles.boldText}>
+                    {format(item.dateTime.toDate(), "dd 'de' LLLL 'de' yyyy 'a las' HH:mm", { locale: es })}
+                  </Text>
                 </Text>
-                <Text style={styles.texto}>Evento: {item.text}</Text>
+                <Text style={styles.texto}>
+                  <Ionicons name="clipboard-outline" size={20} color="#333" />
+                  {' '}
+                  <Text style={styles.boldText}>{item.text}</Text>
+                </Text>
                 <TouchableOpacity style={styles.deleteButton} onPress={() => confirmDelete(item.id)}>
-                  <Text style={styles.deleteButtonText}>Eliminar</Text>
+                  <Ionicons name="trash-outline" size={24} color="red" />
                 </TouchableOpacity>
               </>
             )}
@@ -103,57 +121,77 @@ export default function ConsultarCitas() {
         )}
       />
       <TouchableOpacity style={styles.atras} onPress={atras}>
-        <Text style={styles.texto}>Atrás</Text>
+        <Ionicons name="arrow-back-outline" size={24} color="#fff" />
+        <Text style={styles.atrasText}>Atrás</Text>
       </TouchableOpacity>
-    </View>
+    </Animated.View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
     padding: 20,
-    backgroundColor: '#f9d788',
+    backgroundColor: '#f0f0f0',
   },
   header: {
-    fontSize: 24,
+    fontSize: 28,
     fontWeight: 'bold',
+    color: '#333',
     marginBottom: 20,
   },
   citaItem: {
-    backgroundColor: 'rgba(255, 255, 255, 0.8)',
-    padding: 10,
-    marginBottom: 10,
-    fontSize: 20,
-    color: '#333', // Agrega este estilo para el color del texto
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    padding: 15,
+    marginBottom: 15,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+    elevation: 3,
   },
   texto: {
-    fontSize: 20,
-    color: '#333', // Agrega este estilo para el color del texto
+    fontSize: 18,
+    color: '#333',
+    marginBottom: 10,
   },
-  texto2: {
+  boldText: {
+    fontWeight: 'bold',
+  },
+  deleteButton: {
+    alignSelf: 'flex-end',
+    padding: 5,
+    backgroundColor: '#ffeeee',
+    borderRadius: 5,
+    marginTop: 10,
+  },
+  atras: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#00A896',
+    padding: 10,
+    borderRadius: 10,
+    marginTop: 20,
+  },
+  atrasText: {
+    color: '#fff',
+    fontSize: 18,
+    marginLeft: 5,
+  },
+  emptyText: {
     marginTop: '60%',
     textAlign: 'center',
     fontSize: 20,
-    color: 'blue', // Agrega este estilo para el color del texto
+    color: '#555',
   },
-  atras: {
-    backgroundColor: '#6ef8e9',
-    color: '#fff',
-    padding: 5,
-    borderRadius: 5,
-    marginTop: 60,
-    marginLeft: 20,
-    fontSize: 16, // Ajusta esta propiedad para establecer el tamaño del texto
-  },
-  deleteButton: {
-    backgroundColor: 'transparent', // Mantener el fondo transparente si lo deseas
-    padding: 5,
-  },
-  deleteButtonText: {
-    color: 'red', // Cambia el color del texto a rojo
-    fontSize: 16, // Ajusta el tamaño del texto según tus preferencias
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#f0f0f0',
   },
 });
