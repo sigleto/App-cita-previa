@@ -1,5 +1,6 @@
+// ConsultarCitas.js
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, StyleSheet, TouchableOpacity, Alert, Animated, Switch } from 'react-native';
+import { View, Text, FlatList, StyleSheet, TouchableOpacity, Alert, Switch } from 'react-native';
 import { getFirestore, collection, getDocs, doc, deleteDoc } from 'firebase/firestore';
 import { getAuth } from '@firebase/auth';
 import format from 'date-fns/format';
@@ -10,12 +11,14 @@ import Anuncio from '../Avisos/Anuncio';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import { Calendar, LocaleConfig } from 'react-native-calendars';
+import Fondos from './Fondos'; // Ruta al archivo de fondos
 
+// Configuración de la localización en español para el calendario
 LocaleConfig.locales['es'] = {
-  monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
-  monthNamesShort: ['Ene.','Feb.','Mar.','Abr.','May.','Jun.','Jul.','Ago.','Sept.','Oct.','Nov.','Dic.'],
-  dayNames: ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'],
-  dayNamesShort: ['Dom.','Lun.','Mar.','Mié.','Jue.','Vie.','Sáb.'],
+  monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+  monthNamesShort: ['Ene.', 'Feb.', 'Mar.', 'Abr.', 'May.', 'Jun.', 'Jul.', 'Ago.', 'Sept.', 'Oct.', 'Nov.', 'Dic.'],
+  dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+  dayNamesShort: ['Dom.', 'Lun.', 'Mar.', 'Mié.', 'Jue.', 'Vie.', 'Sáb.'],
   today: 'Hoy'
 };
 LocaleConfig.defaultLocale = 'es';
@@ -24,12 +27,24 @@ export default function ConsultarCitas() {
   const [citas, setCitas] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isCalendarView, setIsCalendarView] = useState(false);
+  const [fondoSeleccionado, setFondoSeleccionado] = useState({ color: '#f0f0f0' });  // Fondo por defecto
+  const [textColor, setTextColor] = useState('#333');  // Color por defecto para el texto
   const db = getFirestore();
   const auth = getAuth();
   const user = auth.currentUser;
   const userId = user.uid;
   const navigation = useNavigation();
 
+  // Cambiar color del texto según el fondo
+  useEffect(() => {
+    if (fondoSeleccionado.color === '#333333') {
+      setTextColor('#fff');  // Texto claro para fondo oscuro
+    } else {
+      setTextColor('#333');  // Texto oscuro para fondos claros
+    }
+  }, [fondoSeleccionado]);
+
+  // Consultar citas en Firestore
   useEffect(() => {
     const consultarCitas = async () => {
       try {
@@ -56,6 +71,7 @@ export default function ConsultarCitas() {
     consultarCitas();
   }, [userId]);
 
+  // Función para eliminar cita
   const handleDelete = async (id) => {
     try {
       await deleteDoc(doc(db, 'eventos', id));
@@ -65,6 +81,7 @@ export default function ConsultarCitas() {
     }
   };
 
+  // Confirmación de eliminación
   const confirmDelete = (id) => {
     Alert.alert(
       "Eliminar Cita",
@@ -76,6 +93,7 @@ export default function ConsultarCitas() {
     );
   };
 
+  // Marcar fechas en el calendario
   const marcarFechas = citas.reduce((acc, cita) => {
     const fecha = format(cita.dateTime.toDate(), 'yyyy-MM-dd');
     acc[fecha] = { marked: true, dotColor: '#00A896' };
@@ -83,13 +101,17 @@ export default function ConsultarCitas() {
   }, {});
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.header}>Citas concertadas</Text>
+    <View style={[styles.container, { backgroundColor: fondoSeleccionado.color }]}>
+      <Text style={[styles.header, { color: textColor }]}>Citas concertadas</Text>
+
+      {/* Componente para seleccionar el fondo */}
+      <Fondos onFondoSeleccionado={setFondoSeleccionado} />
+
       <Anuncio />
-      
+
       {/* Toggle para cambiar entre vista de lista y vista de calendario */}
       <View style={styles.switchContainer}>
-        <Text style={styles.switchText}>Vista Calendario</Text>
+        <Text style={[styles.switchText, { color: textColor }]}>Vista Calendario</Text>
         <Switch
           value={isCalendarView}
           onValueChange={() => setIsCalendarView(!isCalendarView)}
@@ -118,23 +140,25 @@ export default function ConsultarCitas() {
           data={citas}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
-            <View style={styles.citaItem}>
+            <View style={[styles.citaItem, { backgroundColor: fondoSeleccionado.color === '#333333' ? '#444' : '#fff' }]}>
               {item.dateTime && (
                 <>
-                  <Text style={styles.texto}>
-                    <Ionicons name="calendar-outline" size={20} color="#333" />
+                  <Text style={[styles.texto, { color: textColor }]}>
+                    <Ionicons name="calendar-outline" size={20} color={textColor} />
                     {' '}
-                    <Text style={styles.boldText}>
+                    <Text style={[styles.boldText, { color: textColor }]}>
                       {format(item.dateTime.toDate(), "dd 'de' LLLL 'de' yyyy 'a las' HH:mm", { locale: es })}
                     </Text>
                   </Text>
-                  <Text style={styles.texto}>
-                    <Ionicons name="clipboard-outline" size={20} color="#333" />
+                  <Text style={[styles.texto, { color: textColor }]}>
+                    <Ionicons name="clipboard-outline" size={20} color={textColor} />
                     {' '}
-                    <Text style={styles.boldText}>{item.text}</Text>
+                    <Text style={[styles.boldText, { color: textColor }]}>
+                      {item.text}
+                    </Text>
                   </Text>
                   <TouchableOpacity style={styles.deleteButton} onPress={() => confirmDelete(item.id)}>
-                    <Ionicons name="trash-outline" size={24} color="red" />
+                    <Ionicons name="trash-outline" size={24} color={fondoSeleccionado.color === '#333333' ? '#ff6666' : 'red'} />
                   </TouchableOpacity>
                 </>
               )}
@@ -155,12 +179,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: '#f0f0f0',
   },
   header: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#333',
     marginBottom: 20,
   },
   switchContainer: {
@@ -170,11 +192,9 @@ const styles = StyleSheet.create({
   },
   switchText: {
     fontSize: 18,
-    color: '#333',
     marginRight: 10,
   },
   citaItem: {
-    backgroundColor: '#fff',
     borderRadius: 10,
     padding: 15,
     marginBottom: 15,
@@ -189,7 +209,6 @@ const styles = StyleSheet.create({
   },
   texto: {
     fontSize: 18,
-    color: '#333',
     marginBottom: 10,
   },
   boldText: {

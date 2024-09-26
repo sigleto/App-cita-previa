@@ -8,7 +8,7 @@
     "icon": "./assets/reloj.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/reloj.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -33,7 +33,7 @@
     },
     "android": {
       "package": "com.sigleto.citaprevia",
-      "versionCode": 43,
+      "versionCode": 47,
       "adaptiveIcon": {
         "foregroundImage": "./assets/reloj.png",
         "backgroundColor": "#ffffff"

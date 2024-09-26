@@ -1,17 +1,16 @@
 import React from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet,Linking } from 'react-native';
+import { View, Text, Image, TouchableOpacity, StyleSheet, Linking } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 
-
 const Home = () => {
   
-  const navigation=useNavigation()
+  const navigation = useNavigation();
 
   const openMenu = () => {
     navigation.openDrawer(); // Step 3
-  }
- 
+  };
+
   return (
     <View style={styles.container}>
       <MaterialCommunityIcons 
@@ -24,18 +23,25 @@ const Home = () => {
       <Image source={require('../assets/citaprevia.png')} style={styles.burocraciaImage} />
       <Text style={styles.titulo}>Bienvenido a Cita Previa</Text>
       <Text style={styles.descripcion}>
-        Simplifica tu vida al concertar citas previas
-        con distintos organismos de manera rápida y eficiente.
+        Coordina citas con diferentes organismos de forma rápida y eficiente 
+        y gestiona tus eventos en una agenda personalizada
       </Text>
-      <TouchableOpacity onPress={() =>navigation.navigate('Organismos')}>
-            <Text style={styles.organismos}>ACCEDE A LOS DISTINTOS ORGANISMOS</Text>
-        </TouchableOpacity>
+
+      {/* Descargo de responsabilidad */}
+      <Text style={styles.descargo}>
+        ** Esta aplicación no está afiliada ni representa a ninguna entidad gubernamental. ** 
+      </Text>
+
+      <TouchableOpacity onPress={() => navigation.navigate('Organismos')}>
+        <Text style={styles.organismos}>ACCEDE A LOS DISTINTOS ORGANISMOS</Text>
+      </TouchableOpacity>
+      
       <TouchableOpacity onPress={() => navigation.navigate("AvisoGestion")}>
-            <Text style={styles.organismos}>GESTIONA TUS CITAS</Text>
-        </TouchableOpacity>
+        <Text style={styles.organismos}>GESTIONA TUS CITAS</Text>
+      </TouchableOpacity>
+
       <View style={styles.privacidadContainer}>
-        
-        
+        {/* Aquí podrías agregar un enlace a la política de privacidad o cualquier otro aviso */}
       </View>
     </View>
   );
@@ -51,8 +57,7 @@ const styles = StyleSheet.create({
   logo: {
     width: '67%',
     height: '24%',
-    marginTop:55,
-    
+    marginTop: 55,
   },
   burocraciaImage: {
     width: '67%',
@@ -66,27 +71,19 @@ const styles = StyleSheet.create({
   descripcion: {
     textAlign: 'center',
     marginTop: 18,
-    fontSize:18,
-    color:'#063931'
+    fontSize: 18,
+    color: '#063931',
   },
-  botonComenzar: {
-    backgroundColor: 'blue', // Color de fondo del botón
-    padding: 10,
-    borderRadius: 5,
-    marginTop: 20,
-  },
-  botonTexto: {
-    color: 'white', // Color del texto del botón
+  descargo: {
     textAlign: 'center',
-    fontWeight: 'bold',
-  }, privacidadContainer: {
-    position: "absolute",
-    bottom: 0,
-    right: 0,
-    padding: 8,
+    marginTop: 12,
+    fontSize: 14,
+    fontStyle: 'italic',
+    color: 'red',  // Cambia el color para hacerlo más visible
+    paddingHorizontal: 10,
   },
-  organismos:{
-    marginTop:18,
+  organismos: {
+    marginTop: 18,
     marginBottom: 16,
     paddingVertical: 8,
     paddingHorizontal: 12,
@@ -94,15 +91,22 @@ const styles = StyleSheet.create({
     borderColor: "#007AFF",
     borderRadius: 8,
     backgroundColor: "#8baaf7",
-    fontWeight:'bold'
-  } , menuIcon: {
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  menuIcon: {
     position: 'absolute',
     top: 60,
     left: 20,
-    fontSize:40,
+    fontSize: 40,
     zIndex: 1,
   },
- 
+  privacidadContainer: {
+    position: "absolute",
+    bottom: 0,
+    right: 0,
+    padding: 8,
+  },
 });
 
 export default Home;
