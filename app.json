@@ -33,7 +33,7 @@
     },
     "android": {
       "package": "com.sigleto.citaprevia",
-      "versionCode": 47,
+      "versionCode": 48,
       "adaptiveIcon": {
         "foregroundImage": "./assets/reloj.png",
         "backgroundColor": "#ffffff"

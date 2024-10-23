@@ -23,8 +23,8 @@ const Home = () => {
       <Image source={require('../assets/citaprevia.png')} style={styles.burocraciaImage} />
       <Text style={styles.titulo}>Bienvenido a Cita Previa</Text>
       <Text style={styles.descripcion}>
-        Coordina citas con diferentes organismos de forma rápida y eficiente 
-        y gestiona tus eventos en una agenda personalizada
+        Coordina citas con diferentes organismos de forma eficiente 
+        y gestiona tus eventos y notas en una agenda personalizada
       </Text>
 
       {/* Descargo de responsabilidad */}
@@ -38,6 +38,9 @@ const Home = () => {
       
       <TouchableOpacity onPress={() => navigation.navigate("AvisoGestion")}>
         <Text style={styles.organismos}>GESTIONA TUS CITAS</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate("GestionNotas")}>
+        <Text style={styles.organismos}>NOTAS PERSONALES</Text>
       </TouchableOpacity>
 
       <View style={styles.privacidadContainer}>
@@ -53,15 +56,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: 16,
+    marginBottom:10,
   },
   logo: {
     width: '67%',
-    height: '24%',
+    height: '20%',
     marginTop: 55,
   },
   burocraciaImage: {
     width: '67%',
-    height: '22%',
+    height: '20%',
   },
   titulo: {
     fontSize: 24,

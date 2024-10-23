@@ -41,6 +41,8 @@ import { AvisoGestion } from './GestionCitas/AvisoGestion';
 import DescargoResponsabilidad from './DescargoResponsabilidad';
 import SeguridadDatos from './SeguridadDatos';
 import PoliticaPrivacidad from './PoliticaPrivacidad';
+import CrearNota from './GestionNotas/CrearNotas';
+import ConsultarNotas from './GestionNotas/ConsultarNotas';
 
 
 const Stack = createStackNavigator();
@@ -91,6 +93,19 @@ export function GestionCitasStack() {
     </Stack.Navigator>
   );
 }
+
+export function GestionNotasStack() {
+  return (
+    <Stack.Navigator initialRouteName="CrearNota">
+      <Stack.Screen name="CrearNota" component={CrearNota} options={{ headerShown: false }} />
+      <Stack.Screen name="ConsultarNotas" component={ConsultarNotas} options={{ headerShown: false }} />
+      
+    </Stack.Navigator>
+  );
+}
+
+
+
 export function PresentacionStack() {
   return (
     <Stack.Navigator
@@ -155,6 +170,11 @@ export function PrincipalStack(){
         <Stack.Screen
           name="GestionCitas"
           component={GestionCitasStack}
+          options={{  headerShown: false }}
+        />
+        <Stack.Screen
+          name="GestionNotas"
+          component={GestionNotasStack}
           options={{  headerShown: false }}
         />
         <Stack.Screen
