@@ -1,50 +1,75 @@
-import React from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet, Linking } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { MaterialCommunityIcons } from '@expo/vector-icons'; 
+import React from "react";
+import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const Home = () => {
-  
   const navigation = useNavigation();
 
   const openMenu = () => {
-    navigation.openDrawer(); // Step 3
+    navigation.openDrawer();
   };
 
   return (
     <View style={styles.container}>
-      <MaterialCommunityIcons 
+      <MaterialCommunityIcons
         name="menu"
-        size={30}
+        size={32}
         style={styles.menuIcon}
-        onPress={openMenu} // Step 2
+        onPress={openMenu}
       />
-      <Image source={require('../assets/LogoJuan.png')} style={styles.logo} />
-      <Image source={require('../assets/citaprevia.png')} style={styles.burocraciaImage} />
+
+      <Image source={require("../assets/LogoJuan.png")} style={styles.logo} />
+
       <Text style={styles.titulo}>Bienvenido a Cita Previa</Text>
+
       <Text style={styles.descripcion}>
-        Coordina citas con diferentes organismos de forma eficiente 
-        y gestiona tus eventos y notas en una agenda personalizada
+        Coordina citas con diferentes organismos de forma eficiente y gestiona
+        tus eventos y notas en una agenda personalizada.
       </Text>
 
-      {/* Descargo de responsabilidad */}
+      <Image
+        source={require("../assets/citaprevia.png")}
+        style={styles.burocraciaImage}
+      />
+
       <Text style={styles.descargo}>
-        ** Esta aplicación no está afiliada ni representa a ninguna entidad gubernamental. ** 
+        ** Esta aplicación no está afiliada ni representa a ninguna entidad
+        gubernamental. **
       </Text>
 
-      <TouchableOpacity onPress={() => navigation.navigate('Organismos')}>
-        <Text style={styles.organismos}>ACCEDE A LOS DISTINTOS ORGANISMOS</Text>
-      </TouchableOpacity>
-      
-      <TouchableOpacity onPress={() => navigation.navigate("AvisoGestion")}>
-        <Text style={styles.organismos}>GESTIONA TUS CITAS</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate("GestionNotas")}>
-        <Text style={styles.organismos}>NOTAS PERSONALES</Text>
-      </TouchableOpacity>
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.navigate("Organismos")}
+        >
+          <MaterialCommunityIcons
+            name="office-building"
+            size={24}
+            color="white"
+          />
+          <Text style={styles.buttonText}>Organismos</Text>
+        </TouchableOpacity>
 
-      <View style={styles.privacidadContainer}>
-        {/* Aquí podrías agregar un enlace a la política de privacidad o cualquier otro aviso */}
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.navigate("AvisoGestion")}
+        >
+          <MaterialCommunityIcons
+            name="calendar-check"
+            size={24}
+            color="white"
+          />
+          <Text style={styles.buttonText}>Gestiona tus citas</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.navigate("GestionNotas")}
+        >
+          <MaterialCommunityIcons name="notebook" size={24} color="white" />
+          <Text style={styles.buttonText}>Notas personales</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -53,63 +78,72 @@ const Home = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     padding: 16,
-    marginBottom:10,
+    backgroundColor: "#f5f7fa",
   },
   logo: {
-    width: '67%',
-    height: '20%',
-    marginTop: 55,
-  },
-  burocraciaImage: {
-    width: '67%',
-    height: '20%',
+    width: 150,
+    height: 150,
+    marginBottom: 20,
   },
   titulo: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginTop: 20,
+    fontSize: 26,
+    fontWeight: "bold",
+    color: "#333",
+    marginBottom: 10,
   },
   descripcion: {
-    textAlign: 'center',
-    marginTop: 18,
-    fontSize: 18,
-    color: '#063931',
+    textAlign: "center",
+    fontSize: 16,
+    color: "#555",
+    marginBottom: 20,
+  },
+  burocraciaImage: {
+    width: "80%",
+    height: 120,
+    resizeMode: "contain",
+    marginBottom: 20,
   },
   descargo: {
-    textAlign: 'center',
-    marginTop: 12,
-    fontSize: 14,
-    fontStyle: 'italic',
-    color: 'red',  // Cambia el color para hacerlo más visible
-    paddingHorizontal: 10,
+    textAlign: "center",
+    fontSize: 12,
+    fontStyle: "italic",
+    color: "red",
+    marginBottom: 20,
   },
-  organismos: {
-    marginTop: 18,
-    marginBottom: 16,
-    paddingVertical: 8,
-    paddingHorizontal: 12,
-    borderWidth: 1,
-    borderColor: "#007AFF",
+  buttonContainer: {
+    width: "100%",
+    alignItems: "center",
+  },
+  button: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#007AFF",
+    paddingVertical: 12,
+    paddingHorizontal: 20,
     borderRadius: 8,
-    backgroundColor: "#8baaf7",
-    fontWeight: 'bold',
-    textAlign: 'center',
+    marginVertical: 8,
+    width: "80%",
+    justifyContent: "center",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 2,
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 16,
+    fontWeight: "bold",
+    marginLeft: 10,
   },
   menuIcon: {
-    position: 'absolute',
-    top: 60,
-    left: 20,
-    fontSize: 40,
-    zIndex: 1,
-  },
-  privacidadContainer: {
     position: "absolute",
-    bottom: 0,
-    right: 0,
-    padding: 8,
+    top: 50,
+    left: 20,
+    color: "#333",
   },
 });
 

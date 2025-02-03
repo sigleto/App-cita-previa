@@ -4,7 +4,7 @@
     "slug": "cita-previa",
     "scheme": "com.sigleto.citaprevia",
     "version": "1.0.0",
-    "orientation": "portrait",
+    "orientation": "default",
     "icon": "./assets/reloj.png",
     "userInterfaceStyle": "light",
     "splash": {
@@ -12,19 +12,15 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*",
-      "app-ads.txt"
-    ],
+    "assetBundlePatterns": ["**/*", "app-ads.txt"],
     "plugins": [
       "@react-native-google-signin/google-signin",
       [
         "expo-notifications",
-        { "icon":"./assets/notifica.png",
-        
-         "sounds": [
-            "./assets/alarma.wav"
-          ]
+        {
+          "icon": "./assets/notifica.png",
+
+          "sounds": ["./assets/alarma.wav"]
         }
       ]
     ],
@@ -33,7 +29,7 @@
     },
     "android": {
       "package": "com.sigleto.citaprevia",
-      "versionCode": 48,
+      "versionCode": 52,
       "adaptiveIcon": {
         "foregroundImage": "./assets/reloj.png",
         "backgroundColor": "#ffffff"
