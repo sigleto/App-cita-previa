@@ -19,17 +19,17 @@
         "expo-notifications",
         {
           "icon": "./assets/notifica.png",
-
           "sounds": ["./assets/alarma.wav"]
         }
-      ]
+      ],
+      "expo-secure-store"
     ],
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "package": "com.sigleto.citaprevia",
-      "versionCode": 52,
+      "versionCode": 55,
       "adaptiveIcon": {
         "foregroundImage": "./assets/reloj.png",
         "backgroundColor": "#ffffff"
