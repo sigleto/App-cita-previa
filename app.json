@@ -7,14 +7,18 @@
     "orientation": "default",
     "icon": "./assets/reloj.png",
     "userInterfaceStyle": "light",
+
     "splash": {
       "image": "./assets/reloj.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+
     "assetBundlePatterns": ["**/*", "app-ads.txt"],
+
     "plugins": [
       "@react-native-google-signin/google-signin",
+
       [
         "expo-notifications",
         {
@@ -22,32 +26,40 @@
           "sounds": ["./assets/alarma.wav"]
         }
       ],
-      "expo-secure-store"
+
+      "expo-secure-store",
+
+      [
+        "react-native-google-mobile-ads",
+        {
+          "android_app_id": "ca-app-pub-6921150380725872~2513138145"
+        }
+      ]
     ],
+
     "ios": {
       "supportsTablet": true
     },
+
     "android": {
       "package": "com.sigleto.citaprevia",
-      "versionCode": 55,
+      "versionCode": 58,
       "adaptiveIcon": {
         "foregroundImage": "./assets/reloj.png",
         "backgroundColor": "#ffffff"
       },
       "googleServicesFile": "google-services.json",
-      "permissions": ["com.google.android.gms.permission.AD_ID"],
-      "jsEngine": "jsc"
+      "permissions": ["com.google.android.gms.permission.AD_ID"]
     },
+
     "web": {
       "favicon": "./assets/favicon.png"
     },
+
     "extra": {
       "eas": {
         "projectId": "4aee27fb-d1f8-4bdf-84d6-3e253d2267c7"
       }
     }
-  },
-  "react-native-google-mobile-ads": {
-    "android_app_id": "ca-app-pub-6921150380725872~2513138145"
   }
 }

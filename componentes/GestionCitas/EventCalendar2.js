@@ -12,7 +12,7 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import format from "date-fns/format";
 import es from "date-fns/locale/es";
-import { getAuth } from "@firebase/auth";
+import { getAuth } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 import * as Notifications from "expo-notifications";
 import CryptoJS from "react-native-crypto-js";

@@ -17,7 +17,7 @@ import {
   sendPasswordResetEmail,
   GoogleAuthProvider,
   signInWithCredential,
-} from "@firebase/auth";
+} from "firebase/auth";
 import { initializeApp } from "firebase/app";
 import { firebaseConfig, getPushNotificationToken } from "./Firebase";
 import GoogleLoginButton from "../BotonGoogle";

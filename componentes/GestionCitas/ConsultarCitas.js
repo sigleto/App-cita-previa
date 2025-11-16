@@ -17,7 +17,7 @@ import {
   doc,
   deleteDoc,
 } from "firebase/firestore";
-import { getAuth } from "@firebase/auth";
+import { getAuth } from "firebase/auth";
 import format from "date-fns/format";
 import es from "date-fns/locale/es";
 import CryptoJS from "react-native-crypto-js";
