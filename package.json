@@ -50,7 +50,8 @@
     "react-navigation-stack": "^2.10.4"
   },
   "devDependencies": {
-    "@babel/core": "^7.24.0"
+    "@babel/core": "^7.24.0",
+    "rimraf": "^6.1.0"
   },
   "private": true
 }

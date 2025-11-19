@@ -1,54 +1,47 @@
 {
   "project_info": {
-    "project_number": "909578452911",
-    "project_id": "eventos-de-citas-25052",
-    "storage_bucket": "eventos-de-citas-25052.appspot.com"
+    "project_number": "21545003676",
+    "project_id": "agenda-y-citas-previas",
+    "storage_bucket": "agenda-y-citas-previas.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:909578452911:android:34d1b1402576248b49b95a",
+        "mobilesdk_app_id": "1:21545003676:android:b1111a2075bc847ceb1b59",
         "android_client_info": {
           "package_name": "com.sigleto.citaprevia"
         }
       },
       "oauth_client": [
         {
-          "client_id": "909578452911-bi9eira2bt5991mc8bqgv9livbphhgtf.apps.googleusercontent.com",
+          "client_id": "21545003676-qg3tr3983averkjgpg5nimn16uk84pbk.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.sigleto.citaprevia",
-            "certificate_hash": "44aeb606bb50e06da9d80a6deb6e35b10862dcaf"
+            "certificate_hash": "cf2794095a50df6309e9d00d854d1fff2ef0e771"
           }
         },
         {
-          "client_id": "909578452911-nt2e1hh7a6fjmiss9hoo0hqdtfp3int9.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.sigleto.citaprevia",
-            "certificate_hash": "421189cae6ba8931c6e55eef440034600517a8c0"
-          }
-        },
-        {
-          "client_id": "909578452911-3hddvc5tj8vdd43qcm1sjc86d06c8v8i.apps.googleusercontent.com",
+          "client_id": "21545003676-fdmtk78tu796eoant4j46bvpvc68a8td.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDRj5kmA4sCsQgnwD2nTKd7NtInRLMCBTs"
+          "current_key": "AIzaSyDncEHdUXIChVPcnTsMhhyzP16catjsEJE"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "909578452911-3hddvc5tj8vdd43qcm1sjc86d06c8v8i.apps.googleusercontent.com",
+              "client_id": "21545003676-fdmtk78tu796eoant4j46bvpvc68a8td.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
         }
-      }
+      },
+      "admob_app_id": "ca-app-pub-6921150380725872~2513138145"
     }
   ],
   "configuration_version": "1"
