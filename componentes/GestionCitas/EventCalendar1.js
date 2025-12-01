@@ -12,7 +12,7 @@ import {
   BannerAd,
   BannerAdSize,
   TestIds,
-} from "react-native-google-mobile-ads";
+} from "../../utils/expo-web-patch"; // AUTO-PATCHED;
 
 const EventCalendar1 = ({ route }) => {
   const navigation = useNavigation();

@@ -1,9 +1,26 @@
+import { Platform } from "react-native";
 import { initializeApp } from "firebase/app";
-import { initializeAuth, getReactNativePersistence } from "firebase/auth";
+import { 
+  initializeAuth, 
+  getAuth, 
+  getReactNativePersistence, 
+  browserLocalPersistence 
+} from "firebase/auth";
+
 import ReactNativeAsyncStorage from "@react-native-async-storage/async-storage";
+
 import { getFirestore, collection, addDoc } from "firebase/firestore";
-import * as Notifications from 'expo-notifications';
-import { API_KEY, AUTH_DOMAIN, PROJECT_ID, STORAGE_BUCKET, MESSAGING_SENDER_ID, APP_ID, MEASUREMENT_ID } from '@env';
+import * as Notifications from "../../utils/expo-web-patch"; // Mantengo tu autopatch
+
+import { 
+  API_KEY, AUTH_DOMAIN, PROJECT_ID, STORAGE_BUCKET, 
+  MESSAGING_SENDER_ID, APP_ID 
+} from '@env';
+
+
+// ------------------------------
+// CONFIG
+// ------------------------------
 
 export const firebaseConfig = {
   apiKey: API_KEY,
@@ -12,30 +29,51 @@ export const firebaseConfig = {
   storageBucket: STORAGE_BUCKET,
   messagingSenderId: MESSAGING_SENDER_ID,
   appId: APP_ID,
-  
 };
 
 const app = initializeApp(firebaseConfig);
 
-// Inicializar Firebase Auth con persistencia en React Native
-const auth = initializeAuth(app, {
-  persistence: getReactNativePersistence(ReactNativeAsyncStorage)
-});
+// ------------------------------
+// AUTH UNIVERSAL
+// ------------------------------
+
+let auth;
+
+if (Platform.OS === "web") {
+  // 🌐 WEB → SIN AsyncStorage
+  auth = getAuth(app);
+  auth.setPersistence(browserLocalPersistence);
+} else {
+  // 📱 MÓVIL → AsyncStorage
+  auth = initializeAuth(app, {
+    persistence: getReactNativePersistence(ReactNativeAsyncStorage),
+  });
+}
+
+// ------------------------------
+// FIRESTORE
+// ------------------------------
 
 const db = getFirestore(app);
 
-// Función para agregar un evento a Firestore
+// ------------------------------
+// FUNCIONES FIRESTORE
+// ------------------------------
+
 export const agregarEventoFirestore = async (evento) => {
   try {
     const docRef = await addDoc(collection(db, "eventos"), evento);
-    console.log("Evento agregado con ID: ", docRef.id);
-    alert ('Perfecto!!... Te mandaremos un recordatorio antes de la cita. Asegúrate de que la aplicación tiene permisos para notificaciones en tu dispositivo');
+    console.log("Evento agregado conn ID: ", docRef.id);
+    alert('Perfecto!! Te mandaremos un recordatorio antes de la cita. Asegúrate de que la aplicación tiene permisos de notificación.');
   } catch (e) {
     console.error("Error al agregar el evento: ", e);
   }
 };
 
-// Función para obtener el token de Expo Push y FCM
+// ------------------------------
+// NOTIFICATIONS (Expo Push + FCM)
+// ------------------------------
+
 export const getPushNotificationToken = async () => {
   try {
     const { status } = await Notifications.requestPermissionsAsync();
@@ -50,11 +88,12 @@ export const getPushNotificationToken = async () => {
     console.log('Expo Push Token:', expoPushToken);
     console.log('FCM Token:', fcmToken);
 
-    // Puedes guardar ambos tokens en tu servidor o utilizarlos según tus necesidades
     return { expoPushToken, fcmToken };
+
   } catch (error) {
-    console.error('Error al obtener los tokencitos:', error);
-    throw error; // Agregado para propagar el error
+    console.error('Error al obtener tokens:', error);
+    throw error;
   }
 };
 
+export { auth, db };

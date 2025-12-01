@@ -1,11 +1,11 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+
 import {
   createStackNavigator,
   CardStyleInterpolators,
 } from "@react-navigation/stack";
-import { createDrawerNavigator } from "@react-navigation/drawer";
+
 
 import Home from "./Home";
 import Ayuntamientos from "./Enlaces/Ayuntamientos";

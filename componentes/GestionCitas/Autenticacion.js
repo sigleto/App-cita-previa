@@ -25,7 +25,7 @@ import {
   GoogleSignin,
   GoogleSigninButton,
   statusCodes,
-} from "@react-native-google-signin/google-signin";
+} from "../../utils/expo-web-patch"; // AUTO-PATCHED;
 import { EXPO_PUBLIC_CLIENT_ID, EXPO_PUBLIC_ANDROID_CLIENT_ID } from "@env";
 import ReactNativeAsyncStorage from "@react-native-async-storage/async-storage";
 import Icon from "react-native-vector-icons/FontAwesome"; // Importa el ícono

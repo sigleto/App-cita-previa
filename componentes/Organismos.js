@@ -11,7 +11,7 @@ import {
   BannerAd,
   BannerAdSize,
   TestIds,
-} from "react-native-google-mobile-ads";
+} from "../utils/expo-web-patch"; // AUTO-PATCHED;
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const Organismos = () => {

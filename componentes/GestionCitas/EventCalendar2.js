@@ -14,7 +14,7 @@ import format from "date-fns/format";
 import es from "date-fns/locale/es";
 import { getAuth } from "firebase/auth";
 import { initializeApp } from "firebase/app";
-import * as Notifications from "expo-notifications";
+import * as Notifications from "../../utils/expo-web-patch"; // AUTO-PATCHED;
 import CryptoJS from "react-native-crypto-js";
 import { CLAVE_KRYPTO } from "@env";
 import { firebaseConfig, agregarEventoFirestore } from "./Firebase"; // Asegúrate de importar firebaseConfig correctamente
@@ -23,7 +23,7 @@ import {
   BannerAd,
   BannerAdSize,
   TestIds,
-} from "react-native-google-mobile-ads";
+} from "../../utils/expo-web-patch"; // AUTO-PATCHED;
 
 const EventCalendar2 = ({ route }) => {
   const navigation = useNavigation();

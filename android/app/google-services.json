@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "21545003676",
+    "project_id": "agenda-y-citas-previas",
+    "storage_bucket": "agenda-y-citas-previas.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:21545003676:android:b1111a2075bc847ceb1b59",
+        "android_client_info": {
+          "package_name": "com.sigleto.citaprevia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "21545003676-qg3tr3983averkjgpg5nimn16uk84pbk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sigleto.citaprevia",
+            "certificate_hash": "cf2794095a50df6309e9d00d854d1fff2ef0e771"
+          }
+        },
+        {
+          "client_id": "21545003676-fdmtk78tu796eoant4j46bvpvc68a8td.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDncEHdUXIChVPcnTsMhhyzP16catjsEJE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "21545003676-fdmtk78tu796eoant4j46bvpvc68a8td.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      },
+      "admob_app_id": "ca-app-pub-6921150380725872~2513138145"
+    }
+  ],
+  "configuration_version": "1"
+}

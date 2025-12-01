@@ -6,17 +6,14 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 const Home = () => {
   const navigation = useNavigation();
 
-  const openMenu = () => {
-    navigation.openDrawer();
-  };
-
   return (
     <View style={styles.container}>
+      {/* Botón de menú */}
       <MaterialCommunityIcons
         name="menu"
         size={32}
         style={styles.menuIcon}
-        onPress={openMenu}
+        onPress={() => navigation.toggleDrawer()}
       />
 
       <Image source={require("../assets/LogoJuan.png")} style={styles.logo} />
@@ -53,7 +50,7 @@ const Home = () => {
 
         <TouchableOpacity
           style={styles.button}
-          onPress={() => navigation.navigate("AvisoGestion")}
+          onPress={() => navigation.navigate("GestionCitas")}
         >
           <MaterialCommunityIcons
             name="calendar-check"
@@ -83,40 +80,12 @@ const styles = StyleSheet.create({
     padding: 16,
     backgroundColor: "#f5f7fa",
   },
-  logo: {
-    width: 150,
-    height: 150,
-    marginBottom: 20,
-  },
-  titulo: {
-    fontSize: 26,
-    fontWeight: "bold",
-    color: "#333",
-    marginBottom: 10,
-  },
-  descripcion: {
-    textAlign: "center",
-    fontSize: 16,
-    color: "#555",
-    marginBottom: 20,
-  },
-  burocraciaImage: {
-    width: "80%",
-    height: 120,
-    resizeMode: "contain",
-    marginBottom: 20,
-  },
-  descargo: {
-    textAlign: "center",
-    fontSize: 12,
-    fontStyle: "italic",
-    color: "red",
-    marginBottom: 20,
-  },
-  buttonContainer: {
-    width: "100%",
-    alignItems: "center",
-  },
+  logo: { width: 150, height: 150, marginBottom: 20 },
+  titulo: { fontSize: 26, fontWeight: "bold", color: "#333", marginBottom: 10 },
+  descripcion: { textAlign: "center", fontSize: 16, color: "#555", marginBottom: 20 },
+  burocraciaImage: { width: "80%", height: 120, resizeMode: "contain", marginBottom: 20 },
+  descargo: { textAlign: "center", fontSize: 12, fontStyle: "italic", color: "red", marginBottom: 20 },
+  buttonContainer: { width: "100%", alignItems: "center" },
   button: {
     flexDirection: "row",
     alignItems: "center",
@@ -133,18 +102,12 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 2,
   },
-  buttonText: {
-    color: "white",
-    fontSize: 16,
-    fontWeight: "bold",
-    marginLeft: 10,
-  },
-  menuIcon: {
-    position: "absolute",
-    top: 50,
-    left: 20,
-    color: "#333",
-  },
+  buttonText: { color: "white", fontSize: 16, fontWeight: "bold", marginLeft: 10 },
+  menuIcon: { position: "absolute", top: 50, left: 20, color: "#333" },
 });
+
+
+
+
 
 export default Home;

@@ -12,15 +12,15 @@ import {
   Platform,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import * as Notifications from "expo-notifications";
-import DateTimePicker from "@react-native-community/datetimepicker";
+import * as Notifications from "../../utils/expo-web-patch"; // AUTO-PATCHED;
+import DateTimePicker from "../../utils/expo-web-patch"; // AUTO-PATCHED;
 import { useNavigation } from "@react-navigation/native";
 import { Picker } from "@react-native-picker/picker";
 import {
   BannerAd,
   BannerAdSize,
   TestIds,
-} from "react-native-google-mobile-ads";
+} from "../../utils/expo-web-patch"; // AUTO-PATCHED;
 import Icon from "react-native-vector-icons/Ionicons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
