@@ -11,30 +11,25 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import {
-  getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   sendPasswordResetEmail,
   GoogleAuthProvider,
   signInWithCredential,
 } from "firebase/auth";
-import { initializeApp } from "firebase/app";
-import { firebaseConfig, getPushNotificationToken } from "./Firebase";
-import GoogleLoginButton from "../BotonGoogle";
+
+import { auth, getPushNotificationToken } from "./Firebase";
+
 import {
   GoogleSignin,
   GoogleSigninButton,
   statusCodes,
 } from "@react-native-google-signin/google-signin";
 import { EXPO_PUBLIC_CLIENT_ID, EXPO_PUBLIC_ANDROID_CLIENT_ID } from "@env";
-import ReactNativeAsyncStorage from "@react-native-async-storage/async-storage";
 import Icon from "react-native-vector-icons/FontAwesome"; // Importa el ícono
 import { Ionicons } from "@expo/vector-icons";
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-
-const Autentication = () => {
+const Autenticacion = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -85,7 +80,6 @@ const Autentication = () => {
           break;
         default:
           Alert.alert("Error", error.message);
-          setError(error);
       }
     }
   };
@@ -376,4 +370,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Autentication;
+export default Autenticacion;

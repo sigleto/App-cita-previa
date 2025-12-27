@@ -1,42 +1,73 @@
 import React from "react";
-import { View, Text, Image, ScrollView, TouchableOpacity, StyleSheet,Linking } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  ScrollView,
+  TouchableOpacity,
+  StyleSheet,
+  Linking,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Anuncio from "../Avisos/Anuncio";
 
 const CitaMedica = () => {
   const navigation = useNavigation();
 
-  const comunidades = ["Andalucía-SAS","Aragón-SALUD","Asturias-SESPA","Cantabria-SCS","Castilla y León-SACYL",
-    "Castilla-La Mancha-SESCAM","Cataluña-CatSalut","Ceuta","Extremadura-SES","Galicia","Islas Baleares-IB-SALUT","Islas Canarias-SCS",
-    "La Rioja-SERIS","Madrid-SERMAS","Melilla","Murcia-SMS","Navarra-SNS-O","País Vasco-Osakidetza","Valencia-GVA Sanitat",];
+  const comunidades = [
+    "Andalucía-SAS",
+    "Aragón-SALUD",
+    "Asturias-SESPA",
+    "Cantabria-SCS",
+    "Castilla y León-SACYL",
+    "Castilla-La Mancha-SESCAM",
+    "Cataluña-CatSalut",
+    "Ceuta",
+    "Extremadura-SES",
+    "Galicia",
+    "Islas Baleares-IB-SALUT",
+    "Islas Canarias-SCS",
+    "La Rioja-SERIS",
+    "Madrid-SERMAS",
+    "Melilla",
+    "Murcia-SMS",
+    "Navarra-SNS-O",
+    "País Vasco-Osakidetza",
+    "Valencia-GVA Sanitat",
+  ];
 
   return (
     <View style={styles.container}>
       <View style={styles.stickyHeader}>
-       <Image source={require('../../assets/Citamedica.png')} style={styles.image} />
-      <Text style={styles.banner}>Selecciona tu comunidad</Text>
-      <Anuncio/>  
+        <Image
+          source={require("../../assets/Citamedica.png")}
+          style={styles.image}
+        />
+        <Text style={styles.banner}>Selecciona tu comunidad</Text>
+        <Anuncio />
       </View>
-      <ScrollView >
+      <ScrollView>
         {comunidades.map((item, index) => (
           <TouchableOpacity
-          key={index}
-          style={styles.comunidadItem}
-          onPress={() => {
-            if (item === "Galicia") {
-              navigation.navigate("AvisoCitaMedica");
-            } else {
-              navigation.navigate("PaginasMedicas", { comunidad: item });
-            }
-          }}
-        >
-          <Text style={[
-              styles.comunidadText,
-              item === "Galicia" ? { color: "red" } : null
-            ]}>
+            key={index}
+            style={styles.comunidadItem}
+            onPress={() => {
+              if (item === "Galicia") {
+                navigation.navigate("AvisoCitaMedica");
+              } else {
+                navigation.navigate("PaginasMedicas", { comunidad: item });
+              }
+            }}
+          >
+            <Text
+              style={[
+                styles.comunidadText,
+                item === "Galicia" ? { color: "red" } : null,
+              ]}
+            >
               {item}
             </Text>
-        </TouchableOpacity>
+          </TouchableOpacity>
         ))}
       </ScrollView>
     </View>
@@ -47,7 +78,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   stickyHeader: {
-    position: 'sticky',
+    position: "sticky",
     top: 0,
     backgroundColor: "#b8e6df",
     zIndex: 1,
@@ -56,7 +87,7 @@ const styles = StyleSheet.create({
   banner: {
     padding: 10,
     fontSize: 25,
-    color: '#9b0a9b',
+    color: "#9b0a9b",
   },
   comunidadItem: {
     padding: 10,
@@ -65,15 +96,15 @@ const styles = StyleSheet.create({
   },
   comunidadText: {
     fontSize: 22,
-    color: '#5278ca',
+    color: "#5278ca",
   },
   image: {
     width: "100%",
     height: 200,
     resizeMode: "cover",
-    marginTop:50
+    marginTop: 50,
   },
-    comunidadItemGalicia: {
+  comunidadItemGalicia: {
     color: "red", // Cambia el fondo a rojo para "Galicia"
   },
 });

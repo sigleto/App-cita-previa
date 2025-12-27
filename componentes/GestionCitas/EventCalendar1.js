@@ -5,20 +5,11 @@ import { CheckBox } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
 import format from "date-fns/format";
 import es from "date-fns/locale/es";
-import { getAuth } from "firebase/auth";
-import { initializeApp } from "firebase/app";
-import { firebaseConfig } from "./Firebase";
-import {
-  BannerAd,
-  BannerAdSize,
-  TestIds,
-} from "react-native-google-mobile-ads";
+import { auth } from "./Firebase";
 
 const EventCalendar1 = ({ route }) => {
   const navigation = useNavigation();
-  const adUnitId = __DEV__
-    ? TestIds.ADAPTIVE_BANNER
-    : "ca-app-pub-6921150380725872/8959961143";
+
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [reminderTimes, setReminderTimes] = useState({
@@ -28,8 +19,6 @@ const EventCalendar1 = ({ route }) => {
   });
   const [isDateTimeSelected, setIsDateTimeSelected] = useState(false);
 
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
   const user = auth.currentUser;
   const userEmail =
     route.params?.userEmail || (user && user.email) || "Usuario Desconocido";

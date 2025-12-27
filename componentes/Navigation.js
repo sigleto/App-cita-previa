@@ -1,11 +1,10 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+
 import {
   createStackNavigator,
   CardStyleInterpolators,
 } from "@react-navigation/stack";
-import { createDrawerNavigator } from "@react-navigation/drawer";
 
 import Home from "./Home";
 import Ayuntamientos from "./Enlaces/Ayuntamientos";
@@ -36,7 +35,7 @@ import RegistrosCiviles from "./Enlaces/RegistrosCiviles";
 import RegistrosPropiedad from "./Enlaces/Registrosdelapropiedad";
 import GuardiaCivil from "./Enlaces/GuardiaCivil";
 import AvisoCitaMedica from "./Avisos/AvisoCitaMedica";
-import Autentication from "./GestionCitas/Autenticacion";
+import Autenticacion from "./GestionCitas/Autenticacion";
 import ConsultarCitas from "./GestionCitas/ConsultarCitas";
 import EventCalendar1 from "./GestionCitas/EventCalendar1";
 import EventCalendar2 from "./GestionCitas/EventCalendar2";
@@ -183,10 +182,10 @@ export function OrganismosStack() {
 
 export function GestionCitasStack() {
   return (
-    <Stack.Navigator initialRouteName="Autentication">
+    <Stack.Navigator initialRouteName="Autenticacion">
       <Stack.Screen
-        name="Autentication"
-        component={Autentication}
+        name="Autenticacion"
+        component={Autenticacion}
         options={{ headerShown: false }}
       />
       <Stack.Screen
@@ -341,21 +340,3 @@ export function PrincipalStack() {
     </Stack.Navigator>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "white", // Color de fondo del contenedor
-  },
-  tabLabel: {
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-  tabBar: {
-    backgroundColor: "lightgray", // Color de fondo de la barra de pestañas
-    borderTopWidth: 1, // Grosor de la línea superior
-    borderColor: "gray", // Color de la línea superior
-    height: 75,
-    backgroundColor: "#d1fa95",
-  },
-});

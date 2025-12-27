@@ -12,18 +12,11 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import format from "date-fns/format";
 import es from "date-fns/locale/es";
-import { getAuth } from "firebase/auth";
-import { initializeApp } from "firebase/app";
 import * as Notifications from "expo-notifications";
 import CryptoJS from "react-native-crypto-js";
 import { CLAVE_KRYPTO } from "@env";
-import { firebaseConfig, agregarEventoFirestore } from "./Firebase"; // Asegúrate de importar firebaseConfig correctamente
+import { auth, agregarEventoFirestore } from "./Firebase"; // Asegúrate de importar firebaseConfig correctamente
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import {
-  BannerAd,
-  BannerAdSize,
-  TestIds,
-} from "react-native-google-mobile-ads";
 
 const EventCalendar2 = ({ route }) => {
   const navigation = useNavigation();
@@ -34,11 +27,7 @@ const EventCalendar2 = ({ route }) => {
     route.params?.reminderTimes || []
   );
   const [eventText, setEventText] = useState("");
-  const adUnitId = __DEV__
-    ? TestIds.ADAPTIVE_BANNER
-    : "ca-app-pub-6921150380725872/8959961143";
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
+
   const user = auth.currentUser;
   const userId = user ? user.uid : null;
   const userEmail =

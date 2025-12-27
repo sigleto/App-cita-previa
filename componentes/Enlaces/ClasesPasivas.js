@@ -1,5 +1,13 @@
 import React from "react";
-import { View, Text, Image, ScrollView, TouchableOpacity, Linking, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  ScrollView,
+  TouchableOpacity,
+  Linking,
+  StyleSheet,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Anuncio from "../Avisos/Anuncio";
 
@@ -12,14 +20,23 @@ const ClasesPasivas = () => {
 
   return (
     <ScrollView style={styles.container}>
-      <Image source={require('../../assets/clasesPasivas.jpg')} style={styles.image} />
-      <Text style={styles.titulo}>Cita previa para trámites diversos en Clases Pasivas</Text>
-      <Anuncio/>  
+      <Image
+        source={require("../../assets/clasesPasivas.jpg")}
+        style={styles.image}
+      />
+      <Text style={styles.titulo}>
+        Cita previa para trámites diversos en Clases Pasivas
+      </Text>
+      <Anuncio />
       <View style={styles.serviciosList}>
-      <TouchableOpacity style={styles.item} onPress={() => openLink('https://ssweb.seap.minhap.es/icpplus/citar?org=DGCP')}>
+        <TouchableOpacity
+          style={styles.item}
+          onPress={() =>
+            openLink("https://ssweb.seap.minhap.es/icpplus/citar?org=DGCP")
+          }
+        >
           <Text style={styles.itemText}>CITA PREVIA</Text>
         </TouchableOpacity>
-      
       </View>
     </ScrollView>
   );
@@ -36,13 +53,13 @@ const styles = StyleSheet.create({
     height: 200,
     resizeMode: "cover",
     marginBottom: 16,
-    marginTop:60,
+    marginTop: 60,
   },
   titulo: {
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 16,
-    textAlign:'center'
+    textAlign: "center",
   },
   serviciosList: {
     marginLeft: 16,
@@ -55,17 +72,18 @@ const styles = StyleSheet.create({
     borderColor: "#007AFF",
     borderRadius: 8,
     backgroundColor: "#f0f0f0",
-    marginTop:50,
+    marginTop: 50,
   },
   itemText: {
     fontSize: 22,
     color: "#007AFF",
     fontWeight: "bold",
-    textAlign:'center'
-  },arroba:{
-    fontSize:20,
-    color:'#f41171'
-  }
+    textAlign: "center",
+  },
+  arroba: {
+    fontSize: 20,
+    color: "#f41171",
+  },
 });
 
 export default ClasesPasivas;

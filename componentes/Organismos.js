@@ -7,18 +7,11 @@ import {
   ScrollView,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import {
-  BannerAd,
-  BannerAdSize,
-  TestIds,
-} from "react-native-google-mobile-ads";
+
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const Organismos = () => {
   const navigation = useNavigation();
-  const adUnitId = __DEV__
-    ? TestIds.ADAPTIVE_BANNER
-    : "ca-app-pub-6921150380725872/8959961143";
 
   const navigateToOrganismo = (ruta) => {
     navigation.navigate(ruta);
@@ -72,11 +65,6 @@ const Organismos = () => {
       <Text style={styles.tituloOrg}>
         ¿Con qué organismo quieres concertar la cita?
       </Text>
-
-      <BannerAd
-        unitId={adUnitId}
-        size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-      />
 
       <View style={styles.organismos}>
         {opciones.map((opcion) => (

@@ -1,22 +1,23 @@
 import React, { createContext, useState, useEffect } from "react";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
+import { getAuthInstance } from "./GestionCitas/Firebase";
 
-export const AuthContext = createContext();
+export const AuthContext = createContext({
+  isAuthenticated: false,
+});
 
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    const auth = getAuth();
+    const auth = getAuthInstance();
+    if (!auth) return;
+
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setIsAuthenticated(true); // Usuario autenticado
-      } else {
-        setIsAuthenticated(false); // Usuario no autenticado
-      }
+      setIsAuthenticated(!!user);
     });
 
-    return () => unsubscribe(); // Limpia el observador al desmontar
+    return unsubscribe;
   }, []);
 
   return (

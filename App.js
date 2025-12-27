@@ -1,3 +1,4 @@
+import "react-native-reanimated"; // OBLIGATORIO: Primera línea
 import React, { useCallback } from "react";
 import {
   View,
@@ -9,11 +10,13 @@ import {
 } from "react-native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { NavigationContainer } from "@react-navigation/native";
-import Contacto from "./componentes/Contacto";
-import { PrincipalStack, PresentacionStack } from "./componentes/Navigation";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { enableScreens } from "react-native-screens";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+
+// Tus componentes
+import Contacto from "./componentes/Contacto";
+import { PrincipalStack, PresentacionStack } from "./componentes/Navigation";
 import DescargoResponsabilidad from "./componentes/DescargoResponsabilidad";
 import SeguridadDatos from "./componentes/SeguridadDatos";
 import PoliticaPrivacidad from "./componentes/PoliticaPrivacidad";
@@ -57,11 +60,13 @@ const App = () => {
       <AuthProvider>
         <NavigationContainer>
           <Drawer.Navigator
-            initialRouteName="Principal"
+            initialRouteName="Inicio"
             screenOptions={{
               headerShown: false,
+              overlayColor: "rgba(0,0,0,0.5)",
               drawerStyle: {
                 backgroundColor: "#f7f7f7",
+                width: 280,
               },
               drawerLabelStyle: {
                 fontSize: 18,

@@ -1,28 +1,25 @@
-// Anuncio.js
-import React, { useEffect, useState } from 'react';
-import { InterstitialAd, AdEventType, TestIds } from 'react-native-google-mobile-ads';
+/// Anuncio.js
+import React from "react";
+import { View, Text, StyleSheet } from "react-native";
 
 const Anuncio = () => {
-  const adUnitId = __DEV__ ? TestIds.INTERSTITIAL : 'ca-app-pub-6921150380725872/4465456013';
-  const interstitial = InterstitialAd.createForAdRequest(adUnitId, {
-    keywords: ['fashion', 'clothing'],
-  });
-  const [loaded, setLoaded] = useState(false);
-
-  useEffect(() => {
-    const unsubscribe = interstitial.addAdEventListener(AdEventType.LOADED, () => {
-      setLoaded(true);
-      interstitial.show();
-    });
-
-    // Start loading the interstitial straight away
-    interstitial.load();
-
-    // Unsubscribe from events on unmount
-    return unsubscribe;
-  }, []);
-
-  return null;
+  return (
+    <View style={styles.container}>
+      <Text style={styles.text}>Hola</Text>
+    </View>
+  );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  text: {
+    fontSize: 24,
+    fontWeight: "bold",
+  },
+});
 
 export default Anuncio;

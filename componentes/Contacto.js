@@ -1,35 +1,47 @@
-import React, { useState } from 'react';
-import { Button,View, Text, TextInput, TouchableOpacity, StyleSheet,Image,ScrollView,Alert } from 'react-native';
-import { useForm, Controller } from 'react-hook-form';
-import { useNavigation } from '@react-navigation/native'; // Asumiendo que estás utilizando React Navigation
-import { MaterialCommunityIcons,MaterialIcons } from "@expo/vector-icons";
+import React, { useState } from "react";
+import {
+  Button,
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  Image,
+  ScrollView,
+  Alert,
+} from "react-native";
+import { useForm, Controller } from "react-hook-form";
+import { useNavigation } from "@react-navigation/native"; // Asumiendo que estás utilizando React Navigation
 
 const Contacto = () => {
   const navigation = useNavigation();
 
-   const { control, handleSubmit, reset, formState: { errors } } = useForm();
-  
+  const {
+    control,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
+
   const accion = async (data) => {
     try {
-      await fetch('https://app-cita-previa.vercel.app/Contacto', {
-        method: 'POST',
-        mode: 'cors',
+      await fetch("https://app-cita-previa.vercel.app/Contacto", {
+        method: "POST",
+        mode: "cors",
         body: JSON.stringify(data),
-        headers: { 'Content-Type': 'application/json' },
+        headers: { "Content-Type": "application/json" },
       });
-      console.log(data)
-      Alert.alert('¡¡Muchas gracias por tu colaboración!!');
+      console.log(data);
+      Alert.alert("¡¡Muchas gracias por tu colaboración!!");
       reset();
-      navigation.navigate('Home'); // Reemplaza 'Inicio' con el nombre de tu ruta de inicio
+      navigation.navigate("Home"); // Reemplaza 'Inicio' con el nombre de tu ruta de inicio
     } catch (error) {
-      console.log('Error al enviar los datos:', error);
+      console.log("Error al enviar los datos:", error);
     }
   };
 
-
   return (
     <ScrollView style={styles.container}>
-      
       <Text style={styles.titulo}>Contacta con nosotros</Text>
       <Controller
         control={control}
@@ -65,7 +77,7 @@ const Contacto = () => {
         rules={{
           pattern: {
             value: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/,
-            message: 'Eso no es un correo válido',
+            message: "Eso no es un correo válido",
           },
         }}
         defaultValue=""
@@ -90,12 +102,12 @@ const Contacto = () => {
       <TouchableOpacity onPress={handleSubmit(accion)} style={styles.enviando}>
         <Text>ENVIAR DATOS</Text>
       </TouchableOpacity>
-      {errors.correo?.type === 'pattern' && (
+      {errors.correo?.type === "pattern" && (
         <View>
           <Text>Eso no es un correo válido</Text>
         </View>
       )}
-      <Image source={require('../assets/Contacto.png')} style={styles.gatito} />
+      <Image source={require("../assets/Contacto.png")} style={styles.gatito} />
     </ScrollView>
   );
 };
@@ -103,21 +115,20 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-   
   },
   titulo: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 20,
-    marginTop:50,
-    marginBottom:45,
+    marginTop: 50,
+    marginBottom: 45,
   },
   campos: {
     marginBottom: 20,
   },
   inputc: {
     borderWidth: 1,
-    borderColor: 'gray',
+    borderColor: "gray",
     padding: 10,
     borderRadius: 5,
   },
@@ -125,21 +136,21 @@ const styles = StyleSheet.create({
     height: 100,
   },
   enviando: {
-    backgroundColor: '#c3bff9',
+    backgroundColor: "#c3bff9",
     padding: 10,
     borderRadius: 5,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     marginTop: 20,
   },
   gatito: {
     width: 335,
     height: 150,
-    alignSelf: 'center',
+    alignSelf: "center",
   },
-  zona:{
-    fontSize:25,
-  }
+  zona: {
+    fontSize: 25,
+  },
 });
 
 export default Contacto;

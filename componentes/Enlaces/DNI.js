@@ -1,28 +1,37 @@
-import React,{useState,useEffect}from "react";
-import { View, Text, Image, ScrollView, TouchableOpacity, Linking, StyleSheet } from "react-native";
+import React, { useState, useEffect } from "react";
+import {
+  View,
+  Text,
+  Image,
+  ScrollView,
+  TouchableOpacity,
+  Linking,
+  StyleSheet,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Anuncio from "../Avisos/Anuncio";
 
 const DNI = () => {
   const navigation = useNavigation();
 
-  
-  
   const openLink = (url) => {
     Linking.openURL(url);
   };
 
-  
   return (
     <ScrollView style={styles.container}>
-      <Image source={require('../../assets/DNI.png')} style={styles.image} />
-      <Text style={styles.titulo}>Cita previa para renovación de DNI/pasaporte</Text>
-      <Anuncio/>   
+      <Image source={require("../../assets/DNI.png")} style={styles.image} />
+      <Text style={styles.titulo}>
+        Cita previa para renovación de DNI/pasaporte
+      </Text>
+      <Anuncio />
       <View style={styles.serviciosList}>
-        <TouchableOpacity style={styles.item} onPress={() => navigation.navigate("AvisoDNI")}>
+        <TouchableOpacity
+          style={styles.item}
+          onPress={() => navigation.navigate("AvisoDNI")}
+        >
           <Text style={styles.itemText}>Solicita o gestiona tu cita</Text>
         </TouchableOpacity>
-      
       </View>
     </ScrollView>
   );
@@ -39,7 +48,7 @@ const styles = StyleSheet.create({
     height: 200,
     resizeMode: "cover",
     marginBottom: 16,
-    marginTop:60,
+    marginTop: 60,
   },
   titulo: {
     fontSize: 24,
@@ -50,7 +59,7 @@ const styles = StyleSheet.create({
     marginLeft: 16,
   },
   item: {
-    marginTop:50,
+    marginTop: 50,
     marginBottom: 16,
     paddingVertical: 8,
     paddingHorizontal: 12,
@@ -63,11 +72,12 @@ const styles = StyleSheet.create({
     fontSize: 22,
     color: "#007AFF",
     fontWeight: "bold",
-    textAlign:'center',
-  },arroba:{
-    fontSize:20,
-    color:'#f41171'
-  }
+    textAlign: "center",
+  },
+  arroba: {
+    fontSize: 20,
+    color: "#f41171",
+  },
 });
 
 export default DNI;

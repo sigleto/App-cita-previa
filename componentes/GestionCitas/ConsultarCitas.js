@@ -10,14 +10,8 @@ import {
   Alert,
   Switch,
 } from "react-native";
-import {
-  getFirestore,
-  collection,
-  getDocs,
-  doc,
-  deleteDoc,
-} from "firebase/firestore";
-import { getAuth } from "firebase/auth";
+import { collection, getDocs } from "firebase/firestore";
+import { auth, db } from "./Firebase"; // <-- usa la instancia compartida
 import format from "date-fns/format";
 import es from "date-fns/locale/es";
 import CryptoJS from "react-native-crypto-js";
@@ -26,7 +20,7 @@ import Anuncio from "../Avisos/Anuncio";
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 import { Calendar, LocaleConfig } from "react-native-calendars";
-import Fondos from "./Fondos"; // Ruta al archivo de fondos
+import Fondos from "./Fondos";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 // Configuración de la localización en español para el calendario
@@ -81,10 +75,9 @@ export default function ConsultarCitas() {
     color: "#f0f0f0",
   }); // Fondo por defecto
   const [textColor, setTextColor] = useState("#333"); // Color por defecto para el texto
-  const db = getFirestore();
-  const auth = getAuth();
+
   const user = auth.currentUser;
-  const userId = user.uid;
+  const userId = user ? user.uid : null;
   const navigation = useNavigation();
 
   // Cambiar color del texto según el fondo
