@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+
 import {
   View,
   TextInput,
@@ -9,7 +10,9 @@ import {
   Text,
   Image,
 } from "react-native";
+
 import { useNavigation } from "@react-navigation/native";
+
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -25,24 +28,36 @@ import {
   GoogleSigninButton,
   statusCodes,
 } from "@react-native-google-signin/google-signin";
+
 import { EXPO_PUBLIC_CLIENT_ID, EXPO_PUBLIC_ANDROID_CLIENT_ID } from "@env";
+
 import Icon from "react-native-vector-icons/FontAwesome"; // Importa el ícono
+
 import { Ionicons } from "@expo/vector-icons";
 
 const Autenticacion = () => {
   const [email, setEmail] = useState("");
+
   const [password, setPassword] = useState("");
+
   const [confirmPassword, setConfirmPassword] = useState("");
+
   const [userInfo, setUserInfo] = useState(null);
+
   const [showLoginForm, setShowLoginForm] = useState(false);
+
   const [showSignupForm, setShowSignupForm] = useState(false);
+
   const [showPassword, setShowPassword] = useState(false); // Estado para mostrar/ocultar contraseña
+
   const [showConfirmPassword, setShowConfirmPassword] = useState(false); // Estado para mostrar/ocultar confirmación de contraseña
+
   const navigation = useNavigation();
 
   const configureGoogleSignin = () => {
     GoogleSignin.configure({
       webClientId: EXPO_PUBLIC_CLIENT_ID, // Reemplaza con tu propio webClientId
+
       offlineAccess: true, // Necesario para obtener el refreshToken
     });
   };
@@ -54,30 +69,43 @@ const Autenticacion = () => {
   const handleGoogleSignIn = async () => {
     try {
       await GoogleSignin.hasPlayServices();
+
       const userInfo = await GoogleSignin.signIn();
+
       setUserInfo(userInfo); // Almacena la información del usuario
+
       console.log(userInfo.user.givenName);
 
       if (userInfo) {
         console.log(userInfo);
+
         const { idToken, accessToken } = userInfo;
+
         const credential = GoogleAuthProvider.credential(idToken, accessToken);
+
         await signInWithCredential(auth, credential);
       }
 
       navigation.navigate("EventCalendar1", { userEmail: userInfo.user.email });
     } catch (error) {
       console.error(error);
+
       switch (error.code) {
         case statusCodes.SIGN_IN_CANCELLED:
           Alert.alert("cancelado");
+
           break;
+
         case statusCodes.IN_PROGRESS:
           Alert.alert("en progreso");
+
           break;
+
         case statusCodes.PLAY_SERVICES_NOT_AVAILABLE:
           Alert.alert("no disponible");
+
           break;
+
         default:
           Alert.alert("Error", error.message);
       }
@@ -88,26 +116,35 @@ const Autenticacion = () => {
     try {
       const userCredential = await signInWithEmailAndPassword(
         auth,
+
         email,
+
         password
       );
+
       const user = userCredential.user;
+
       console.log("Autenticado:", user.email);
+
       const obtenerTokens = async () => {
         try {
           const tokens = await getPushNotificationToken();
+
           console.log("Tokens obtenidos:", tokens);
         } catch (error) {
           console.error("Error al obtener los tokens:", error);
         }
       };
+
       obtenerTokens();
+
       navigation.navigate("EventCalendar1");
     } catch (error) {
       const errorMessage =
         error.code === "auth/user-not-found"
           ? "Usuario no encontrado. Por favor, verifica tu correo electrónico."
           : "Error al iniciar sesión. Verifica tus credenciales.";
+
       Alert.alert(errorMessage);
     }
   };
@@ -117,20 +154,26 @@ const Autenticacion = () => {
       if (!email) {
         Alert.alert(
           "Error",
+
           "Por favor, introduce tu dirección de correo electrónico."
         );
+
         return;
       }
 
       await sendPasswordResetEmail(auth, email);
+
       Alert.alert(
         "Correo de restablecimiento enviado",
+
         "Se ha enviado un correo electrónico con instrucciones para restablecer tu contraseña."
       );
     } catch (error) {
       console.error("Error al enviar el correo de restablecimiento:", error);
+
       Alert.alert(
         "Error",
+
         "Hubo un error al enviar el correo de restablecimiento. Por favor, inténtalo de nuevo."
       );
     }
@@ -141,32 +184,42 @@ const Autenticacion = () => {
       Alert.alert(
         "Las contraseñas no coinciden. Por favor, inténtalo de nuevo."
       );
+
       return;
     }
 
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
+
         email,
+
         password
       );
+
       const user = userCredential.user;
+
       Alert.alert("¡Enhorabuena, cuenta creada!");
+
       const obtenerTokens = async () => {
         try {
           const tokens = await getPushNotificationToken();
+
           console.log("Tokens obtenidos:", tokens);
         } catch (error) {
           console.error("Error al obtener los tokens:", error);
         }
       };
+
       obtenerTokens();
+
       navigation.navigate("EventCalendar");
     } catch (error) {
       const errorMessage =
         error.code === "auth/weak-password"
           ? "La contraseña debe tener al menos 6 caracteres"
           : "Error al crear la cuenta. Por favor, inténtalo de nuevo.";
+
       Alert.alert(errorMessage);
     }
   };
@@ -177,7 +230,9 @@ const Autenticacion = () => {
         source={require("../../assets/citaprevia.png")}
         style={styles.image}
       />
+
       <Text style={styles.avisoTexto}>¡Bienvenid@ de nuevo!</Text>
+
       {!showLoginForm && !showSignupForm && (
         <View style={styles.formContainer}>
           <TouchableOpacity
@@ -195,6 +250,7 @@ const Autenticacion = () => {
           </TouchableOpacity>
         </View>
       )}
+
       {(showLoginForm || showSignupForm) && (
         <View style={styles.formContainer}>
           <TextInput
@@ -203,6 +259,7 @@ const Autenticacion = () => {
             placeholderTextColor="#999"
             onChangeText={(text) => setEmail(text)}
           />
+
           <View style={styles.passwordContainer}>
             <TextInput
               style={styles.input}
@@ -211,6 +268,7 @@ const Autenticacion = () => {
               value={password}
               onChangeText={(text) => setPassword(text)}
             />
+
             <TouchableOpacity
               style={styles.togglePasswordButton}
               onPress={() => setShowPassword(!showPassword)}
@@ -222,6 +280,7 @@ const Autenticacion = () => {
               />
             </TouchableOpacity>
           </View>
+
           {showSignupForm && (
             <View style={styles.passwordContainer}>
               <TextInput
@@ -231,6 +290,7 @@ const Autenticacion = () => {
                 value={confirmPassword}
                 onChangeText={(text) => setConfirmPassword(text)}
               />
+
               <TouchableOpacity
                 style={styles.togglePasswordButton}
                 onPress={() => setShowConfirmPassword(!showConfirmPassword)}
@@ -243,11 +303,13 @@ const Autenticacion = () => {
               </TouchableOpacity>
             </View>
           )}
+
           {showLoginForm && (
             <TouchableOpacity style={styles.button1} onPress={handleSignIn}>
               <Text style={styles.buttonText}>Iniciar sesión</Text>
             </TouchableOpacity>
           )}
+
           {showSignupForm && (
             <TouchableOpacity
               style={styles.button2}
@@ -256,6 +318,7 @@ const Autenticacion = () => {
               <Text style={styles.buttonText}>Crear una cuenta</Text>
             </TouchableOpacity>
           )}
+
           {showLoginForm && (
             <TouchableOpacity onPress={handleForgotPassword}>
               <Text style={styles.button3}>¿Olvidaste tu contraseña?</Text>
@@ -267,11 +330,13 @@ const Autenticacion = () => {
             color={GoogleSigninButton.Color.Dark}
             onPress={handleGoogleSignIn}
           />
+
           <TouchableOpacity
             style={styles.atras}
             onPress={() => navigation.navigate("Home")}
           >
             <Ionicons name="arrow-back-outline" size={24} color="#fff" />
+
             <Text style={styles.atrasText}>Atrás</Text>
           </TouchableOpacity>
         </View>

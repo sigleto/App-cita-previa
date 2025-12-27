@@ -9,7 +9,6 @@ import { auth } from "./Firebase";
 
 const EventCalendar1 = ({ route }) => {
   const navigation = useNavigation();
-
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [reminderTimes, setReminderTimes] = useState({
@@ -17,23 +16,26 @@ const EventCalendar1 = ({ route }) => {
     twoDays: false,
     threeDays: false,
   });
-  const [isDateTimeSelected, setIsDateTimeSelected] = useState(false);
 
+  const [isDateTimeSelected, setIsDateTimeSelected] = useState(false);
   const user = auth.currentUser;
+
   const userEmail =
     route.params?.userEmail || (user && user.email) || "Usuario Desconocido";
-
   const showDatePicker = () => setDatePickerVisibility(true);
   const hideDatePicker = () => setDatePickerVisibility(false);
 
   const handleConfirm = (date) => {
     setSelectedDate(date);
+
     hideDatePicker();
+
     setIsDateTimeSelected(true);
   };
 
   const pasarPagina = () => {
     const reminderTimesInMs = [];
+
     if (isDateTimeSelected) {
       if (reminderTimes.oneDay) reminderTimesInMs.push(24 * 60 * 60 * 1000);
       if (reminderTimes.twoDays) reminderTimesInMs.push(48 * 60 * 60 * 1000);
@@ -42,6 +44,7 @@ const EventCalendar1 = ({ route }) => {
 
     navigation.navigate("EventCalendar2", {
       selectedDate: isDateTimeSelected ? selectedDate.getTime() : null,
+
       reminderTimes: reminderTimesInMs,
     });
   };
@@ -79,34 +82,40 @@ const EventCalendar1 = ({ route }) => {
           <Text style={styles.reminderTitle}>
             Selecciona cuánto tiempo antes deseas recibir el aviso:
           </Text>
+
           <CheckBox
             title="24 horas antes"
             checked={reminderTimes.oneDay}
             onPress={() =>
               setReminderTimes({
                 ...reminderTimes,
+
                 oneDay: !reminderTimes.oneDay,
               })
             }
             containerStyle={styles.checkBox}
           />
+
           <CheckBox
             title="Dos días antes"
             checked={reminderTimes.twoDays}
             onPress={() =>
               setReminderTimes({
                 ...reminderTimes,
+
                 twoDays: !reminderTimes.twoDays,
               })
             }
             containerStyle={styles.checkBox}
           />
+
           <CheckBox
             title="Tres días antes"
             checked={reminderTimes.threeDays}
             onPress={() =>
               setReminderTimes({
                 ...reminderTimes,
+
                 threeDays: !reminderTimes.threeDays,
               })
             }
@@ -118,6 +127,7 @@ const EventCalendar1 = ({ route }) => {
       <TouchableOpacity style={styles.continueButton} onPress={pasarPagina}>
         <Text style={styles.continueButtonText}>CONTINUAR</Text>
       </TouchableOpacity>
+
       <BannerAd
         unitId={adUnitId}
         size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
@@ -125,7 +135,6 @@ const EventCalendar1 = ({ route }) => {
     </View>
   );
 };
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,

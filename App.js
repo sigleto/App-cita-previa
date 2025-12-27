@@ -188,9 +188,6 @@ const App = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
   shareContainer: {
     flex: 1,
     justifyContent: "center",
@@ -198,21 +195,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   shareButton: {
+    padding: 15,
     backgroundColor: "#007AFF",
-    paddingVertical: 14,
-    paddingHorizontal: 30,
-    borderRadius: 12,
-    elevation: 6,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 5 },
-    shadowOpacity: 0.3,
-    shadowRadius: 5,
+    borderRadius: 10,
   },
   shareText: {
-    fontSize: 20,
+    color: "#fff",
+    fontSize: 16,
     fontWeight: "bold",
-    color: "white",
-    textAlign: "center",
   },
 });
 

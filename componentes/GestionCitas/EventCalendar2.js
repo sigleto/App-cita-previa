@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import {
   View,
   Text,
@@ -27,12 +28,10 @@ const EventCalendar2 = ({ route }) => {
     route.params?.reminderTimes || []
   );
   const [eventText, setEventText] = useState("");
-
   const user = auth.currentUser;
   const userId = user ? user.uid : null;
   const userEmail =
     route.params?.userEmail || (user && user.email) || "Usuario Desconocido";
-
   const volver = () => {
     navigation.navigate("Home");
   };
@@ -50,14 +49,20 @@ const EventCalendar2 = ({ route }) => {
       const notificationId = await Notifications.scheduleNotificationAsync({
         content: {
           title: "Recordatorio de cita",
+
           body: `¡No olvides tu cita: ${eventText} a las ${format(
             dateTime,
+
             "HH:mm"
           )}`,
+
           data: { openAppOnClick: false },
+
           vibrate: false,
+
           lightColor: "#FF231F7C",
         },
+
         trigger: {
           date: dateTime,
         },
@@ -73,14 +78,19 @@ const EventCalendar2 = ({ route }) => {
     if (eventText && selectedDate) {
       const encryptedText = CryptoJS.AES.encrypt(
         eventText,
+
         CLAVE_KRYPTO
       ).toString();
+
       const newEvent = { dateTime: selectedDate, text: encryptedText };
+
       setEventText("");
 
       agregarEventoFirestore({
         dateTime: selectedDate,
+
         text: encryptedText,
+
         userId,
       });
 
@@ -88,6 +98,7 @@ const EventCalendar2 = ({ route }) => {
         const reminderDateTime = new Date(
           selectedDate.getTime() - reminderTime
         );
+
         scheduleNotification(reminderDateTime, eventText);
       });
     }
@@ -98,7 +109,9 @@ const EventCalendar2 = ({ route }) => {
       const result = await Share.share({
         message: `Tengo una cita programada el ${format(
           selectedDate,
+
           "dd 'de' LLLL 'de' yyyy 'a las' HH:mm",
+
           { locale: es }
         )}. Detalles: ${eventText}`,
       });
@@ -120,9 +133,11 @@ const EventCalendar2 = ({ route }) => {
   const handleDeleteAccount = async () => {
     try {
       await user.delete();
+
       Alert.alert(
         "Tu cuenta y toda la información asociada a la misma ha sido eliminada"
       );
+
       navigation.navigate("Home");
     } catch (error) {
       console.error("Error al eliminar la cuenta:", error);
@@ -132,12 +147,17 @@ const EventCalendar2 = ({ route }) => {
   const showDeleteAccountAlert = () => {
     Alert.alert(
       "Eliminar Cuenta",
+
       "¿Estás seguro de que quieres eliminar tu cuenta? Se eliminarán todos tus datos y citas guardadas. Esta acción es irreversible.",
+
       [
         { text: "Cancelar", style: "cancel" },
+
         {
           text: "Eliminar",
+
           onPress: handleDeleteAccount,
+
           style: "destructive",
         },
       ]
@@ -174,8 +194,11 @@ const EventCalendar2 = ({ route }) => {
           color="#007BFF"
         />
       </TouchableOpacity>
+
       <Text style={styles.header}>Calendario de Citas</Text>
+
       <Text style={styles.usuario}>Usuario: {userEmail}</Text>
+
       <View style={{ marginBottom: 20 }} />
 
       {selectedDate && (
@@ -186,13 +209,16 @@ const EventCalendar2 = ({ route }) => {
               locale: es,
             })}
           </Text>
+
           <TextInput
             style={styles.eventInput}
             placeholder="Cita con ..."
             value={eventText}
             onChangeText={(text) => setEventText(text)}
           />
+
           <Button title="Agrega la cita" onPress={addEvent} />
+
           <TouchableOpacity style={styles.shareButtonC} onPress={shareEvent}>
             <Text style={styles.buttonText}>Compartir Evento</Text>
           </TouchableOpacity>
@@ -200,20 +226,24 @@ const EventCalendar2 = ({ route }) => {
       )}
 
       <View style={{ marginBottom: 40 }} />
+
       <Button
         title="Consulta las citas concertadas"
         onPress={() => navigation.navigate("ConsultarCitas")}
         style={styles.selectCitaButton}
       />
+
       <TouchableOpacity style={styles.vuelta} onPress={volver}>
         <Text style={styles.buttonText}>Volver</Text>
       </TouchableOpacity>
+
       <TouchableOpacity
         style={styles.borrarCuenta}
         onPress={showDeleteAccountAlert}
       >
         <Text style={styles.buttonText}>Eliminar Cuenta</Text>
       </TouchableOpacity>
+
       <BannerAd
         unitId={adUnitId}
         size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
@@ -221,7 +251,6 @@ const EventCalendar2 = ({ route }) => {
     </View>
   );
 };
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
