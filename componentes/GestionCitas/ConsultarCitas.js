@@ -10,7 +10,7 @@ import {
   Alert,
   Switch,
 } from "react-native";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
 import { auth, db } from "./Firebase"; // <-- usa la instancia compartida
 import format from "date-fns/format";
 import es from "date-fns/locale/es";

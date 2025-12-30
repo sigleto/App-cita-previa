@@ -6,7 +6,7 @@ import Animated, { FadeInUp } from "react-native-reanimated";
 const Presentacion3 = () => {
   const navegacion = useNavigation();
   const pasa = () => {
-    navegacion.navigate("Home");
+    navegacion.navigate("Inicio");
   };
 
   return (

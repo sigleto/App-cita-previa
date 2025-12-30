@@ -64,6 +64,7 @@ const EventCalendar1 = ({ route }) => {
       <DateTimePickerModal
         isVisible={isDatePickerVisible}
         mode="datetime"
+        date={selectedDate}
         onConfirm={handleConfirm}
         onCancel={hideDatePicker}
       />
@@ -127,11 +128,6 @@ const EventCalendar1 = ({ route }) => {
       <TouchableOpacity style={styles.continueButton} onPress={pasarPagina}>
         <Text style={styles.continueButtonText}>CONTINUAR</Text>
       </TouchableOpacity>
-
-      <BannerAd
-        unitId={adUnitId}
-        size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-      />
     </View>
   );
 };

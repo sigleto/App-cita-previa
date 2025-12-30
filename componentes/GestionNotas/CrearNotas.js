@@ -29,11 +29,49 @@ export default function CrearNota() {
   const [date, setDate] = useState(new Date());
   const navigation = useNavigation();
 
+  const scheduleNotification = async (noteTitle, noteDate) => {
+    try {
+      const ahora = Date.now();
+      const objetivo = noteDate.getTime();
+      const diferenciaMs = objetivo - ahora;
+
+      const segundosRestantes = Math.ceil(diferenciaMs / 1000);
+
+      if (segundosRestantes < 60) {
+        console.log("🚫 Recordatorio omitido (demasiado cercano o pasado)");
+        return;
+      }
+
+      await Notifications.scheduleNotificationAsync({
+        content: {
+          title: "📌 Recordatorio de Nota",
+          body: `No olvides: ${noteTitle}`,
+          sound: true,
+        },
+        trigger: {
+          seconds: segundosRestantes,
+          channelId: "default",
+        },
+      });
+
+      console.log(
+        `✅ Recordatorio programado para dentro de ${segundosRestantes} segundos`
+      );
+    } catch (error) {
+      console.error("❌ Error al programar notificación:", error);
+    }
+  };
+
   const saveNote = async () => {
     if (!noteTitle.trim() || !noteText.trim()) {
+      Alert.alert("Error", "El título y el contenido no pueden estar vacíos.");
+      return;
+    }
+
+    if (categoria === "Recordatorio" && date <= new Date()) {
       Alert.alert(
-        "Error",
-        "El título y el contenido de la nota no pueden estar vacíos."
+        "Fecha inválida",
+        "La fecha del recordatorio debe ser posterior a la actual."
       );
       return;
     }
@@ -54,46 +92,20 @@ export default function CrearNota() {
       notes.push(note);
 
       await AsyncStorage.setItem("notas", JSON.stringify(notes));
-      Alert.alert("Nota guardada con éxito");
+
+      if (categoria === "Recordatorio") {
+        await scheduleNotification(note.titulo, date);
+      }
+
+      Alert.alert("Éxito", "Nota guardada con éxito");
+
       setNoteTitle("");
       setNoteText("");
       setCategoria("Personal");
-      if (categoria === "Recordatorio") {
-        scheduleNotification(note.titulo, date);
-      }
+      setDate(new Date());
     } catch (error) {
       console.error("Error al guardar la nota:", error);
-    }
-  };
-
-  const scheduleNotification = async (noteTitle, noteDate) => {
-    await Notifications.scheduleNotificationAsync({
-      content: {
-        title: "Recordatorio de Nota",
-        body: `No olvides: ${noteTitle}`,
-      },
-      trigger: { date: noteDate },
-    });
-  };
-
-  const shareApp = async () => {
-    try {
-      const result = await Share.share({
-        message:
-          "Descarga nuestra aplicación y descubre todas las funcionalidades. ¡Haz clic aquí para descargarla! https://play.google.com/store/apps/details?id=com.sigleto.citaprevia",
-      });
-
-      if (result.action === Share.sharedAction) {
-        if (result.activityType) {
-          console.log("Compartido en: ", result.activityType);
-        } else {
-          console.log("Compartido con éxito.");
-        }
-      } else if (result.action === Share.dismissedAction) {
-        console.log("Compartición cancelada.");
-      }
-    } catch (error) {
-      console.error("Error al compartir:", error);
+      Alert.alert("Error", "No se pudo guardar la nota.");
     }
   };
 
@@ -115,21 +127,24 @@ export default function CrearNota() {
       style={styles.container}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
-      <TouchableOpacity onPress={shareApp} style={styles.shareIcon}>
+      <TouchableOpacity style={styles.shareIcon}>
         <MaterialCommunityIcons
           name="share-variant"
           size={24}
           color="#007BFF"
         />
       </TouchableOpacity>
+
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <Text style={styles.header}>Nueva Nota</Text>
+
         <TextInput
           style={styles.input}
           placeholder="Título de la nota"
           value={noteTitle}
           onChangeText={setNoteTitle}
         />
+
         <TextInput
           style={[styles.input, styles.textArea]}
           placeholder="Escribe tu nota aquí..."
@@ -143,11 +158,7 @@ export default function CrearNota() {
           selectedValue={categoria}
           onValueChange={(itemValue) => {
             setCategoria(itemValue);
-            if (itemValue === "Recordatorio") {
-              setShowDatePicker(true);
-            } else {
-              setShowDatePicker(false);
-            }
+            setShowDatePicker(itemValue === "Recordatorio");
           }}
           style={styles.picker}
         >
@@ -186,13 +197,6 @@ export default function CrearNota() {
           <Icon name="book-outline" size={24} color="#fff" />
           <Text style={styles.buttonText}>Ver Notas Guardadas</Text>
         </TouchableOpacity>
-
-        <View style={styles.banner}>
-          <BannerAd
-            unitId={adUnitId}
-            size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-          />
-        </View>
       </ScrollView>
     </KeyboardAvoidingView>
   );
@@ -203,7 +207,6 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     backgroundColor: "#fdf7e1",
-    justifyContent: "center",
   },
   scrollContainer: {
     flexGrow: 1,
@@ -231,12 +234,10 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 18,
     marginBottom: 5,
-    color: "#4a4a4a",
   },
   picker: {
     marginBottom: 20,
     backgroundColor: "#fff",
-    borderRadius: 5,
   },
   button: {
     flexDirection: "row",
@@ -254,10 +255,6 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 18,
     marginLeft: 10,
-  },
-  banner: {
-    marginTop: 20,
-    alignItems: "center",
   },
   shareIcon: {
     position: "absolute",

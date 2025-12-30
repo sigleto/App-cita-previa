@@ -22,7 +22,15 @@
           }
         },
         {
-          "client_id": "21545003676-fdmtk78tu796eoant4j46bvpvc68a8td.apps.googleusercontent.com",
+          "client_id": "21545003676-suqcaa33jjrta8tpqbcoeegu9gjkgp42.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sigleto.citaprevia",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "21545003676-gppa2ps098de56o996veh7fj5qca9836.apps.googleusercontent.com",
           "client_type": 3
         }
       ],

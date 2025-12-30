@@ -20,44 +20,32 @@ import {
   GoogleAuthProvider,
   signInWithCredential,
 } from "firebase/auth";
-
 import { auth, getPushNotificationToken } from "./Firebase";
-
 import {
   GoogleSignin,
   GoogleSigninButton,
   statusCodes,
 } from "@react-native-google-signin/google-signin";
-
 import { EXPO_PUBLIC_CLIENT_ID, EXPO_PUBLIC_ANDROID_CLIENT_ID } from "@env";
-
 import Icon from "react-native-vector-icons/FontAwesome"; // Importa el ícono
-
 import { Ionicons } from "@expo/vector-icons";
 
 const Autenticacion = () => {
   const [email, setEmail] = useState("");
-
   const [password, setPassword] = useState("");
-
   const [confirmPassword, setConfirmPassword] = useState("");
-
   const [userInfo, setUserInfo] = useState(null);
-
   const [showLoginForm, setShowLoginForm] = useState(false);
-
   const [showSignupForm, setShowSignupForm] = useState(false);
-
   const [showPassword, setShowPassword] = useState(false); // Estado para mostrar/ocultar contraseña
-
   const [showConfirmPassword, setShowConfirmPassword] = useState(false); // Estado para mostrar/ocultar confirmación de contraseña
-
+  console.log("¿Auth está definido?:", !!auth);
   const navigation = useNavigation();
 
   const configureGoogleSignin = () => {
     GoogleSignin.configure({
-      webClientId: EXPO_PUBLIC_CLIENT_ID, // Reemplaza con tu propio webClientId
-
+      webClientId:
+        "21545003676-gppa2ps098de56o996veh7fj5qca9836.apps.googleusercontent.com", // Reemplaza con tu propio webClientId
       offlineAccess: true, // Necesario para obtener el refreshToken
     });
   };
@@ -215,12 +203,13 @@ const Autenticacion = () => {
 
       navigation.navigate("EventCalendar");
     } catch (error) {
+      console.error("Error al crear cuenta:", error);
       const errorMessage =
         error.code === "auth/weak-password"
           ? "La contraseña debe tener al menos 6 caracteres"
           : "Error al crear la cuenta. Por favor, inténtalo de nuevo.";
 
-      Alert.alert(errorMessage);
+      Alert.alert("Error al crear la cuenta", error.message);
     }
   };
 

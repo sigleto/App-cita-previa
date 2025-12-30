@@ -1,5 +1,5 @@
 import "react-native-reanimated"; // OBLIGATORIO: Primera línea
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import {
   View,
   StyleSheet,
@@ -7,12 +7,14 @@ import {
   Alert,
   TouchableOpacity,
   Text,
+  Platform,
 } from "react-native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { NavigationContainer } from "@react-navigation/native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { enableScreens } from "react-native-screens";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import * as Notifications from "expo-notifications";
 
 // Tus componentes
 import Contacto from "./componentes/Contacto";
@@ -26,35 +28,35 @@ enableScreens();
 
 const Drawer = createDrawerNavigator();
 
-const shareApp = async () => {
-  try {
-    const result = await Share.share({
-      message:
-        "Descarga nuestra aplicación y descubre todas las funcionalidades. ¡Haz clic aquí para descargarla! https://play.google.com/store/apps/details?id=com.sigleto.citaprevia",
-    });
-    if (result.action === Share.dismissedAction) {
-      Alert.alert("Compartir cancelado");
-    }
-  } catch (error) {
-    Alert.alert("Error", "Hubo un problema al intentar compartir la app.");
-  }
-};
+/* =========================
+   CONFIGURACIÓN GLOBAL
+   ========================= */
 
-const ShareScreen = () => {
-  const handleShare = useCallback(() => {
-    shareApp();
-  }, []);
-
-  return (
-    <View style={styles.shareContainer}>
-      <TouchableOpacity onPress={handleShare} style={styles.shareButton}>
-        <Text style={styles.shareText}>📤 Compartir la aplicación</Text>
-      </TouchableOpacity>
-    </View>
-  );
-};
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: false,
+  }),
+});
 
 const App = () => {
+  useEffect(() => {
+    const configurarCanal = async () => {
+      if (Platform.OS === "android") {
+        await Notifications.setNotificationChannelAsync("default", {
+          name: "Recordatorios",
+          importance: Notifications.AndroidImportance.MAX,
+          sound: "default",
+          vibrationPattern: [0, 250, 250, 250],
+          lightColor: "#FF231F7C",
+        });
+      }
+    };
+
+    configurarCanal();
+  }, []);
+
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <AuthProvider>
@@ -165,45 +167,11 @@ const App = () => {
                 drawerLabel: "Política de Privacidad",
               }}
             />
-
-            <Drawer.Screen
-              name="Compartir"
-              component={ShareScreen}
-              options={{
-                drawerIcon: ({ color, size }) => (
-                  <MaterialCommunityIcons
-                    name="share-variant"
-                    size={size}
-                    color={color}
-                  />
-                ),
-                drawerLabel: "Compartir la App",
-              }}
-            />
           </Drawer.Navigator>
         </NavigationContainer>
       </AuthProvider>
     </GestureHandlerRootView>
   );
 };
-
-const styles = StyleSheet.create({
-  shareContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#fff",
-  },
-  shareButton: {
-    padding: 15,
-    backgroundColor: "#007AFF",
-    borderRadius: 10,
-  },
-  shareText: {
-    color: "#fff",
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-});
 
 export default App;

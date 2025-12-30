@@ -18,7 +18,7 @@ const DescargoResponsabilidad = () => {
   const navegacion = useNavigation();
 
   const salto = () => {
-    navegacion.navigate("Home");
+    navegacion.navigate("Inicio");
   };
 
   return (
