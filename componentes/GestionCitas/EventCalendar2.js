@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Alert,
   Share,
+  Platform,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import format from "date-fns/format";
@@ -36,46 +37,67 @@ const EventCalendar2 = ({ route }) => {
     navigation.navigate("Home");
   };
 
+  // ✅ Configuración única del handler (solo UNA vez)
   Notifications.setNotificationHandler({
-    handleNotification: async (notification) => {
-      // Solo mostramos la notificación si realmente ha llegado su hora
-      // y no simplemente porque se acaba de programar
-      return {
-        shouldShowAlert: true,
-        shouldPlaySound: true,
-        shouldSetBadge: false,
-      };
-    },
+    handleNotification: async () => ({
+      shouldShowAlert: true,
+      shouldShowBanner: true,
+      shouldShowList: true,
+      shouldPlaySound: true,
+      shouldSetBadge: false,
+    }),
   });
 
-  const scheduleNotification = async (dateTime, text) => {
+  // ✅ Crear canal Android (solo si es Android)
+  useEffect(() => {
+    if (Platform.OS === "android") {
+      Notifications.setNotificationChannelAsync("default", {
+        name: "Default",
+        importance: Notifications.AndroidImportance.MAX,
+        sound: true,
+      });
+    }
+  }, []);
+
+  // ✅ FUNCIÓN DE PROGRAMACIÓN CORREGIDA
+  const scheduleNotification = async (text, dateValue) => {
     try {
-      const ahoraMs = Date.now();
-      const objetivoMs = dateTime.getTime();
+      const fechaObjetivo = new Date(dateValue);
 
-      const diferenciaMs = objetivoMs - ahoraMs;
-      const segundosRestantes = Math.ceil(diferenciaMs / 1000);
-
-      if (segundosRestantes < 60) {
-        console.log("🚫 Aviso ignorado (demasiado cercano o pasado)");
+      if (isNaN(fechaObjetivo.getTime())) {
+        console.error("❌ Error: La fecha recibida no es válida:", dateValue);
         return;
       }
 
+      fechaObjetivo.setSeconds(0);
+      fechaObjetivo.setMilliseconds(0);
+
+      const ahora = new Date();
+      if (fechaObjetivo <= ahora) {
+        console.log(
+          "🚫 Aviso omitido: La fecha es pasada o es este mismo minuto."
+        );
+        return;
+      }
+
+      // ✅ IMPORTANTE: Especificar el TIPO de trigger
       await Notifications.scheduleNotificationAsync({
         content: {
-          title: "📌 Recordatorio de cita",
-          body: `¡No olvides tu cita: ${text}!`,
+          title: "📌 Recordatorio de Cita",
+          body: text,
           sound: true,
+          priority: Notifications.AndroidImportance.MAX,
         },
         trigger: {
-          seconds: segundosRestantes,
+          type: Notifications.SchedulableTriggerInputTypes.DATE, // ← CLAVE
+          date: fechaObjetivo,
           channelId: "default",
         },
       });
 
-      console.log(`✅ Programada para dentro de ${segundosRestantes} segundos`);
+      console.log(`✅ Programada con éxito para: ${fechaObjetivo.toString()}`);
     } catch (error) {
-      console.error("❌ Error técnico:", error);
+      console.error("❌ Error técnico en scheduleNotification:", error);
     }
   };
 
@@ -98,31 +120,32 @@ const EventCalendar2 = ({ route }) => {
         // 2. Programamos los recordatorios
         const ahora = new Date();
 
-        reminderTimes.forEach((reminderTime) => {
+        reminderTimes.forEach((reminderTime, index) => {
           // Calculamos cuándo debe sonar el aviso
           const reminderDateTime = new Date(
             selectedDate.getTime() - reminderTime
           );
 
           // Solo programamos si faltan más de 10 segundos para el aviso
-          // (Si falta menos, no tiene sentido programarlo porque saltaría casi al instante)
           if (reminderDateTime.getTime() > ahora.getTime() + 10000) {
             console.log(
-              `Programando aviso para: ${format(
+              `Programando aviso ${index + 1} para: ${format(
                 reminderDateTime,
                 "dd/MM HH:mm"
               )}`
             );
-            scheduleNotification(reminderDateTime, eventText);
+            scheduleNotification(eventText, reminderDateTime);
           } else {
             console.log(
-              "Aviso omitido: La fecha de recordatorio ya pasó o es demasiado cercana."
+              `Aviso ${
+                index + 1
+              } omitido: La fecha de recordatorio ya pasó o es demasiado cercana.`
             );
           }
         });
 
         setEventText("");
-        // Opcional: navigation.navigate("Home") o similar aquí tras el éxito
+        Alert.alert("Éxito", "Cita guardada y recordatorios programados");
       } catch (error) {
         console.error("Error al guardar el evento:", error);
         Alert.alert("Error", "No se pudo guardar la cita.");

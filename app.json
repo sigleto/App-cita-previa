@@ -12,19 +12,14 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*",
-      "app-ads.txt"
-    ],
+    "assetBundlePatterns": ["**/*", "app-ads.txt"],
     "plugins": [
       "@react-native-google-signin/google-signin",
       [
         "expo-notifications",
         {
           "icon": "./assets/notifica.png",
-          "sounds": [
-            "./assets/alarma.wav"
-          ]
+          "sounds": ["./assets/alarma.wav"]
         }
       ],
       "expo-secure-store",
@@ -41,9 +36,7 @@
         "backgroundColor": "#ffffff"
       },
       "googleServicesFile": "google-services.json",
-      "permissions": [
-        "com.google.android.gms.permission.AD_ID"
-      ]
+      "permissions": ["com.google.android.gms.permission.AD_ID"]
     },
     "web": {
       "favicon": "./assets/favicon.png"

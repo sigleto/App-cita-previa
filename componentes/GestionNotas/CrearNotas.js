@@ -29,36 +29,53 @@ export default function CrearNota() {
   const [date, setDate] = useState(new Date());
   const navigation = useNavigation();
 
-  const scheduleNotification = async (noteTitle, noteDate) => {
+  // 1. EL HANDLER ACTUALIZADO (Sin Warnings y con lógica de filtrado)
+  Notifications.setNotificationHandler({
+    handleNotification: async () => ({
+      shouldShowAlert: true, // Esto es para compatibilidad con versiones viejas
+      shouldShowBanner: true, // Nueva forma (SDK 50+)
+      shouldShowList: true, // Nueva forma (SDK 50+)
+      shouldPlaySound: true,
+      shouldSetBadge: false,
+    }),
+  });
+
+  // 2. LA FUNCIÓN DE PROGRAMACIÓN BLINDADA
+  const scheduleNotification = async (text, dateValue) => {
     try {
-      const ahora = Date.now();
-      const objetivo = noteDate.getTime();
-      const diferenciaMs = objetivo - ahora;
+      const fechaObjetivo = new Date(dateValue);
 
-      const segundosRestantes = Math.ceil(diferenciaMs / 1000);
+      if (isNaN(fechaObjetivo.getTime())) {
+        console.error("❌ Error: La fecha recibida no es válida:", dateValue);
+        return;
+      }
 
-      if (segundosRestantes < 60) {
-        console.log("🚫 Recordatorio omitido (demasiado cercano o pasado)");
+      fechaObjetivo.setSeconds(0);
+      fechaObjetivo.setMilliseconds(0);
+
+      const ahora = new Date();
+      if (fechaObjetivo <= ahora) {
+        console.log(
+          "🚫 Aviso omitido: La fecha es pasada o es este mismo minuto."
+        );
         return;
       }
 
       await Notifications.scheduleNotificationAsync({
         content: {
-          title: "📌 Recordatorio de Nota",
-          body: `No olvides: ${noteTitle}`,
+          title: "📌 Recordatorio",
+          body: text,
           sound: true,
+          priority: Notifications.AndroidImportance.MAX,
         },
         trigger: {
-          seconds: segundosRestantes,
+          type: Notifications.SchedulableTriggerInputTypes.DATE,
+          date: fechaObjetivo,
           channelId: "default",
         },
       });
-
-      console.log(
-        `✅ Recordatorio programado para dentro de ${segundosRestantes} segundos`
-      );
     } catch (error) {
-      console.error("❌ Error al programar notificación:", error);
+      console.error("❌ Error técnico en scheduleNotification:", error);
     }
   };
 
@@ -68,10 +85,10 @@ export default function CrearNota() {
       return;
     }
 
-    if (categoria === "Recordatorio" && date <= new Date()) {
+    if (categoria === "Recordatorio" && date.getTime() <= Date.now() + 60000) {
       Alert.alert(
-        "Fecha inválida",
-        "La fecha del recordatorio debe ser posterior a la actual."
+        "Fecha muy cercana",
+        "El recordatorio debe ser al menos para dentro de un minuto."
       );
       return;
     }
