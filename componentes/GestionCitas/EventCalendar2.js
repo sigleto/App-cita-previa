@@ -18,6 +18,7 @@ import CryptoJS from "react-native-crypto-js";
 import { CLAVE_KRYPTO } from "@env";
 import { auth, db, agregarEventoFirestore } from "./Firebase";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import BannerAdComponent from "../Avisos/Banner";
 
 const EventCalendar2 = ({ route }) => {
   const navigation = useNavigation();
@@ -213,66 +214,71 @@ const EventCalendar2 = ({ route }) => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={shareApp} style={styles.shareIcon}>
-        <MaterialCommunityIcons
-          name="share-variant"
-          size={24}
-          color="#007BFF"
-        />
-      </TouchableOpacity>
-
-      <Text style={styles.header}>Calendario de Citas</Text>
-      <Text style={styles.usuario}>Usuario: {userEmail}</Text>
-
-      <View style={{ marginBottom: 20 }} />
-
-      {selectedDate && (
-        <View style={styles.eventForm}>
-          <Text style={styles.selectedDateText}>
-            Fecha y Hora seleccionadas:{" "}
-            {format(selectedDate, "dd 'de' LLLL 'de' yyyy 'a las' HH:mm", {
-              locale: es,
-            })}
-          </Text>
-
-          <TextInput
-            style={styles.eventInput}
-            placeholder="Cita con ..."
-            value={eventText}
-            onChangeText={(text) => setEventText(text)}
+      {/* CONTENIDO */}
+      <View style={styles.content}>
+        <TouchableOpacity onPress={shareApp} style={styles.shareIcon}>
+          <MaterialCommunityIcons
+            name="share-variant"
+            size={24}
+            color="#007BFF"
           />
+        </TouchableOpacity>
 
-          {/* BOTÓN DE AGREGAR CITA */}
-          <Button title="Agrega la cita" onPress={addEvent} />
+        <Text style={styles.header}>Calendario de Citas</Text>
+        <Text style={styles.usuario}>Usuario: {userEmail}</Text>
 
-          <TouchableOpacity style={styles.shareButtonC} onPress={shareEvent}>
-            <Text style={styles.buttonText}>Compartir Evento</Text>
-          </TouchableOpacity>
-        </View>
-      )}
+        <View style={{ marginBottom: 20 }} />
 
-      <View style={{ marginBottom: 40 }} />
+        {selectedDate && (
+          <View style={styles.eventForm}>
+            <Text style={styles.selectedDateText}>
+              Fecha y Hora seleccionadas:{" "}
+              {format(selectedDate, "dd 'de' LLLL 'de' yyyy 'a las' HH:mm", {
+                locale: es,
+              })}
+            </Text>
 
-      <Button
-        title="Consulta las citas concertadas"
-        onPress={() => navigation.navigate("ConsultarCitas")}
-      />
+            <TextInput
+              style={styles.eventInput}
+              placeholder="Cita con ..."
+              value={eventText}
+              onChangeText={setEventText}
+            />
 
-      <TouchableOpacity style={styles.vuelta} onPress={volver}>
-        <Text style={styles.buttonText}>Volver</Text>
-      </TouchableOpacity>
+            <Button title="Agrega la cita" onPress={addEvent} />
 
-      <TouchableOpacity
-        style={styles.borrarCuenta}
-        onPress={showDeleteAccountAlert}
-      >
-        <Text style={styles.buttonText}>Eliminar Cuenta</Text>
-      </TouchableOpacity>
+            <TouchableOpacity style={styles.shareButtonC} onPress={shareEvent}>
+              <Text style={styles.buttonText}>Compartir Evento</Text>
+            </TouchableOpacity>
+          </View>
+        )}
+
+        <View style={{ marginBottom: 40 }} />
+
+        <Button
+          title="Consulta las citas concertadas"
+          onPress={() => navigation.navigate("ConsultarCitas")}
+        />
+
+        <TouchableOpacity style={styles.vuelta} onPress={volver}>
+          <Text style={styles.buttonText}>Volver</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.borrarCuenta}
+          onPress={showDeleteAccountAlert}
+        >
+          <Text style={styles.buttonText}>Eliminar Cuenta</Text>
+        </TouchableOpacity>
+      </View>
+
+      <View style={styles.bannerContainer}>
+        <BannerAdComponent />
+      </View>
     </View>
   );
 };
 
-// --- TUS ESTILOS ORIGINALES ---
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -358,6 +364,17 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 20,
     elevation: 3,
+  },
+  content: {
+    flex: 1,
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+    paddingBottom: 20,
+  },
+  bannerContainer: {
+    alignItems: "center",
+    marginBottom: 8,
   },
 });
 

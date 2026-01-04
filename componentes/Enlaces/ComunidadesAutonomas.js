@@ -39,61 +39,87 @@ const Comunidades = () => {
       <View style={styles.stickyHeader}>
         <Image source={require("../../assets/CA.png")} style={styles.image} />
         <Text style={styles.banner}>Selecciona tu Comunidad Autónoma</Text>
+
+        {/* 🔴 DISCLAIMER OBLIGATORIO */}
+        <Text style={styles.disclaimer}>
+          Esta aplicación no es oficial ni está afiliada a ningún organismo
+          gubernamental. Proporciona acceso a información pública y enlaces a
+          fuentes oficiales de las Comunidades Autónomas de España.
+        </Text>
+
+        {/* 🔴 FUENTE GENERAL */}
+        <TouchableOpacity
+          onPress={() => Linking.openURL("https://administracion.gob.es/")}
+        >
+          <Text style={styles.source}>
+            Fuente oficial general: https://administracion.gob.es/
+          </Text>
+        </TouchableOpacity>
+
         <Anuncio />
       </View>
+
       <ScrollView>
         {comunidades.map((item, index) => (
           <TouchableOpacity
             key={index}
             style={styles.comunidadItem}
-            onPress={() => {
-              navigation.navigate("PaginasComunidades", { comunidad: item });
-            }}
+            onPress={() =>
+              navigation.navigate("PaginasComunidades", { comunidad: item })
+            }
           >
-            <Text
-              style={[
-                styles.comunidadText,
-                item === "Galicia" ? { color: "red" } : null,
-              ]}
-            >
-              {item}
-            </Text>
+            <Text style={styles.comunidadText}>{item}</Text>
           </TouchableOpacity>
         ))}
       </ScrollView>
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#ffffff",
   },
   stickyHeader: {
-    position: "sticky",
-    top: 0,
-    backgroundColor: "#b8e6df",
-    zIndex: 1,
-    elevation: 3,
-  },
-  banner: {
-    padding: 10,
-    fontSize: 25,
-    color: "#9b0a9b",
-  },
-  comunidadItem: {
-    padding: 10,
-    borderBottomWidth: 1,
-    borderColor: "#ccc",
-  },
-  comunidadText: {
-    fontSize: 22,
-    color: "#5278ca",
+    padding: 16,
+    backgroundColor: "#f2f2f2",
   },
   image: {
     width: "100%",
     height: 200,
-    resizeMode: "cover",
-    marginTop: 50,
+    resizeMode: "contain",
+    marginBottom: 10,
+  },
+  banner: {
+    fontSize: 22,
+    fontWeight: "bold",
+    textAlign: "center",
+    marginBottom: 8,
+    color: "#8a0f6b",
+  },
+  disclaimer: {
+    fontSize: 13,
+    color: "#555",
+    textAlign: "center",
+    marginBottom: 6,
+  },
+  source: {
+    fontSize: 13,
+    color: "#007AFF",
+    textAlign: "center",
+    marginBottom: 10,
+    textDecorationLine: "underline",
+  },
+  comunidadItem: {
+    paddingVertical: 14,
+    paddingHorizontal: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: "#ddd",
+  },
+  comunidadText: {
+    fontSize: 18,
+    color: "#4a4a4a",
   },
 });
 

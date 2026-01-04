@@ -7,40 +7,30 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 import Animated, { FadeInUp } from "react-native-reanimated";
 
 const PoliticaPrivacidad = () => {
-  const navegacion = useNavigation();
-
-  const salto = () => {
-    navegacion.navigate("Inicio");
+  const abrirDocumento = () => {
+    Linking.openURL(
+      "https://docs.google.com/document/d/1y7S2w-nDnGqkgO7z5tuL4C8wckRTSXjOl6wgZmaUNcM/edit?tab=t.0#heading=h.bdzh75zqwhs"
+    );
   };
 
   return (
     <ScrollView style={styles.container}>
       <Animated.View entering={FadeInUp.duration(600)}>
-        <Text style={styles.titulo}>Política de privacidad:</Text>
+        <Text style={styles.titulo}>Política de privacidad</Text>
 
         <Text style={styles.parrafo}>
-          Se ha construido la aplicación Cita Previa como una aplicación
-          gratuita. Este SERVICIO es proporcionado sin costo alguno y está
-          destinado a ser utilizado tal cual. Esta página se utiliza para
-          informar a los visitantes sobre nuestras políticas con respecto a la
-          recopilación, el uso y la divulgación de información personal si
-          alguien decide utilizar mi Servicio. Si elige usar nuestro Servicio,
-          entonces acepta la recopilación y el uso de información en relación
-          con esta política...
+          Para consultar nuestra política de privacidad completa, por favor
+          accede al siguiente enlace. Allí encontrarás toda la información sobre
+          la recopilación, uso y protección de datos personales.
         </Text>
 
-        {/* Sigue igual tu texto, solo recorté arriba para que no ocupe 300 líneas */}
-      </Animated.View>
-
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.skipButton} onPress={salto}>
-          <Text style={styles.buttonText}>SALTAR</Text>
+        <TouchableOpacity style={styles.linkButton} onPress={abrirDocumento}>
+          <Text style={styles.linkText}>Abrir política de privacidad</Text>
         </TouchableOpacity>
-      </View>
+      </Animated.View>
     </ScrollView>
   );
 };
@@ -52,33 +42,31 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   titulo: {
-    fontSize: 18,
+    fontSize: 22,
     fontWeight: "bold",
     marginBottom: 16,
     marginTop: 40,
     color: "#007BFF",
+    textAlign: "center",
   },
   parrafo: {
     fontSize: 16,
     lineHeight: 24,
-    textAlign: "justify",
-    marginBottom: 16,
+    textAlign: "center",
+    marginBottom: 24,
     color: "#333",
   },
-  buttonContainer: {
-    marginTop: 20,
-    alignItems: "center",
-    marginBottom: 60,
-  },
-  skipButton: {
+  linkButton: {
     backgroundColor: "#007BFF",
     paddingVertical: 12,
     paddingHorizontal: 24,
     borderRadius: 8,
+    alignSelf: "center",
   },
-  buttonText: {
+  linkText: {
     color: "#fff",
     fontSize: 16,
+    fontWeight: "bold",
   },
 });
 

@@ -16,7 +16,7 @@ import * as Notifications from "expo-notifications";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { useNavigation } from "@react-navigation/native";
 import { Picker } from "@react-native-picker/picker";
-
+import BannerAdComponent from "../Avisos/Banner";
 import Icon from "react-native-vector-icons/Ionicons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
@@ -144,6 +144,7 @@ export default function CrearNota() {
       style={styles.container}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
+      {/* ICONO SHARE */}
       <TouchableOpacity style={styles.shareIcon}>
         <MaterialCommunityIcons
           name="share-variant"
@@ -152,6 +153,7 @@ export default function CrearNota() {
         />
       </TouchableOpacity>
 
+      {/* CONTENIDO */}
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <Text style={styles.header}>Nueva Nota</Text>
 
@@ -214,11 +216,18 @@ export default function CrearNota() {
           <Icon name="book-outline" size={24} color="#fff" />
           <Text style={styles.buttonText}>Ver Notas Guardadas</Text>
         </TouchableOpacity>
+
+        {/* Espacio de seguridad antes del banner */}
+        <View style={{ height: 20 }} />
       </ScrollView>
+
+      {/* 🔴 BANNER FIJO ABAJO */}
+      <View style={styles.bannerContainer}>
+        <BannerAdComponent />
+      </View>
     </KeyboardAvoidingView>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,

@@ -1,5 +1,13 @@
 import React from "react";
-import { View, Text, Image, ScrollView, TouchableOpacity, Linking, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  ScrollView,
+  TouchableOpacity,
+  Linking,
+  StyleSheet,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Anuncio from "../Avisos/Anuncio";
 
@@ -12,15 +20,32 @@ const SeguridadSocial = () => {
 
   return (
     <ScrollView style={styles.container}>
-      <Image source={require('../../assets/seguridadSocial.jpg')} style={styles.image} />
-      <Anuncio/>  
+      <Image
+        source={require("../../assets/seguridadSocial.jpg")}
+        style={styles.image}
+      />
+
+      <Text style={styles.titulo}>Servicios de la Seguridad Social</Text>
+
+      <Anuncio />
+
       <View style={styles.serviciosList}>
-        <TouchableOpacity style={styles.item} onPress={() => openLink('https://w6.seg-social.es/ProsaInternetAnonimo/OnlineAccess?ARQ.SPM.ACTION=LOGIN&ARQ.SPM.APPTYPE=SERVICE&ARQ.IDAPP=CPMSWACS&ORGANISMO=I')}>
-         
-          <Text style={styles.itemText}>CITA PREVIA</Text>
+        <TouchableOpacity
+          style={styles.item}
+          onPress={() =>
+            openLink(
+              "https://w6.seg-social.es/ProsaInternetAnonimo/OnlineAccess?ARQ.SPM.ACTION=LOGIN&ARQ.SPM.APPTYPE=SERVICE&ARQ.IDAPP=CPMSWACS&ORGANISMO=I"
+            )
+          }
+        >
+          <Text style={styles.itemText}>Cita previa en sede oficial</Text>
         </TouchableOpacity>
-       
-       
+
+        {/* DISCLAIMER OBLIGATORIO */}
+        <Text style={styles.disclaimer}>
+          Aplicación no oficial. Acceso mediante enlace a la sede electrónica
+          oficial de la Seguridad Social.
+        </Text>
       </View>
     </ScrollView>
   );
@@ -28,43 +53,49 @@ const SeguridadSocial = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,    
-    padding: 16,
+    flex: 1,
     backgroundColor: "#ffffff",
+    padding: 16,
   },
   image: {
     width: "100%",
     height: 200,
     resizeMode: "cover",
     marginBottom: 16,
-    marginTop:60,
+    marginTop: 60,
   },
   titulo: {
-    fontSize: 24,
+    fontSize: 22,
     fontWeight: "bold",
     marginBottom: 16,
+    textAlign: "center",
   },
   serviciosList: {
     marginLeft: 16,
+    marginRight: 16,
   },
   item: {
-    marginBottom: 16,
+    marginTop: 70,
+    marginBottom: 8,
     paddingVertical: 8,
     paddingHorizontal: 12,
     borderWidth: 1,
     borderColor: "#007AFF",
     borderRadius: 8,
     backgroundColor: "#f0f0f0",
-    marginTop:50,
-     },
-  
+  },
   itemText: {
-    fontSize: 22,
+    fontSize: 20,
     color: "#007AFF",
     fontWeight: "bold",
-    textAlign:'center',
-    
-  }
+    textAlign: "center",
+  },
+  disclaimer: {
+    fontSize: 12,
+    color: "#666666",
+    textAlign: "center",
+    marginTop: 6,
+  },
 });
 
 export default SeguridadSocial;

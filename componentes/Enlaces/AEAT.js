@@ -17,8 +17,13 @@ const AEAT = () => {
   return (
     <ScrollView style={styles.container}>
       <Image source={require("../../assets/AEAT.jpg")} style={styles.image} />
-      <Text style={styles.titulo}>Cita previa para la AEAT</Text>
+
+      <Text style={styles.titulo}>
+        Acceso a cita previa – Agencia Tributaria (AEAT)
+      </Text>
+
       <Anuncio />
+
       <View style={styles.section}>
         <TouchableOpacity
           style={styles.item}
@@ -28,8 +33,11 @@ const AEAT = () => {
             )
           }
         >
-          <Text style={styles.itemText}>Petición de cita previa</Text>
+          <Text style={styles.itemText}>
+            Acceder a solicitud de cita previa
+          </Text>
         </TouchableOpacity>
+
         <TouchableOpacity
           style={styles.item}
           onPress={() =>
@@ -38,8 +46,14 @@ const AEAT = () => {
             )
           }
         >
-          <Text style={styles.itemText}>Gestiona tus citas</Text>
+          <Text style={styles.itemText}>Acceder a gestión de citas</Text>
         </TouchableOpacity>
+
+        {/* DISCLAIMER OBLIGATORIO */}
+        <Text style={styles.disclaimer}>
+          Aplicación no oficial. Redirección a la sede electrónica oficial de la
+          Agencia Tributaria.
+        </Text>
       </View>
     </ScrollView>
   );
@@ -59,7 +73,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   titulo: {
-    fontSize: 24,
+    fontSize: 22,
     fontWeight: "bold",
     marginBottom: 16,
     textAlign: "center",
@@ -67,17 +81,9 @@ const styles = StyleSheet.create({
   section: {
     marginBottom: 16,
   },
-  subHeading: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginBottom: 8,
-  },
-  serviciosList: {
-    marginLeft: 16,
-  },
   item: {
-    marginBottom: 16,
-    marginTop: 50,
+    marginBottom: 12,
+    marginTop: 40,
     paddingVertical: 8,
     paddingHorizontal: 12,
     borderWidth: 1,
@@ -86,14 +92,16 @@ const styles = StyleSheet.create({
     backgroundColor: "#f0f0f0",
   },
   itemText: {
-    fontSize: 22,
+    fontSize: 20,
     color: "#007AFF",
     fontWeight: "bold",
     textAlign: "center",
   },
-  arroba: {
-    fontSize: 20,
-    color: "#f41171",
+  disclaimer: {
+    fontSize: 12,
+    color: "#666666",
+    textAlign: "center",
+    marginTop: 8,
   },
 });
 

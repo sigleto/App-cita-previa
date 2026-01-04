@@ -23,6 +23,7 @@ import DescargoResponsabilidad from "./componentes/DescargoResponsabilidad";
 import SeguridadDatos from "./componentes/SeguridadDatos";
 import PoliticaPrivacidad from "./componentes/PoliticaPrivacidad";
 import { AuthProvider } from "./componentes/AuthContext";
+import mobileAds from "react-native-google-mobile-ads";
 
 enableScreens();
 
@@ -57,6 +58,11 @@ const App = () => {
     configurarCanal();
   }, []);
 
+  useEffect(() => {
+    mobileAds()
+      .initialize()
+      .then(() => console.log("AdMob inicializado"));
+  }, []);
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <AuthProvider>

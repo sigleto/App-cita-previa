@@ -6,10 +6,10 @@ import {
   ScrollView,
   TouchableOpacity,
   StyleSheet,
-  Linking,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Anuncio from "../Avisos/Anuncio";
+
 const Bancos = () => {
   const navigation = useNavigation();
 
@@ -31,17 +31,27 @@ const Bancos = () => {
           source={require("../../assets/Bancos.jpg")}
           style={styles.image}
         />
+
         <Text style={styles.banner}>Selecciona tu entidad bancaria</Text>
+
+        {/* 🔴 DISCLAIMER CLARO */}
+        <Text style={styles.disclaimer}>
+          Esta aplicación no pertenece ni está afiliada a ninguna entidad
+          bancaria. Proporciona enlaces informativos y de acceso público a los
+          sitios web oficiales de cada banco.
+        </Text>
+
         <Anuncio />
       </View>
+
       <ScrollView>
         {entidades.map((item, index) => (
           <TouchableOpacity
             key={index}
             style={styles.comunidadItem}
-            onPress={() => {
-              navigation.navigate("PaginasBancos", { entidad: item });
-            }}
+            onPress={() =>
+              navigation.navigate("PaginasBancos", { entidad: item })
+            }
           >
             <Text style={styles.comunidadText}>{item}</Text>
           </TouchableOpacity>
@@ -54,26 +64,34 @@ const Bancos = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#ffffff",
   },
   stickyHeader: {
-    position: "sticky",
-    top: 0,
     backgroundColor: "#b8e6df",
-    zIndex: 1,
+    paddingBottom: 10,
     elevation: 3,
   },
   banner: {
     padding: 10,
-    fontSize: 25,
+    fontSize: 24,
     color: "#9b0a9b",
+    textAlign: "center",
+    fontWeight: "bold",
+  },
+  disclaimer: {
+    fontSize: 13,
+    color: "#444",
+    textAlign: "center",
+    paddingHorizontal: 10,
+    marginBottom: 8,
   },
   comunidadItem: {
-    padding: 10,
+    padding: 14,
     borderBottomWidth: 1,
     borderColor: "#ccc",
   },
   comunidadText: {
-    fontSize: 22,
+    fontSize: 20,
     color: "#5278ca",
   },
   image: {

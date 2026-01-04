@@ -7,7 +7,7 @@ import {
   ScrollView,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-
+import BannerAdComponent from "./Avisos/Banner";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const Organismos = () => {
@@ -61,34 +61,38 @@ const Organismos = () => {
   ];
 
   return (
-    <ScrollView style={styles.container}>
-      <Text style={styles.tituloOrg}>
-        ¿Con qué organismo quieres concertar la cita?
-      </Text>
+    <View style={{ flex: 1 }}>
+      <ScrollView style={styles.container}>
+        <Text style={styles.tituloOrg}>
+          ¿Con qué organismo quieres concertar la cita?
+        </Text>
 
-      <View style={styles.organismos}>
-        {opciones.map((opcion) => (
-          <TouchableOpacity
-            key={opcion.ruta}
-            style={styles.opcion}
-            onPress={() => navigateToOrganismo(opcion.ruta)}
-          >
-            <MaterialCommunityIcons
-              name={opcion.icono}
-              size={24}
-              color="#ffffff"
-              style={styles.icono}
-            />
-            <Text style={styles.opcionTexto}>{opcion.nombre}</Text>
-          </TouchableOpacity>
-        ))}
-      </View>
+        <View style={styles.organismos}>
+          {opciones.map((opcion) => (
+            <TouchableOpacity
+              key={opcion.ruta}
+              style={styles.opcion}
+              onPress={() => navigateToOrganismo(opcion.ruta)}
+            >
+              <MaterialCommunityIcons
+                name={opcion.icono}
+                size={24}
+                color="#ffffff"
+                style={styles.icono}
+              />
+              <Text style={styles.opcionTexto}>{opcion.nombre}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
 
-      <Text style={styles.descargo}>
-        ** Esta aplicación no está afiliada ni representa a ninguna entidad
-        gubernamental. **
-      </Text>
-    </ScrollView>
+        <Text style={styles.descargo}>
+          ** Esta aplicación no está afiliada ni representa a ninguna entidad
+          gubernamental. **
+        </Text>
+      </ScrollView>
+
+      <BannerAdComponent />
+    </View>
   );
 };
 

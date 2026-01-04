@@ -1,5 +1,13 @@
 import React from "react";
-import { View, Text, Image, ScrollView, TouchableOpacity, Linking, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  ScrollView,
+  TouchableOpacity,
+  Linking,
+  StyleSheet,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Anuncio from "../Avisos/Anuncio";
 
@@ -12,16 +20,27 @@ const MUFACE = () => {
 
   return (
     <ScrollView style={styles.container}>
-      <Image source={require('../../assets/MUFACE.png')} style={styles.image} />
+      <Image source={require("../../assets/MUFACE.png")} style={styles.image} />
+
       <Text style={styles.titulo}>Servicios de MUFACE</Text>
-      <Anuncio/>  
+
+      <Anuncio />
+
       <View style={styles.serviciosList}>
-      
-        <TouchableOpacity style={styles.item} onPress={() => openLink('https://ssweb.seap.minhap.es/icpplus/citar?org=MUFACE')}>
-          <Text style={styles.itemText}>CITA PREVIA</Text>
+        <TouchableOpacity
+          style={styles.item}
+          onPress={() =>
+            openLink("https://ssweb.seap.minhap.es/icpplus/citar?org=MUFACE")
+          }
+        >
+          <Text style={styles.itemText}>Cita previa en sede oficial</Text>
         </TouchableOpacity>
-       
-       
+
+        {/* DISCLAIMER OBLIGATORIO */}
+        <Text style={styles.disclaimer}>
+          Aplicación no oficial. Acceso mediante enlace a la sede electrónica
+          oficial de MUFACE.
+        </Text>
       </View>
     </ScrollView>
   );
@@ -38,18 +57,21 @@ const styles = StyleSheet.create({
     height: 200,
     resizeMode: "cover",
     marginBottom: 16,
-    marginTop:60,
+    marginTop: 60,
   },
   titulo: {
-    fontSize: 24,
+    fontSize: 22,
     fontWeight: "bold",
     marginBottom: 16,
+    textAlign: "center",
   },
   serviciosList: {
     marginLeft: 16,
+    marginRight: 16,
   },
   item: {
-    marginBottom: 16,
+    marginTop: 70,
+    marginBottom: 8,
     paddingVertical: 8,
     paddingHorizontal: 12,
     borderWidth: 1,
@@ -58,13 +80,17 @@ const styles = StyleSheet.create({
     backgroundColor: "#f0f0f0",
   },
   itemText: {
-    fontSize: 16,
+    fontSize: 20,
     color: "#007AFF",
     fontWeight: "bold",
-  },arroba:{
-    fontSize:20,
-    color:'#f41171'
-  }
+    textAlign: "center",
+  },
+  disclaimer: {
+    fontSize: 12,
+    color: "#666666",
+    textAlign: "center",
+    marginTop: 6,
+  },
 });
 
 export default MUFACE;

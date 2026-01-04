@@ -24,10 +24,13 @@ const ClasesPasivas = () => {
         source={require("../../assets/clasesPasivas.jpg")}
         style={styles.image}
       />
+
       <Text style={styles.titulo}>
         Cita previa para trámites diversos en Clases Pasivas
       </Text>
+
       <Anuncio />
+
       <View style={styles.serviciosList}>
         <TouchableOpacity
           style={styles.item}
@@ -35,8 +38,14 @@ const ClasesPasivas = () => {
             openLink("https://ssweb.seap.minhap.es/icpplus/citar?org=DGCP")
           }
         >
-          <Text style={styles.itemText}>CITA PREVIA</Text>
+          <Text style={styles.itemText}>Cita previa en sede oficial</Text>
         </TouchableOpacity>
+
+        {/* DISCLAIMER OBLIGATORIO */}
+        <Text style={styles.disclaimer}>
+          Aplicación no oficial. Acceso mediante enlace a la sede electrónica
+          oficial de Clases Pasivas.
+        </Text>
       </View>
     </ScrollView>
   );
@@ -56,33 +65,36 @@ const styles = StyleSheet.create({
     marginTop: 60,
   },
   titulo: {
-    fontSize: 24,
+    fontSize: 22,
     fontWeight: "bold",
     marginBottom: 16,
     textAlign: "center",
   },
   serviciosList: {
     marginLeft: 16,
+    marginRight: 16,
   },
   item: {
-    marginBottom: 16,
+    marginTop: 70,
+    marginBottom: 8,
     paddingVertical: 8,
     paddingHorizontal: 12,
     borderWidth: 1,
     borderColor: "#007AFF",
     borderRadius: 8,
     backgroundColor: "#f0f0f0",
-    marginTop: 50,
   },
   itemText: {
-    fontSize: 22,
+    fontSize: 20,
     color: "#007AFF",
     fontWeight: "bold",
     textAlign: "center",
   },
-  arroba: {
-    fontSize: 20,
-    color: "#f41171",
+  disclaimer: {
+    fontSize: 12,
+    color: "#666666",
+    textAlign: "center",
+    marginTop: 6,
   },
 });
 

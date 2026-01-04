@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import {
   View,
   Text,
@@ -14,24 +14,29 @@ import Anuncio from "../Avisos/Anuncio";
 const DNI = () => {
   const navigation = useNavigation();
 
-  const openLink = (url) => {
-    Linking.openURL(url);
-  };
-
   return (
     <ScrollView style={styles.container}>
       <Image source={require("../../assets/DNI.png")} style={styles.image} />
-      <Text style={styles.titulo}>
-        Cita previa para renovación de DNI/pasaporte
-      </Text>
+
+      <Text style={styles.titulo}>Acceso a cita previa – DNI y Pasaporte</Text>
+
       <Anuncio />
+
       <View style={styles.serviciosList}>
         <TouchableOpacity
           style={styles.item}
           onPress={() => navigation.navigate("AvisoDNI")}
         >
-          <Text style={styles.itemText}>Solicita o gestiona tu cita</Text>
+          <Text style={styles.itemText}>
+            Acceder a información y enlace oficial
+          </Text>
         </TouchableOpacity>
+
+        {/* DISCLAIMER OBLIGATORIO */}
+        <Text style={styles.disclaimer}>
+          Aplicación no oficial. La solicitud y gestión de la cita se realiza
+          únicamente en el portal oficial de la Policía Nacional.
+        </Text>
       </View>
     </ScrollView>
   );
@@ -51,16 +56,18 @@ const styles = StyleSheet.create({
     marginTop: 60,
   },
   titulo: {
-    fontSize: 24,
+    fontSize: 22,
     fontWeight: "bold",
     marginBottom: 16,
+    textAlign: "center",
   },
   serviciosList: {
     marginLeft: 16,
+    marginRight: 16,
   },
   item: {
     marginTop: 50,
-    marginBottom: 16,
+    marginBottom: 8,
     paddingVertical: 8,
     paddingHorizontal: 12,
     borderWidth: 1,
@@ -69,14 +76,16 @@ const styles = StyleSheet.create({
     backgroundColor: "#f0f0f0",
   },
   itemText: {
-    fontSize: 22,
+    fontSize: 20,
     color: "#007AFF",
     fontWeight: "bold",
     textAlign: "center",
   },
-  arroba: {
-    fontSize: 20,
-    color: "#f41171",
+  disclaimer: {
+    fontSize: 12,
+    color: "#666666",
+    textAlign: "center",
+    marginTop: 6,
   },
 });
 
