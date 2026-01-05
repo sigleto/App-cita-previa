@@ -1,20 +1,13 @@
 import "react-native-reanimated"; // OBLIGATORIO: Primera línea
-import React, { useCallback, useEffect } from "react";
-import {
-  View,
-  StyleSheet,
-  Share,
-  Alert,
-  TouchableOpacity,
-  Text,
-  Platform,
-} from "react-native";
+import React, { useEffect } from "react";
+import { Platform, Alert, StyleSheet } from "react-native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { NavigationContainer } from "@react-navigation/native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { enableScreens } from "react-native-screens";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import * as Notifications from "expo-notifications";
+import mobileAds from "react-native-google-mobile-ads";
 
 // Tus componentes
 import Contacto from "./componentes/Contacto";
@@ -23,16 +16,14 @@ import DescargoResponsabilidad from "./componentes/DescargoResponsabilidad";
 import SeguridadDatos from "./componentes/SeguridadDatos";
 import PoliticaPrivacidad from "./componentes/PoliticaPrivacidad";
 import { AuthProvider } from "./componentes/AuthContext";
-import mobileAds from "react-native-google-mobile-ads";
 
 enableScreens();
 
 const Drawer = createDrawerNavigator();
 
 /* =========================
-   CONFIGURACIÓN GLOBAL
+   CONFIGURACIÓN DE NOTIFICACIONES
    ========================= */
-
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
@@ -43,7 +34,16 @@ Notifications.setNotificationHandler({
 
 const App = () => {
   useEffect(() => {
-    const configurarCanal = async () => {
+    const inicializarApp = async () => {
+      // 1. Inicializar Anuncios
+      try {
+        await mobileAds().initialize();
+        console.log("AdMob inicializado");
+      } catch (e) {
+        console.log("Error inicializando Ads:", e);
+      }
+
+      // 2. Configurar Canal de Notificaciones (Android)
       if (Platform.OS === "android") {
         await Notifications.setNotificationChannelAsync("default", {
           name: "Recordatorios",
@@ -53,16 +53,41 @@ const App = () => {
           lightColor: "#FF231F7C",
         });
       }
+
+      // 3. Gestión de Permisos de Notificación
+      const { status: existingStatus } =
+        await Notifications.getPermissionsAsync();
+
+      if (existingStatus !== "granted") {
+        Alert.alert(
+          "Permisos Requeridos",
+          "Bienvenido. Para que la agenda pueda recordarte tus citas, necesitamos que permitas las notificaciones.",
+          [
+            {
+              text: "Más tarde",
+              style: "cancel",
+            },
+            {
+              text: "Configurar",
+              onPress: async () => {
+                const { status } =
+                  await Notifications.requestPermissionsAsync();
+                if (status !== "granted" && Platform.OS === "android") {
+                  Alert.alert(
+                    "Aviso",
+                    "Si no activas las notificaciones, no recibirás los avisos de tus citas."
+                  );
+                }
+              },
+            },
+          ]
+        );
+      }
     };
 
-    configurarCanal();
+    inicializarApp();
   }, []);
 
-  useEffect(() => {
-    mobileAds()
-      .initialize()
-      .then(() => console.log("AdMob inicializado"));
-  }, []);
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <AuthProvider>
