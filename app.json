@@ -1,5 +1,6 @@
 {
   "expo": {
+    "sdkVersion": "54.0.0",
     "name": "cita-previa",
     "slug": "cita-previa",
     "scheme": "com.sigleto.citaprevia",
@@ -7,17 +8,13 @@
     "orientation": "default",
     "icon": "./assets/reloj.png",
     "userInterfaceStyle": "light",
-
     "jsEngine": "hermes",
-
     "splash": {
       "image": "./assets/reloj.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-
     "assetBundlePatterns": ["**/*", "app-ads.txt"],
-
     "plugins": [
       "@react-native-google-signin/google-signin",
       [
@@ -27,13 +24,18 @@
           "sounds": ["./assets/alarma.wav"]
         }
       ],
-      "expo-secure-store"
+      "expo-secure-store",
+      [
+        "./node_modules/react-native-google-mobile-ads/app.plugin.js",
+        {
+          "androidAppId": "ca-app-pub-6921150380725872~2513138145"
+        }
+      ],
+      "@react-native-community/datetimepicker"
     ],
-
     "ios": {
       "supportsTablet": true
     },
-
     "android": {
       "package": "com.sigleto.citaprevia",
       "versionCode": 61,
@@ -42,19 +44,15 @@
         "backgroundColor": "#ffffff"
       },
       "googleServicesFile": "google-services.json",
-      "permissions": ["com.google.android.gms.permission.AD_ID"]
+      "permissions": ["com.google.android.gms.permission.AD_ID"],
+      "newArchEnabled": true
     },
-
     "web": {
       "favicon": "./assets/favicon.png"
     },
-
     "extra": {
       "eas": {
         "projectId": "4aee27fb-d1f8-4bdf-84d6-3e253d2267c7"
-      },
-      "react-native-google-mobile-ads": {
-        "android_app_id": "ca-app-pub-6921150380725872~2513138145"
       }
     }
   }

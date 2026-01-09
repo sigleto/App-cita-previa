@@ -10,10 +10,15 @@
     "preview": {
       "distribution": "internal"
     },
-    "production": { "env": {
-      "EXPO_PUBLIC_CLIENT_ID":"909578452911-3hddvc5tj8vdd43qcm1sjc86d06c8v8i.apps.googleusercontent.com",
-      "EXPO_PUBLIC_ANDROID_CLIENT_ID":"909578452911-nt2e1hh7a6fjmiss9hoo0hqdtfp3int9.apps.googleusercontent.com"
-    } }
+    "production": {
+      "android": {
+        "image": "ubuntu-22.04-jdk-17-ndk-r26b"
+      },
+      "env": {
+        "EXPO_PUBLIC_CLIENT_ID": "909578452911-3hddvc5tj8vdd43qcm1sjc86d06c8v8i.apps.googleusercontent.com",
+        "EXPO_PUBLIC_ANDROID_CLIENT_ID": "909578452911-nt2e1hh7a6fjmiss9hoo0hqdtfp3int9.apps.googleusercontent.com"
+      }
+    }
   },
   "submit": {
     "production": {}
